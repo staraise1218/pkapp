@@ -1,0 +1,134 @@
+/* 公共css */
+* { margin: 0; padding: 0;outline: none;}
+a { text-decoration: none; color: #222;}
+li { list-style: none;}
+i,em { font-style: normal;}
+budy, html {height: 100%; width: 100%; background: #fff;} 
+.icon-bg {
+    background-image: url(../image/icon.png);
+    background-size: 5rem 5rem;
+    background-position: -0.6rem -0.45rem;
+}
+.icon1 {
+    background-image: url(../image/icon1.png);
+    background-size: 10rem 10rem;
+    background-position: 0rem 0rem;    
+    background-repeat: no-repeat;
+}
+.icon2 {
+    background-image: url(../image/icon2.png);
+    background-size: 3.98rem 3.91rem;
+    background-position: 0rem 0rem;    
+    background-repeat: no-repeat;
+}
+.icon3 {
+    background-image: url(../image/icon3.png);
+    background-size: 10rem 10rem;
+    background-position: 0rem 0rem;    
+    background-repeat: no-repeat;
+}
+.icon5 {
+    background-image: url(../image/icon5.png);
+    background-size: 5.7rem 4.5rem;
+    background-position: 0rem 0rem;    
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.before-icon {
+    position: relative;
+}
+.before-icon::before {
+    content: "";
+    display: inline-block;
+    width: 0.05rem;
+    height: 0.3rem;
+    background: rgb(43,11,237);
+    border-radius: 0.05rem;
+    margin-right: 0.2rem;
+    vertical-align: -0.045rem;
+}
+.more-icon::after {
+    content: "";
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url(../image/icon.png);
+    border: 1px solid red;
+    margin-left: 0.2rem;
+    vertical-align: -0.045rem;
+}
+
+/* footer */
+.footer {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    justify-items: center;
+    border-top: 3px solid rgba(214,214,214,0.50);
+    padding: 0.2rem 0;
+    background: #fff;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.footer::before {
+    content: "";
+    display: inline-block;
+    width: 1.2rem;
+    height: 0.6rem;
+    background: #fff;
+    
+    position: absolute;
+    top: -0.3rem;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-top: 3px solid rgba(214,214,214,0.50);
+}
+.footer i {
+    z-index: 1;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+.footer .index-icon {
+    background-position: 0rem 0rem;    
+}
+.footer .pc-icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0.15rem;
+    background-position: -1rem 0rem;
+    width: 0.9rem;
+    height: 0.9rem;    
+}
+.footer .mine-icon {
+    background-position: -2.09rem 0rem;    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

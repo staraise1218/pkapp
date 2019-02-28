@@ -1,0 +1,164 @@
+/* 禁用元素点击事件 */
+.eventsDisabled {
+    pointer-events: none;
+}
+
+/* 每日领奖励 */
+body {
+    background-color: #f2f4fc;
+}
+
+.signIn-page header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #302e40;
+    color: #fff;
+    font-size: 16px;
+}
+
+.back {
+    width: 0.2rem;
+    height: 0.16rem;
+    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0.1rem;
+    transform: translate(0, -50%);
+}
+
+.title {
+    line-height: 50px;
+    text-align: center;
+}
+
+.contentWrap {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.content {
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 4px 0 rgba(214, 214, 214, 0.50);
+}
+
+.board {
+    background: linear-gradient(to bottom left, #ff8282, #ff5a59);
+    width: 92%;
+    border-radius: 0.1rem;
+    margin: 0.1rem auto;
+}
+
+/* 数字 */
+.days {
+    display: flex;
+    justify-content: center;
+}
+
+.daysNum {
+    width: 0.58rem;
+    height: 0.82rem;
+    background-color: #fff;
+    border-radius: 0.08rem;
+    overflow: hidden;
+    margin: 0 0.03rem;
+    color: #fa6b5a;
+    font-size: 0.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.daysNumWrap {
+    display: flex;
+    position: relative;
+}
+
+.daysNum::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 50%;
+    background-color: #fbfbfb;
+    z-index: 2;
+}
+
+.daysNumReal {
+    position: relative;
+    z-index: 3;
+}
+
+.dayTip {
+    position: absolute;
+    bottom: 0;
+    right: -0.14rem;
+    color: #fff;
+}
+
+.dayTitle,
+.tip {
+    text-align: center;
+    color: #f3f3f3;
+}
+
+.dayTitle {
+    font-size: 0.14rem;
+    line-height: 0.37rem;
+}
+
+.tip {
+    font-size: 0.16rem;
+    line-height: 0.54rem;
+}
+
+.property {
+    display: flex;
+    justify-content: center;
+}
+
+.flower {
+    display: flex;
+    align-items: center;
+    font-size: 0.16rem;
+    color: #000;
+}
+
+.flowerIcon {
+    width: 0.34rem;
+    height: 0.34rem;
+    margin-right: 0.1rem;
+}
+
+.btnWrap {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    width: 1.6rem;
+    height: 0.52rem;
+    line-height: 0.52rem;
+    text-align: center;
+    border-radius: 0.26rem;
+    background-color: #ffe456;
+    color: #000;
+    margin: 0.2rem 0 0.3rem;
+}
+
+.btn.gray {
+    background-color: #d3d3d3;
+    color: #fff;
+}

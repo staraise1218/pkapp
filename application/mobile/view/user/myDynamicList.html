@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的动态列表</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/user-myDynamicList.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/dongtai-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="dongtai myDongtai">
+    <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
+        <div class="allWrap" :class="{blur:isReleasing}">
+            <header>
+                <a href="javascript:window.history.back(-1)" class="back"></a>
+                <!-- <div class="title" v-cloak>{{isMine?title1:title2}}</div> -->
+                <div class="title">动态列表</div>
+                <a href="javascript:void(0)"></a>
+            </header>
+
+            <div class="pageWrap">
+                <div class="weui-pull-to-refresh__layer" v-cloak>
+                    <div class='weui-pull-to-refresh__arrow'></div>
+                    <div class='weui-pull-to-refresh__preloader'></div>
+                    <div class="down">下拉刷新</div>
+                    <div class="up">释放刷新</div>
+                    <div class="refresh">正在刷新</div>
+                </div>
+
+                <div class="list-page area-page">
+                    <ul>
+                        <li class="list-item myItem" v-cloak v-for="(item,index) in dataList.list" :key="index" @click="gotoDongtaiDetail(item)">
+                            <div class="detailDate">
+                                <div class="detailDate-day" v-cloak>{{item.add_time | filterDate}}</div>
+                                <div class="detailDate-month" v-cloak>{{item.add_time | filterMonth}}月</div>
+                                <div class="detailDate-month" v-cloak>{{item.add_time | filterYear}}</div>
+                            </div>
+                            <div class="myItemContent">
+                                <div class="item-content">
+                                    <span v-cloak v-show="isMine" @click.stop="deleteDetail(item,index)" style="float:right;color:#7097ff;">删除</span>
+                                    <!-- 文字 -->
+                                    <p v-cloak v-if="item.description&&item.description!==''" v-html="item.description" style="margin-right:0.35rem;"></p>
+                                    <p v-cloak v-else v-html="toHtml(item.content)" style="margin-right:0.35rem;"></p>
+                                    <!-- 图片 -->
+                                    <div v-cloak v-if="item.image&&item.image.length!==0">
+                                        <div class="dynamicImgBox">
+                                            <img v-for="(item,index) in item.image" :key="index" :src="GlobalHost+item">
+                                        </div>
+                                    </div>
+                                    <!-- video -->
+                                    <div v-cloak v-if="item.video_thumb&&item.video_thumb!==''&&item.video_url&&item.video_url!==''">
+                                        <div class="dynamicImgBox detailImgVideoWrap" @click.stop="openDetailVideo(item)">
+                                            <img :src="GlobalHost+item.video_thumb"></img>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-comment">
+                                    <span class="addTime">{{item.add_time | stampToStr}}</span>
+                                    <div class="person" v-cloak v-if="item.viewer_count>0">
+                                        <img src="__STATIC__/images/icon/kekan.png">
+                                        <span>{{item.viewer_count}}</span>
+                                    </div>
+                                    <div>
+                                        <img src="__STATIC__/images/icon/price.png">
+                                        <span class="item-comment-count" v-cloak v-if="item.comment_count>0">{{item.comment_count}}</span>
+                                    </div>
+                                    <div>
+                                        <div class="flowerWrap">
+                                            <img v-cloak v-if="item.flower_num>0" src="__STATIC__/images/icon/花2.png">
+                                            <img v-cloak v-else src="__STATIC__/images/icon/花1.png">
+                                        </div>
+                                        <span class="flowerNum" v-cloak v-if="item.flower_num>0">{{item.flower_num}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="min-height: 4.7em;overflow: hidden;">
+                    <!-- <div class="weui-loadmore" v-cloak v-show="isLoading"> -->
+                    <div class="weui-loadmore" style="display:none;">
+                        <i class="weui-loading"></i>
+                        <span class="weui-loadmore__tips">正在加载</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mask" v-cloak v-if="isReleasing"></div>
+
+        </div>
+
+        <!-- 模糊之外 -->
+
+        <!-- <div class="release" :class="{actived:isReleasing}" @click.stop="toggleReleasing"></div>
+
+        <div class="release-start" v-cloak v-show="isReleasing">
+            <h5>发布动态</h5>
+            <div class="release-group">
+                <div class="release-btn" @click="openEdit(1)">
+                    <img src="__STATIC__/images/icon/文字@2x.png">
+                    <p>文字</p>
+                </div>
+                <div class="release-btn" @click="openEdit(2)">
+                    <img src="__STATIC__/images/icon/选照片@2x.png">
+                    <p>图片</p>
+                </div>
+                <div class="release-btn" @click="openEdit(3)">
+                    <img src="__STATIC__/images/icon/小视频@2x.png">
+                    <p>小视频</p>
+                </div>
+            </div>
+
+            <span class="triangle"></span>
+        </div> -->
+
+    </div>
+
+    <!-- -------------------------------------- -->
+    <script src="__STATIC__/js-min/user-myDynamicList.min.js"></script>
+    <!-- 页面--js -->
+    <script>
+        var monthChineseArr=["一","二","三","四","五","六","七","八","九","十","十一","十二"];
+        var dongtaiVm = new Vue({
+            el: "#dongtaiApp",
+            data: {
+                GlobalHost: Global.host,
+
+                user_id: "",
+
+                isMine:true,
+                title1:"我的动态",
+                title2:"TA的动态",
+
+                dataList: {
+                    list: [],
+                    isLoad: false,
+                    page: 1
+                },
+
+                isReleasing: false,
+                isLoading: false,
+            },
+            mounted: function () {
+                //监听滚动条
+                document.getElementsByClassName('pageWrap')[0].addEventListener('scroll', this.handleScroll)
+                //下拉刷新
+                this.initPullToRefresh();
+
+                //获取user_id
+                this.getPageInfo();
+
+                //先查session,把session的值放到data里
+                if (sessionStorage.getItem("myDongtaiPage") && sessionStorage.getItem("myDongtaiPage") !== null&& sessionStorage.getItem("myDongtaiPage") !== "null") {
+                    let pageData = JSON.parse(sessionStorage.getItem("myDongtaiPage"))
+                    console.log(pageData)
+
+                    this.dataList=pageData.dataList;
+
+                    //滚动位置
+                    setTimeout(function () {
+                        document.getElementsByClassName('pageWrap')[0].scrollTop = pageData.pageScrollTop
+                    }, 0)
+
+                    return;
+                }
+
+                //获取数据
+                this.getListData();
+            },
+            filters: {
+                //时间戳 转 文字
+                stampToStr: function (stamp) { //传来的stamp十位数
+                    if (!stamp) return '';
+
+                    let nowStamp = Math.round((new Date().getTime()) / 1000);
+                    let howLong = nowStamp - stamp;
+
+                    if (howLong < 60) { //1分钟内
+                        return "1分钟内";
+                    } else if (howLong < 3600) { //1小时内，显示分钟数
+                        let minutes = Math.floor(howLong / 60);
+                        return minutes + "分钟前";
+                    } else if (howLong < 43200) { //12小时内，显示小时数
+                        let hours = Math.floor(howLong / 3600);
+                        return hours + "小时前";
+                    } else if (howLong >= 43200 && howLong < 86400) { //大于12小时，小于24小时
+                        let dateStr = Global.stampToDate(stamp);
+                        let minStr = dateStr.substr(dateStr.length - 5);
+                        return "昨天 " + minStr;
+                    } else if (howLong > 86400) { //大于24小时，直接显示时间
+                        // return Global.stampToDate(stamp);
+                        //只显示时间
+                        let str=Global.stampToDate(stamp);
+                        let timeStr=str.substr(str.length-5,5);
+                        return timeStr;
+                    }
+                },
+                //获取date
+                filterDate(stamp){
+                    if (!stamp) return '';
+
+                    let str=Global.stampToDate(stamp);
+                    let date=str.substr(8,2);
+                    return date;
+                },
+                //获取month
+                filterMonth(stamp){
+                    if (!stamp) return '';
+
+                    let str=Global.stampToDate(stamp);
+                    let month=str.substr(5,2); //月份 09
+                    //转汉字
+                    let monthNum=parseInt(month);
+                    // monthNum=12;
+                    let monthChinese=monthChineseArr[monthNum-1];
+                    return monthChinese;
+                },
+                //获取年
+                filterYear(stamp){
+                    if (!stamp) return '';
+
+                    let str=Global.stampToDate(stamp);
+                    let year=str.substr(0,4);
+                    return year;
+                },
+                ifHttpImg(src){
+                    // console.log(src)
+                    if(src.indexOf("http:")>-1){
+                        return src;
+                    }else{
+                        // console.log(Global.host)
+                        return Global.host+src;
+                    }
+                },
+            },
+            methods: {
+                toHtml(value) {
+                    value = "" + value;
+                    return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "");
+                },
+                //获取数据
+                getListData(isScroll=false) {
+                    let self = this;
+                    console.log("ajax")
+                    let getPage;
+                    if (isScroll) {
+                        getPage = self.dataList.page + 1;
+                    } else {
+                        getPage = 1;
+                    }
+                    let postData = {
+                        user_id: self.user_id,
+                        page: getPage,
+                    }
+                    console.log(postData)
+                    $.ajax({
+                        type: "POST",
+                        url: self.GlobalHost + "/index.php/Api/Dynamics/myList",
+                        data: postData,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result.data)
+                            if (isScroll) { //是滚动
+                                self.dataList.list = self.dataList.list.concat(result.data)
+
+                                if (result.data.length !== 0) {
+                                    self.dataList.page = self.dataList.page + 1;
+                                }
+                            } else {
+                                self.dataList.list = result.data
+
+                                //显示 "无任何内容"
+                                // if (result.data.length == 0) {
+                                //     $(".noComments").show();
+                                // }
+                            }
+
+                            self.dataList.isLoad = true;
+
+                            //下拉刷新done
+                            $(".pageWrap").pullToRefreshDone();
+                            self.isLoading = false;
+                        }
+                    })
+                },
+                toggleReleasing() {
+                    this.isReleasing = !this.isReleasing
+                },
+                //滚动刷新
+                handleScroll() {
+                    let scrollTop = document.getElementsByClassName('pageWrap')[0].scrollTop
+                    console.log(scrollTop)
+                    let wrapHeight = document.getElementsByClassName('pageWrap')[0].clientHeight
+                    let ulHeight = document.getElementsByClassName("list-page")[0].clientHeight
+                    if (scrollTop > 0 && scrollTop + wrapHeight > ulHeight) {
+                        if (!this.isLoading) {
+                            this.isLoading = true;
+                            this.getListData(true)
+                        }
+                    }
+                },
+                openEdit(type) { //动态类型
+                    this.savePageToSession();
+
+                    window.location.href = this.GlobalHost + "/index.php/mobile/dynamics/add/type/" + type + ".html";
+                },
+                //跳转之前存数据到session
+                savePageToSession() {
+                    //key : myDongtaiPage
+                    let pageData = {
+                        dataList: this.dataList,
+                        pageScrollTop: document.getElementsByClassName('pageWrap')[0].scrollTop
+                    }
+                    console.log(pageData)
+                    
+                    sessionStorage.setItem('myDongtaiPage', JSON.stringify(pageData))
+                },
+                gotoDongtaiDetail(item) {
+                    this.savePageToSession();
+
+                    window.location.href = this.GlobalHost + '/index.php/mobile/dynamics/detail/id/' + item.dynamic_id + '.html'
+                },
+                //初始化下拉刷新
+                initPullToRefresh() {
+                    let self = this;
+                    //下拉刷新
+                    $(".pageWrap").pullToRefresh(function () {
+                        console.log("刷新")
+                        self.dataList.page=1;
+                        self.getListData();
+                    });
+                },
+                closeReleasing: function () {
+                    if (this.isReleasing) {
+                        if ($(event.target).closest(".release-start").length == 0) {
+                            this.isReleasing = false;
+                        }
+                    }
+                },
+                openDetailVideo(item){
+                    console.log(item)
+                    let src=Global.host+item.video_url;
+                    let postSrc=Global.host+item.video_thumb;
+                    Global.fullScreen(src);
+                },
+                getPageInfo(){
+                    //user_id
+                    let ulrStr = window.location.href;
+                    if (!(ulrStr.indexOf(".html") > -1)) {
+                        ulrStr = ulrStr + ".html";
+                    }
+                    if (ulrStr.indexOf("file://") > -1) {
+                        // ulrStr ="http://app.yujianhaoshiguang.cn/index.php/mobile/user/myDynamicList/user_id/3.html" //测试用 如果是1去1 就有问题了
+                        alert("请求失败")
+                        return
+                    }
+                    if(ulrStr.indexOf("/user_id/")>-1){ //看他人的动态列表页
+                        this.isMine=false;
+
+                        let strTemp=ulrStr.split("/user_id/")[1]
+                        this.user_id=Number(strTemp.substr(0, strTemp.length - 5));
+                    }else{
+                        if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                            let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                            console.log(mUserInfo)
+                            this.user_id = Number(mUserInfo.user_id);
+                        } else {
+                            // this.user_id = 1; //测试用
+                            alert("请求失败")
+                            return
+                        }
+                    }
+                },
+                //删除这条动态
+                deleteDetail(item,index){
+                    let self=this;
+                    Global.messageConfirWin("确定删除这条动态？",function(){
+                        let postData = {
+                            user_id: self.user_id,
+                            dynamic_id:item.dynamic_id
+                        }
+                        let url = Global.host + "/index.php/Api/Dynamics/del";
+                        console.log(postData)
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: postData,
+                            dataType: "json",
+                            success: function (result) {
+                                console.log(result)
+                                if(result.msg=="删除成功"){
+                                    //删除动态成功 后 
+                                    //删除我的动态列表 session
+                                    if (sessionStorage.getItem("myDongtaiPage") && sessionStorage.getItem("myDongtaiPage") !== null&&sessionStorage.getItem("myDongtaiPage") !== "null") {
+                                        sessionStorage.setItem('myDongtaiPage', null);
+                                    }
+                                    self.dataList.list.splice(index, 1);
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+/*基本样式 样式重置*/
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    /*盒子内减*/
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    /*取消移动端点击高亮效果*/
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-size: 14px;
+    font-family: "Microsoft Yahei", sans-serif;
+    color: #666666;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #666;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+input[type="text"] {
+    outline: none;
+    border: none;
+    /*取出表单在移动设备上的阴影,3d效果*/
+    /*  appearance
+        n.	外貌，外观; 出现，露面; [哲] 现象;
+    */
+    -webkit-appearance: none;
+}
+
+button {
+    outline: none;
+}
+
+/*公共样式*/
+.clearfix::before,
+.clearfix::after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+._shade {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, .5);
+    display: none;
+}
+
+#myCheck,
+#myCheck1 {
+    display: none;
+}
+
+#myCheck+label,
+#myCheck1+label {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 14px;
+    background: url(../images/icon/checkbox.png) no-repeat center;
+    background-size: 100%;
+    margin-top: -1.8px;
+    border-radius: 50%;
+}
+
+#myCheck:checked+label,
+#myCheck1:checked+label {
+    background: url(../images/icon/checkbox1.png) no-repeat center;
+    background-size: 100%;
+}
+
+/* 佟舟2018.8.22 */
+.flex4 {
+    flex: 0 0 25%;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/* 禁用元素点击事件 */
+.eventsDisabled {
+    pointer-events: none;
+}
+
+/* m弹出框 */
+/* 也是遮罩 */
+.msgWrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 9;
+}
+
+.msgWrap .msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 1.2rem;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.msgWrap .msgText {
+    flex: 1 0 0;
+    padding: 0.05rem 0.1rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.msgWrap .msgCtrl {
+    height: 0.35rem;
+    line-height: 0.35rem;
+    text-align: center;
+    color: #6692fe;
+    display: flex;
+}
+
+.msgWrap .msgCtrl>span {
+    flex: 1 0 0;
+}
+
+.msgWrap .msgCtrl>span:nth-of-type(2) {
+    border-left: 1px solid #e2e2e2;
+}
+
+/* 性别年龄 */
+.sexAge {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 0.34rem;
+    height: 0.14rem;
+    border-radius: 2px;
+}
+
+.sexAge .sex {
+    display: inline-block;
+    width: 0.11rem;
+    height: 0.11rem;
+}
+
+.sexAge .age {
+    font-size: 12px;
+    color: #fff;
+}
+
+.female {
+    background-color: #ffa5ce;
+}
+
+.female .sex {
+    background: url(../images/icon/女.png) center center;
+    background-size: 100%;
+}
+
+.male {
+    background-color: #a4c8fe;
+}
+
+.male .sex {
+    background: url(../images/icon/男1.png) center center;
+    background-size: 100%;
+}
+
+.videoStatus {
+    display: inline-block;
+    width: 0.18rem;
+    height: 0.18rem;
+    background: url(../images/icon/播放.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+/* 普通全屏小视频 */
+.fullScreen {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    background-color: #000;
+}
+
+.fullScreen .videoHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    /* background-color: #fff; */
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.fullScreen .videoHeader>.img-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.fullScreen .videoHeader>.img-box>img {
+    width: 100%;
+}
+
+.fullScreen .closeFullScreen {
+    width: 30px;
+    height: 30px;
+    transform: translateX(-50%) rotate(45deg);
+    margin-right: auto;
+    margin-left: 25px;
+}
+
+.fullScreen .videoOperate {
+    width: 30px;
+    height: 30px;
+    background: url(../images/icon/三个点.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.fullScreen .progressBar {
+    display: block;
+    position: absolute;
+    /* top: 0; */
+    bottom: 0;
+    height: 5px;
+    width: 0%;
+    background-color: #fff;
+}
+
+.fullScreen .fullScreenScroll {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    font-size: 0;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.fullScreen .fullScreenScroll .videoInput {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap>video {
+    background-color: #000;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap .videoFooter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.videoCommentBtn {
+    width: 30px;
+    height: 30px;
+    background: url(../images/icon/评论-4.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.videoFooter .littleTri {
+    width: 9px;
+    height: 9px;
+    border: 1px solid;
+    border-color: transparent transparent #fff #fff;
+    transform-origin: center center;
+    transform: rotate(-45deg) translate(-50%);
+    position: absolute;
+    left: 50%;
+    bottom: 7px;
+}
+
+.fullScreen .closeFullScreen::before {
+    content: '';
+    display: block;
+    border-top: 1px solid #e8e7e9;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fullScreen .closeFullScreen::after {
+    content: '';
+    display: block;
+    border-left: 1px solid #e8e7e9;
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

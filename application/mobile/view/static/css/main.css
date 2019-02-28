@@ -1,0 +1,283 @@
+html {
+    width: 100%;
+    height: 100%;
+    background-image: url(../image/240ac7750f2339f01967183957bbe04.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.body-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+/* before */
+.user-info-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.user-info-wrapper .dengji-wrapper {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.user-info-wrapper .dengji-wrapper > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.user-info-wrapper .dengji-wrapper .dengji-icon {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 1px solid red;
+}
+.user-info-wrapper .dengji-wrapper .jinbi-icon {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 1px solid red;
+}
+/* user-info */
+.user-info-wrapper .user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem
+}
+.user-info-wrapper .user-info .user-poster {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.03rem solid rgba(0,0,0,0.1);
+    box-shadow: 0.2rem 0.2rem 1rem rgba(0,0,0,0.2)
+}
+.user-info-wrapper .user-info .user-poster img {
+    width: 100%;
+    height: 100%;
+}
+.user-info-wrapper .user-info .user-name {
+    margin-top: 0.25rem;
+    font-size: 0.25rem;
+    font-weight: 600;
+}
+.user-info-wrapper .user-info .grade {
+    display: inline-block;
+    width: 1rem;
+}
+.user-info-wrapper .user-info .school {
+    display: inline-block;
+    width: 1.2rem;
+}
+.user-info-wrapper .user-info input {
+    text-align: center;
+    border: none;   
+}
+.user-info-wrapper .user-info .school-info div {
+    display: flex;
+}
+.user-info-wrapper .user-info .school-info {
+    display: flex;
+    margin-top: 0.1rem;
+}
+.user-info-wrapper .user-info .school-info .icon {
+    width: 0.3rem;
+    height: 0.3rem;
+    display: inline-block;
+}
+/* before end */
+
+/* after */
+
+.user-poster-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+.user-poster-wrapper > div {
+    display: inline-block;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    border: 0.05rem solid #fff;
+    overflow: hidden;
+}
+.user-poster-wrapper > div img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* after end */
+.content-wrapper {
+    width: 100%;
+    padding: 0 0.3rem;
+    padding-left: 0.7rem;
+    box-sizing: border-box;
+    margin-top: 0.6rem;
+}
+.content-wrapper .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px 6px rgba(245,245,245,0.50);
+    border-radius: 6px;
+    padding: 0.2rem;
+    height: 1rem;
+    padding-left: 0.9rem;
+}
+.content-wrapper .item::after{
+    content: "";
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url(../image/icon2.png);
+    background-size: 3.98rem 3.91rem;
+    background-position: -3.7rem 0.02rem;
+    background-repeat: no-repeat
+}
+.content-wrapper .jinbi::after {
+    display: none;
+}
+/* .content-wrapper .school-btn::after {
+    content: "";
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url(../image/icon2.png);
+    background-size: 3.98rem 3.91rem;
+    background-position: -3.3rem 0.02rem;
+    background-repeat: no-repeat;
+} */
+.content-wrapper .item i {
+    position: absolute;
+    left: -0.3rem;
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    /* border: 1px solid red; */
+    border-radius: 0.1rem;
+    overflow: hidden;
+}
+.content-wrapper .item p {
+    color: rgb(58,58,58);
+}
+
+
+
+
+/* icon */
+.icon6 {
+    display: inline-block;
+    background-image: url(../image/icon6.png);
+    background-size: 6.14rem 1.93rem;
+    background-repeat: no-repeat;
+    background-position: 0rem 0rem;
+}
+.icon-user-name {
+    display: inline-block;
+    background-position: -0.29rem -0.44rem;
+}
+.icon-user-grade {
+    display: inline-block;
+    background-position: -1.39rem -0.44rem;
+}
+.icon-user-location {
+    display: inline-block;
+    background-position: -2.49rem -0.44rem;
+}
+.icon-user-jinbi {
+    display: inline-block;
+    background-position: -3.59rem -0.44rem;
+}
+.icon-user-school {
+    display: inline-block;
+    background-position: -4.69rem -0.44rem;
+}
+
+
+
+
+.edit-info-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 90;
+    /* color: #fff; */
+}
+.edit-info-wrapper .edit-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* transform: translateX(-50%); */
+    width: 5rem;
+    text-align: center;
+    background: #fff;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    padding-bottom: 0.4rem;
+}
+.edit-info-wrapper .edit-content .title {
+    background-image: url(../image/bg123.png);
+    line-height: 1rem;
+    color: #FFFFFF;
+}
+.edit-info-wrapper .edit-content .content {
+    margin-top: 0.6rem;
+}
+.edit-info-wrapper .edit-content .content #username-edi {
+    text-align: center;
+    display: block;
+    margin: 0.3rem auto;
+    margin-bottom: 0.1rem;
+    color: #8b8b8b;
+    border: 0;
+}
+.edit-info-wrapper .edit-content .content .icon5 {
+    display: block;
+    width: 100%;
+    height: 0.1rem;
+    /* border: 1px solid red; */
+    margin-bottom: 0.2rem;
+    background-position: -1.5rem -3.6rem;
+}
+.edit-info-wrapper .edit-content .content input:last-child {
+    padding: 0.1rem 0.65rem;
+    border-radius: 0.4rem;
+    background: linear-gradient(90deg,rgb(92, 111, 249),rgb(146, 173, 221));
+    border-color: rgb(146, 173, 221);
+    border-top: 0;
+    border-right: 0;
+    color: #FFFFFF;
+}
+
+
+
+.login-wrapper {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+.wx-close {
+    float: right;
+}
+
+

@@ -1,0 +1,97 @@
+<include file="public/layout" />
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.config.js"/>
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"/>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+
+<style type="text/css">
+html, body {overflow: visible;}
+</style>  
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>课程管理 - 新增</h3>
+      </div>
+    </div>
+  </div>
+  <form class="form-horizontal" action="{:U('grade/add')}" id="add_post" method="post">    
+    <div class="ncap-form-default">
+      <dl class="row">
+        <dt class="tit">
+          <label><em>*</em>课程名称</label>
+        </dt>
+        <dd class="opt">
+          <input type="text" value="" name="title" class="input-txt">
+          <span class="err" id="err_title"></span>
+          <p class="notic"></p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+          <label>显示</label>
+        </dt>
+        <dd class="opt">
+          <div class="onoff">
+            <label for="article_show1" class="cb-enable <if condition="$info[is_open] eq 1">selected</if>">是</label>
+            <label for="article_show0" class="cb-disable <if condition="$info[is_open] eq 0">selected</if>">否</label>
+            <input id="article_show1" name="is_open" value="1" type="radio" <if condition="$info[is_open] eq 1"> checked="checked"</if>>
+            <input id="article_show0" name="is_open" value="0" type="radio" <if condition="$info[is_open] eq 0"> checked="checked"</if>>
+          </div>
+          <p class="notic"></p>
+        </dd>
+      </dl>
+
+      <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+   
+    $(document).on("click", '#submitBtn', function () {
+        verifyForm();
+    });
+    function verifyForm(){
+        $('span.err').hide();
+        $.ajax({
+            type: "POST",
+            url: "{:U('grade/add')}",
+            data: $('#add_post').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status === 1) {
+                    layer.msg(data.msg, {icon: 1,time: 1000}, function() {
+                        location.href = "{:U('Admin/grade/index')}";
+                    });
+                } else if(data.status === 0) {
+                    layer.msg(data.msg, {icon: 2,time: 5000});
+
+                    $.each(data.result, function(index, item) {
+                      debugger
+                        $('#err_' + index).text(item).show();
+                    });
+                } else {
+                    layer.msg(data.msg, {icon: 2,time: 1000});
+                }
+            }
+        });
+    }
+
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#thumb").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+    
+</script>
+</body>
+</html>

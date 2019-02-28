@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>动态</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/dynamics-index.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/dongtai-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="dongtai">
+    <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
+        <div class="allWrap" :class="{blur:isReleasing}">
+            <header>
+                <div class="tabCut" :class="{actived:nowPage=='area'}" @click="cutTab('area')">
+                    <div style="width:100%;text-align: center;" v-cloak>{{nowArea}}</div>
+                    <ul class="mSelect" v-cloak v-show="isShowArea">
+                        <li v-cloak @click.stop="cutArea('同城')">
+                            同城
+                        </li>
+                        <li v-cloak @click.stop="cutArea('全网')">
+                            全网
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabCut" :class="{actived:nowPage=='attended'}" @click="cutTab('attended')">
+                    关注
+                </div>
+                <div class="tabCut" :class="{actived:nowPage=='video'}" @click="cutTab('video')">
+                    叽喳
+                </div>
+            </header>
+
+
+            <div class="pageWrap">
+                <div class="weui-pull-to-refresh__layer" v-cloak>
+                    <div class='weui-pull-to-refresh__arrow'></div>
+                    <div class='weui-pull-to-refresh__preloader'></div>
+                    <div class="down">下拉刷新</div>
+                    <div class="up">释放刷新</div>
+                    <div class="refresh">正在刷新</div>
+                </div>
+
+
+                <!-- 同城，全网 -->
+                <div class="list-page area-page" v-cloak v-show="nowPage=='area'">
+                    <ul>
+                        <li class="list-item" v-cloak v-for="(item,index) in areaDataList.list" :key="index" @click="gotoDongtaiDetail(item)">
+                            <div class="item-head">
+                                <div style="position: relative;">
+                                    <div class="item-headWrap" @click.stop="gotoHomePage(item)">
+                                        <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span>
+                                </div>
+
+                                <div class="item-head-text">
+                                    <div>
+                                        <span class="listName">{{item.nickname}}</span>
+                                        <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
+                                            <i class="sex"></i>
+                                            <span class="age">{{item.age}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <p v-cloak v-if="item.description&&item.description!==''" v-html="item.description"></p>
+                                <p v-cloak v-else v-html="toHtml(item.content)"></p>
+                                <!-- 图片 -->
+                                <div v-cloak v-if="item.image&&item.image.length!==0">
+                                    <div class="dynamicImgBox" v-for="(item,index) in item.image" :key="index" style="display:inline-block;margin-right: 3px;">
+                                        <img :src="GlobalHost+item">
+                                    </div>
+                                </div>
+                                <!-- video -->
+                                <div v-cloak v-if="item.video_thumb&&item.video_thumb!==''&&item.video_url&&item.video_url!==''">
+                                    <div class="dynamicImgBox detailImgVideoWrap" @click.stop="openDetailVideo(item)">
+                                        <img :src="GlobalHost+item.video_thumb"></img>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-comment">
+                                <span class="addTime">{{item.add_time | stampToStr}}</span>
+                                <div class="person" v-cloak v-if="item.viewer_count>0">
+                                    <img src="__STATIC__/images/icon/kekan.png">
+                                    <span>{{item.viewer_count}}</span>
+                                </div>
+                                <div>
+                                    <img src="__STATIC__/images/icon/price.png">
+                                    <span class="item-comment-count" v-cloak v-if="item.comment_count>0">{{item.comment_count}}</span>
+                                </div>
+                                <div>
+                                    <div class="flowerWrap" @click.stop="giveFlower(item,index)">
+                                        <img v-cloak v-if="Number(item.flower_num)>0" src="__STATIC__/images/icon/花2.png">
+                                        <img v-cloak v-else src="__STATIC__/images/icon/花1.png">
+                                    </div>
+                                    <span class="flowerNum" v-cloak v-if="Number(item.flower_num)>0">{{item.flower_num}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 关注 -->
+                <div class="list-page attended-page" v-cloak v-show="nowPage=='attended'">
+                    <ul>
+                        <li class="list-item" v-cloak v-for="(item,index) in attendedDataList.list" :key="index" @click="gotoDongtaiDetail(item)">
+                            <div class="item-head">
+                                <div style="position: relative;">
+                                    <div class="item-headWrap" @click.stop="gotoHomePage(item)">
+                                        <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span>
+                                    <!-- 测试用 -->
+                                    <!-- <span class="videoStatus" @click.stop="openVideoScreen(item)"></span> -->
+                                </div>
+
+                                <div class="item-head-text">
+                                    <div>
+                                        <span class="listName">{{item.nickname}}</span>
+                                        <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
+                                            <i class="sex"></i>
+                                            <span class="age">{{item.age}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <p v-cloak v-if="item.description&&item.description!==''" v-html="item.description"></p>
+                                <p v-cloak v-else v-html="toHtml(item.content)"></p>
+                                <!-- 图片 -->
+                                <div v-cloak v-if="item.image&&item.image.length!==0">
+                                    <div class="dynamicImgBox" v-for="(item,index) in item.image" :key="index" style="display:inline-block;margin-right: 3px;">
+                                        <img :src="GlobalHost+item">
+                                    </div>
+                                </div>
+                                <!-- video -->
+                                <div v-cloak v-if="item.video_thumb&&item.video_thumb!==''&&item.video_url&&item.video_url!==''">
+                                    <div class="dynamicImgBox detailImgVideoWrap" @click.stop="openDetailVideo(item)">
+                                        <img :src="GlobalHost+item.video_thumb"></img>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-comment">
+                                <span class="addTime">{{item.add_time | stampToStr}}</span>
+                                <div class="person" v-cloak v-if="item.viewer_count>0">
+                                    <img src="__STATIC__/images/icon/kekan.png">
+                                    <span>{{item.viewer_count}}</span>
+                                </div>
+                                <div>
+                                    <img src="__STATIC__/images/icon/price.png">
+                                    <span class="item-comment-count" v-cloak v-if="item.comment_count>0">{{item.comment_count}}</span>
+                                </div>
+                                <div>
+                                    <div class="flowerWrap" @click.stop="giveFlower(item,index)">
+                                        <img v-cloak v-if="item.flower_num>0" src="__STATIC__/images/icon/花2.png">
+                                        <img v-cloak v-else src="__STATIC__/images/icon/花1.png">
+                                    </div>
+                                    <span class="flowerNum" v-cloak v-if="item.flower_num>0">{{item.flower_num}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="noComments" style="display: none;">
+                        <img src="__STATIC__/images/icon/暂无要找内容.png">
+                        <p>暂无任何内容</p>
+                    </div>
+                </div>
+                <!-- 叽喳 -->
+                <div class="video-page" v-cloak v-show="nowPage=='video'">
+                    <ul>
+                        <li v-cloak v-for="(item,index) in videoDataList.list" ::key="index" @click="videoFullScreen(item)">
+                            <div class="mVideo">
+                                <img style="width: 118%;margin-left: -9%;margin-top: -2%;" :src="GlobalHost+item.video_thumb"></video>
+                            </div>
+
+                            <div style="width:80%;margin: 0.05rem 0 0.15rem;">
+                                <div>
+                                    <span class="sexAge fr" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}" style="margin-top: 0.02rem;">
+                                        <i class="sex"></i>
+                                        <span class="age">{{item.age}}</span>
+                                    </span>
+                                    <span class="name" style="margin-right:0.05rem;display: block;max-width:calc(100% - 0.42rem);overflow: hidden;text-overflow:ellipsis;white-space: nowrap;text-align: right;">
+                                        {{item.nickname}}
+                                    </span>
+                                </div>
+
+                                <!-- <p class="video-text">
+                                    {{item.content}}
+                                </p> -->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+
+
+                <div style="min-height: 4.7em;overflow: hidden;">
+                    <!-- <div class="weui-loadmore" v-cloak v-show="isLoading"> -->
+                    <div class="weui-loadmore" style="display:none;">
+                        <i class="weui-loading"></i>
+                        <span class="weui-loadmore__tips">正在加载</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mask" v-cloak v-if="isReleasing"></div>
+
+        </div>
+
+        <!-- 模糊之外 -->
+
+        <div class="release" :class="{actived:isReleasing}" @click.stop="toggleReleasing"></div>
+
+        <div class="release-start" v-cloak v-show="isReleasing">
+            <h5>发布动态</h5>
+            <div class="release-group">
+                <div class="release-btn" @click="openEdit(1)">
+                    <img src="__STATIC__/images/icon/文字@2x.png">
+                    <p>文字</p>
+                </div>
+                <div class="release-btn" @click="openEdit(2)">
+                    <img src="__STATIC__/images/icon/选照片@2x.png">
+                    <p>图片</p>
+                </div>
+                <!-- <div class="release-btn" @click="openEdit(2)">
+                    <img src="__STATIC__/images/icon/拍照@2x.png">
+                    <p>拍照</p>
+                </div> -->
+                <div class="release-btn" @click="openEdit(3)">
+                    <img src="__STATIC__/images/icon/小视频@2x.png">
+                    <p>小视频</p>
+                </div>
+            </div>
+
+            <span class="triangle"></span>
+        </div>
+
+    </div>
+
+    <!-- -------------------------------------- -->
+    <script src="__STATIC__/js-min/dynamics-index.min.js"></script>
+    <!-- 页面--js -->
+    <script>
+        //刷新页面
+        function reloadIndex(){
+            $('.pageWrap').pullToRefresh('triggerPullToRefresh')
+        }
+        
+        //送小花
+        var longtime=99999999999999;
+        var clickIndex=0 //几秒之内点击的次数
+        var lastClickTime=longtime
+        var nowTime=""
+        var isGivingFlower=false
+
+        var dongtaiVm = new Vue({
+            el: "#dongtaiApp",
+            data: {
+                GlobalHost: Global.host,
+
+                user_id: "",
+                isShowArea: false,
+                nowPage: "area", //area attended video
+                nowArea: "同城", //同城 全网
+                areaDataList: {
+                    list: [],
+                    isLoad: false,
+                    page: 1
+                },
+                attendedDataList: {
+                    list: [],
+                    isLoad: false,
+                    page: 1
+                },
+                videoDataList: {
+                    list: [],
+                    isLoad: false,
+                    page: 1
+                },
+
+                isReleasing: false,
+                isLoading: false,
+
+                //送小花
+                clickItemIndex:"",
+            },
+            computed: {
+                nowDataList() {
+                    return this.nowPage + "DataList"
+                }
+            },
+            mounted: function () {
+                let self = this
+                //监听滚动条
+                document.getElementsByClassName('pageWrap')[0].addEventListener('scroll', this.handleScroll)
+                //下拉刷新
+                this.initPullToRefresh();
+
+                //是否送小花 （新增）
+                setInterval(function(){
+                    nowTime=new Date().getTime()
+                    if(nowTime-lastClickTime>1000){
+                        if(!isGivingFlower){
+                            self.giveFlowerAjax()
+                        }
+                        
+                        // console.log(clickIndex)
+                        // lastClickTime=longtime
+                        // clickIndex=0
+                    }
+                },90)
+
+                //----------------------------------------
+
+                //先查session,把session的值放到data里
+                if (sessionStorage.getItem("dongtaiPage") && sessionStorage.getItem("dongtaiPage") !== null && sessionStorage.getItem("dongtaiPage") !== "null") {
+                    let dongtaiPageData = JSON.parse(sessionStorage.getItem("dongtaiPage"))
+                    console.log(dongtaiPageData)
+
+                    this.user_id = dongtaiPageData.user_id
+                    this.nowPage = dongtaiPageData.nowPage
+                    this.nowArea = dongtaiPageData.nowArea
+                    this.areaDataList = dongtaiPageData.areaDataList
+                    this.attendedDataList = dongtaiPageData.attendedDataList
+                    this.videoDataList = dongtaiPageData.videoDataList
+
+                    //滚动位置
+                    setTimeout(function () {
+                        document.getElementsByClassName('pageWrap')[0].scrollTop = dongtaiPageData.pageScrollTop
+                    }, 1)
+                    
+                    //ios返回刷新
+                    if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+                        reloadIndex()
+                        localStorage.setItem("isFromAdd",0)
+                    }
+                    //ios返回刷新 end
+
+                    return;
+                }
+
+                //获取user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null && localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    this.user_id = Number(mUserInfo.user_id);
+                } else {
+                    // this.user_id = 21; //测试用
+                    alert("请求失败")
+                    return
+                }
+
+                //
+                this.getListData("areaDataList", false, {
+                    user_id: this.user_id,
+                    range: 1
+                });
+            },
+            filters: {
+                //时间戳 转 文字
+                stampToStr: function (stamp) { //传来的stamp十位数
+                    if (!stamp) return '';
+
+                    let nowStamp = Math.round((new Date().getTime()) / 1000);
+                    let howLong = nowStamp - stamp;
+
+                    if (howLong < 60) { //1分钟内
+                        return "1分钟内";
+                    } else if (howLong < 3600) { //1小时内，显示分钟数
+                        let minutes = Math.floor(howLong / 60);
+                        return minutes + "分钟前";
+                    } else if (howLong < 43200) { //12小时内，显示小时数
+                        let hours = Math.floor(howLong / 3600);
+                        return hours + "小时前";
+                    } else if (howLong >= 43200 && howLong < 86400) { //大于12小时，小于24小时
+                        let dateStr = Global.stampToDate(stamp);
+                        let minStr = dateStr.substr(dateStr.length - 5);
+                        return "昨天 " + minStr;
+                    } else if (howLong > 86400) { //大于24小时，直接显示时间
+                        return Global.stampToDate(stamp);
+                    }
+                },
+                ifHttpImg(src){
+                    // console.log(src)
+                    if(src.indexOf("http:")>-1){
+                        return src;
+                    }else{
+                        // console.log(Global.host)
+                        return Global.host+src;
+                    }
+                },
+            },
+            methods: {
+                toHtml(value) {
+                    value = "" + value;
+                    return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "");
+                },
+                cutTab(pageStr) {
+                    if (pageStr == "area" && this.nowPage == "area") {
+                        // this.isShowArea = true
+                        this.isShowArea = !this.isShowArea;
+                    } else {
+                        this.isShowArea = false;
+                    }
+                    this.nowPage = pageStr
+                    //查数据
+                    if (pageStr !== "area") {
+                        if (!this[this.nowDataList].isLoad) { //还没加载过数据
+                            this.getListData(this.nowDataList, false, {
+                                user_id: this.user_id,
+                                attention: this.nowPage == "attended" ? 1 : null,
+                                jizha: this.nowPage == "video" ? 1 : null
+                            })
+                        }
+                    }
+                },
+                cutArea(areaStr) { //同城 全网
+                    this.isShowArea = false
+                    //查数据
+                    if (this.nowArea !== areaStr) {
+                        this.getListData(this.nowDataList, false, {
+                            user_id: this.user_id,
+                            range: areaStr == "同城" ? 1 : 2
+                        })
+
+                        this.nowArea = areaStr
+                    }
+                },
+                //获取数据
+                getListData(dataList, isScroll, {
+                    user_id = null,
+                    range = null,
+                    attention = null,
+                    jizha = null,
+                    page = null
+                } = {}) { //更新的list str ,是否为滚动 boolean,区域str
+                    // debugger
+                    let self = this
+                    console.log("ajax")
+                    let postData = {
+                        user_id: user_id,
+                        range: range, //1同城2全网
+                        attention: attention, //1关注
+                        jizha: jizha, //1叽喳
+                        page: page,
+                    }
+                    console.log(postData)
+                    $.ajax({
+                        type: "POST",
+                        url: self.GlobalHost + "/index.php/Api/dynamics/index",
+                        data: postData,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result.data)
+                            if (isScroll) { //是滚动
+                                self[dataList].list = self[dataList].list.concat(result.data)
+
+                                if (result.data.length !== 0) {
+                                    self[dataList].page = self[dataList].page + 1;
+                                }
+                            } else {
+                                self[dataList].list = result.data
+
+                                //显示 "无任何内容"
+                                if (self.nowPage == "attended" && result.data.length == 0) {
+                                    $(".noComments").show();
+                                }
+                            }
+
+                            self[dataList].isLoad = true
+
+                            //下拉刷新done
+                            $(".pageWrap").pullToRefreshDone();
+                            self.isLoading = false;
+                        }
+                    })
+                },
+                toggleReleasing() {
+                    this.isReleasing = !this.isReleasing
+                },
+                handleScroll() {
+                    let scrollTop = document.getElementsByClassName('pageWrap')[0].scrollTop
+                    console.log(scrollTop)
+                    let wrapHeight = document.getElementsByClassName('pageWrap')[0].clientHeight
+                    let ulHeight = document.getElementsByClassName(this.nowPage + "-page")[0].clientHeight
+                    // console.log(ulHeight)
+                    if (scrollTop > 0 && scrollTop + wrapHeight > ulHeight) {
+                        if (!this.isLoading) {
+                            console.log(this.nowDataList)
+                            let postData = {}
+                            switch (this.nowDataList) {
+                                case "areaDataList":
+                                    postData = {
+                                        user_id: this.user_id,
+                                        range: this.nowArea == "同城" ? 1 : 2,
+                                        page: this[this.nowDataList].page + 1
+                                    }
+                                    break;
+                                case "attendedDataList":
+                                    postData = {
+                                        user_id: this.user_id,
+                                        attention: 1,
+                                        page: this.attendedDataList.page + 1
+                                    }
+                                    break;
+                                case "videoDataList":
+                                    postData = {
+                                        user_id: this.user_id,
+                                        jizha: 1,
+                                        page: this.videoDataList.page + 1
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            this.isLoading = true;
+                            this.getListData(this.nowDataList, true, postData)
+                        }
+                    }
+                },
+                openEdit(type) { //动态类型
+                    this.savePageToSession();
+
+                    let url= this.GlobalHost + "/index.php/mobile/dynamics/add/type/" + type + ".html";
+
+                    if(Global.isIOS()){
+                        window.location.href = url;
+                    }else{
+                        window.Android.gotoNewWebView(url)
+                        // window.location.href = url;
+                    }
+                    this.isReleasing = false;
+                },
+                //跳转之前存数据到session
+                savePageToSession() {
+                    //key : dongtaiPage
+                    let pageData = {
+                        user_id: this.user_id,
+                        nowPage: this.nowPage,
+                        nowArea: this.nowArea,
+                        areaDataList: this.areaDataList,
+                        attendedDataList: this.attendedDataList,
+                        videoDataList: this.videoDataList,
+                        pageScrollTop: document.getElementsByClassName('pageWrap')[0].scrollTop
+                    }
+                    console.log(pageData)
+
+                    sessionStorage.setItem('dongtaiPage', JSON.stringify(pageData))
+                },
+                gotoDongtaiDetail(item) {
+                    console.log(nowTime,lastClickTime)
+                    console.log(nowTime-lastClickTime)
+
+                    if(isGivingFlower||nowTime-lastClickTime>0){ //如果正在送花或者点击间隔还没到1秒
+                        return
+                    }
+                    this.savePageToSession();
+
+                    let url=this.GlobalHost + '/index.php/mobile/dynamics/detail/id/' + item.dynamic_id + '.html'
+
+                    if(Global.isIOS()){
+                        window.location.href = url;
+                    }else{
+                        window.Android.gotoNewWebView(url)
+                        // window.location.href = url;
+                    }
+                },
+                //打开全屏小视频
+                videoFullScreen(item) {
+                    console.log(item)
+                    let options={
+                        user_id:item.user_id,
+                        // head_pic:
+                        src:Global.filterHttpImg(item.video_url),
+                        poster:Global.host+item.video_thumb,
+                        dynamic_id:item.dynamic_id,
+                    };
+                    Global.fullScreenVideo(options);
+                },
+                //关闭全屏小视频
+                closeFullScreen() {
+                    let video1=document.getElementById("video1");
+                    $(video1).attr("src","");
+                    $(".fullScreen").hide();
+                },
+                gotoHomePage(item) {
+                    this.savePageToSession();
+
+                    let user_id = this.user_id;
+                    let toUserId = item.user_id;
+                    let url = "";
+                    if (Number(user_id) === Number(toUserId)) {
+                        url = this.GlobalHost + "/index.php/mobile/user/myHomePage.html";
+                    } else {
+                        url = this.GlobalHost + "/index.php/mobile/user/homePage/user_id/" + user_id + "/toUserId/" + toUserId + ".html";
+                    }
+
+                    if(Global.isIOS()){
+                        window.location.href = url;
+                    }else{
+                        window.Android.gotoNewWebView(url)
+                        // window.location.href = url;
+                    }
+                },
+                //初始化下拉刷新
+                initPullToRefresh() {
+                    let _self = this;
+                    //下拉刷新
+                    $(".pageWrap").pullToRefresh(function () {
+                        console.log("刷新")
+                        let postData = {}
+                        switch (_self.nowDataList) {
+                            case "areaDataList":
+                                postData = {
+                                    user_id: _self.user_id,
+                                    range: _self.nowArea == "同城" ? 1 : 2
+                                }
+                                _self.areaDataList.page=1;
+                                break;
+                            case "attendedDataList":
+                                postData = {
+                                    user_id: _self.user_id,
+                                    attention: 1
+                                }
+                                _self.attendedDataList.page=1;
+                                break;
+                            case "videoDataList":
+                                postData = {
+                                    user_id: _self.user_id,
+                                    jizha: 1
+                                }
+                                _self.videoDataList.page=1;
+                                break;
+                            default:
+                                break;
+                        }
+                        _self.getListData(_self.nowDataList, false, postData)
+                    });
+                },
+                openVideoScreen(item) {
+                    // let user_id=item.user_id;
+                    // Global.getAuthVideoUrl(user_id,function(url){
+                    //     let src=Global.host+url;
+                    //     Global.fullScreen(src);
+                    // });
+                },
+                giveFlowerAjax(){
+                    let self=this
+                    //用户id  动态id
+                    let item=this[this.nowDataList].list[this.clickItemIndex]
+                    var postData = {
+                        user_id: Number(this.user_id),
+                        dynamic_id: Number(item.dynamic_id),
+                        num:clickIndex
+                    }
+                    console.log(postData)
+                    isGivingFlower=true
+                    $.ajax({
+                        type: "POST",
+                        url: Global.host + "/index.php/Api/Dynamics/giveFlower",
+                        data: postData,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result)
+
+                            //重置上次点击时间为无穷,重置赠送小花数量
+                            lastClickTime=longtime
+                            clickIndex=0
+                            isGivingFlower=false //送花结束
+
+                            if (Number(result.code) == 200) {
+                                // //小花数量加一
+                                // item.flower_num = Number(item.flower_num) + clickIndex;
+                                
+                                //修改localstorage小花数量
+                                self.updateLocalFlower(result.data.flower_num)
+                            } else { //送花失败
+                                Global.messageWin("请求失败");
+                                return
+                            }
+                        }
+                    });
+                },
+                //动态列表送花
+                giveFlower: function (item,index) {
+                    var self = this;
+                    this.clickItemIndex=index
+                    if(isGivingFlower){
+                        return
+                    }
+                    //判断一下
+                    if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
+                        var mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
+                        var myFlower_num=Number(mUserInfo.flower_num)
+                        if(myFlower_num>0){
+                            clickIndex++
+                            lastClickTime=new Date().getTime()
+
+                            //小花数量加一
+                            item.flower_num = Number(item.flower_num) + 1;
+                            
+                            if(clickIndex==myFlower_num){
+                                Global.messageWin("您的小花数量不足")
+                                return
+                            }
+                        }else{
+                            Global.messageWin("您的小花数量不足")
+                            return
+                        }
+                    }
+                },
+                //修改localstorage的小花数量
+                updateLocalFlower:function(num){
+                    if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
+                        let mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
+                        mUserInfo.flower_num=num
+                        localStorage.setItem("mUserInfo",JSON.stringify(mUserInfo))
+                    }
+                },
+                closeReleasing: function () {
+                    if (this.isReleasing) {
+                        console.log(event)
+                        if ($(event.target).closest(".release-start").length == 0) {
+                            this.isReleasing = false;
+                        }
+                    }
+                },
+                openDetailVideo(item){
+                    console.log(item)
+                    let src=Global.host+item.video_url;
+                    let postSrc=Global.host+item.video_thumb;
+                    Global.fullScreen(src);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

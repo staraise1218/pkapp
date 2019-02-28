@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发布邀约</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/invite-add.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css">
+    <script>
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="releInvite-page">
+    <header>
+        <span class="fl cancle">取消</span>
+        <span class="fr publish">发布</span>
+    </header>
+    <div class="main-content invitation">
+        <form id="releInviteForm" action="http://app.yujianhaoshiguang.cn/index.php/Api/invite/add" method="post" enctype="multipart/form-data">
+            <!-- 隐藏域 -->
+            <input type="text" value="" name="user_id" style="display: none;">
+            <input type="text" value="" name="user_sex" style="display: none;">
+            <input type="text" value="" name="type" style="display: none;">
+            <input type="text" value="" name="title" style="display: none;">
+            <input type="text" value="" name="description" style="display: none;">
+            <input type="text" value="" name="time" style="display: none;">
+            <input type="text" value="" name="province" style="display: none;">
+            <input type="text" value="" name="city" style="display: none;">
+            <input type="text" value="" name="place" style="display: none;">
+            <input type="text" value="" name="object" style="display: none;">
+            <input type="text" value="" name="pay" style="display: none;">
+            <input type="text" value="" name="is_jiesong" style="display: none;">
+            <input type="text" value="" name="with_confidante" style="display: none;">
+            <input type="text" value="" name="longitude" style="display: none;">
+            <input type="text" value="" name="latitude" style="display: none;">
+
+            <input type="text" value="" name="file" style="display: none;">
+            <!-- 隐藏域 end -->
+            <div class="theme items">
+                <ul>
+                    <li class="clearfix title">
+                        <span class="fl">主题</span>
+                        <span class="fr inviteTheme"></span>
+                    </li>
+                    <li class="clearfix">
+                        <span class="fl">地点</span>
+                        <span class="fr">
+                            <!-- <input type="text" id='city-picker' value="辽宁省 沈阳市" /> -->
+                            <input type="text" id='city-picker' />
+                        </span>
+                    </li>
+                    <li class="detailPlace">
+                        <div class="detailPlace-title">
+                            详细地点
+                        </div>
+                        <div class="detailPlace-inputWrap">
+                            <input id="detailPlaceInput" type="text" placeholder="填写详细地点..." />
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="fl">时间</span>
+                        <span class="fr">
+                            <input type="text" id='datetime-picker' />
+                            <!-- <input id='datetime-picker' type="text" data-toggle='date' /> -->
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="detailSelect clearfix otherSide">
+                        <span class="fl">对象</span>
+                        <span class="fr choose">
+                            <span class="active">男</span>
+                            <span>女</span>
+                            <span>不限</span>
+                        </span>
+                    </li>
+                    <li class="detailSelect clearfix payMoney">
+                        <span class="fl">买单</span>
+                        <span class="fr choose">
+                            <span>AA</span>
+                            <span class="active payMoneyText"></span>
+                        </span>
+                    </li>
+                    <li class="clearfix catch">
+                        <span class="fl">
+                            <input type="checkbox" checked="checked" id="myCheck">
+                            <label for="myCheck"></label>
+                            <label for="myCheck" class="jiesongText"></label>
+                        </span>
+                        <span class="fr">
+                            <input type="checkbox" checked="checked" id="myCheck1">
+                            <label for="myCheck1"></label>
+                            <label for="myCheck1" class="with_confidante_text"></label>
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="clearfix" id="descriptionWrap-li">
+                        <div class="descriptionWrap">
+                            <textarea id="descripTextarea" placeholder="空泛的说明，是没有人报名的..."></textarea>
+
+                            <span class="textCountWrap">
+                                <span class="textCount">0</span>/200</span>
+                        </div>
+
+                        <div>
+                            <!-- 添加图片 -->
+                            <div class="add">
+                                <ul class="showPicUl">
+                                    <a href="javascript:void(0)" class="addPic">
+                                        <img src="__STATIC__/images/icon/add.png">
+                                    </a>
+                                </ul>
+                            </div>
+                            <!-- 添加录音 -->
+                            <!-- <div class="speak" style="display: none;">
+                                <a href="javascript:;">
+                                    按住说话
+                                </a>
+                            </div> -->
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="confirmDelete" style="display: none;">
+        <p>
+            你尚未发布，确认删除？
+        </p>
+        <div class="confirmDelete-btngroup">
+            <a href="javascript:void(0)" class="cancelDelete">取消</a>
+            <a href="javascript:void(0)" class="delete">确定</a>
+        </div>
+    </div>
+
+    <!-- 邀约不能上传视频，不用选择 -->
+    <!-- <div class="avatarOperating" style="display: none;">
+        <ul>
+            <li class="goAddPic">添加图片</li>
+            <li class="goAddVideo">添加视频</li>
+            <li class="home-cancel">取消</li>
+        </ul>
+    </div> -->
+
+    <script src="__STATIC__/js-min/invite-add.min.js"></script>
+    <!-- 需要优化 -->
+    <script src="__STATIC__/js/areaCodeArr.js"></script>
+    <script type="text/javascript">
+        var ReleInvite = {
+            inviteList: [{
+                title: "旅行",
+                type: 1
+            }, {
+                title: "吃饭",
+                type: 2
+            }, {
+                title: "电影",
+                type: 3
+            }, {
+                title: "唱歌",
+                type: 4
+            }, {
+                title: "运动",
+                type: 5
+            }, {
+                title: "其他",
+                type: 6
+            }],
+
+            _type: "",
+            _user_id: "",
+            _user_sex: "",
+
+            _theme: "",
+
+            isFromHomePage:false, //是否是从我的个人主页跳过来的
+
+
+
+            //获取页面基本参数
+            getPageData: function () {
+                //user_id sex
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    ReleInvite._user_id = Number(mUserInfo.user_id);
+                    ReleInvite._user_sex = Number(mUserInfo.sex);
+                } else {
+                    // ReleInvite._user_id = 3; //测试用
+                    // ReleInvite._user_sex = 1; //测试用 男
+
+                    alert("请求失败")
+                    return
+                }
+                console.log(ReleInvite._user_id)
+
+                //type
+                var ulrStr = window.location.href;
+                if(ulrStr.indexOf("fromHomePage")>-1){
+                    ReleInvite.isFromHomePage=true
+                }
+                if (!(ulrStr.indexOf(".html") > -1)) { //后面不带.html
+                    ulrStr = ulrStr + ".html";
+                }
+                if (ulrStr.indexOf("file://") > -1) {
+                    // ulrStr = "http://app.yujianhaoshiguang.cn/index.php/mobile/invite/add/type/3.html" //测试用
+                    alert("请求失败")
+                    return
+                }
+                var strTemp = ulrStr.split("/add/type/")[1];
+                ReleInvite._type = Number(strTemp.substr(0, 1));
+
+                //更新dom
+                ReleInvite.updateDom();
+            },
+            updateDom: function () {
+                //主题
+                ReleInvite.inviteList.forEach(function (obj) {
+                    if (Number(obj.type) == Number(ReleInvite._type)) {
+                        ReleInvite._theme = obj.title
+                    }
+                });
+                if (ReleInvite._theme == "其他") {
+                    $(".inviteTheme").html(
+                        `
+                            <input id="mTitle" type="text" placeholder="输入主题"/>
+                        `
+                    );
+                } else {
+                    $(".inviteTheme").html(ReleInvite._theme);
+                }
+
+                //根据sex 修改选项
+                if(Number(ReleInvite._user_sex)==1){
+                    //买单
+                    $(".payMoneyText").html("我买单");
+                    //接送
+                    $(".jiesongText").html("我接送");
+                    //带闺蜜
+                    $(".with_confidante_text").html("对方可携带一名闺蜜");
+                }else{
+                    $(".payMoneyText").html("当然你买单");
+                    $(".jiesongText").html("需要接送");
+                    $(".with_confidante_text").html("对方可携带三两好友");
+                }
+            },
+            initSomeDom: function () {
+                //设置地区选择器
+                ReleInvite.setAreaDefault()
+
+                //地点选择器
+                $("#city-picker").cityPicker({
+                    title: "请选择地区",
+                    showDistrict: false
+                });
+                //时间选择器
+                let curDate = Global.stampToDate(new Date().getTime() - 86400000);
+                console.log(curDate.substr(0, 10))
+                $("#datetime-picker").calendar({
+                    dateFormat: "yyyy-mm-dd",
+                    minDate: curDate.substr(0, 10)
+                });
+                //复选框
+                document.getElementById("myCheck").checked = false;
+                document.getElementById("myCheck1").checked = false;
+            },
+            //改变 地址 选择器默认值
+            setAreaDefault: function () {
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    let provCode=mUserInfo.permanent_province
+                    let cityCode=mUserInfo.permanent_city
+                    if(provCode&&provCode.length==6&&cityCode&&cityCode.length==6){
+                        let provObj=getProvObj(provCode)
+                        let cityObj=getCityObj(cityCode)
+                        if(JSON.stringify(provObj)!=="{}"&&JSON.stringify(cityObj)!=="{}"){
+                            let picker=document.getElementById("city-picker")
+                            picker.value = provObj.name + " " +cityObj.name
+                            picker.setAttribute("data-code",cityCode)
+                            picker.setAttribute("data-codes",provCode+","+cityCode)
+                            // data-code="140100" data-codes="140000,140100"
+                        }
+                    }
+                }
+            },
+            //发布邀约
+            publishInvit: function () {
+                //主题
+                let title = $("#mTitle").length !== 0 ? $("#mTitle").val().trim() : $(".inviteTheme").text();
+                if (title === "") {
+                    Global.messageWin("请填写主题");
+                    return;
+                }
+                //省市code
+                let cityCodes = $("#city-picker").attr("data-codes")
+                let provinceCode, cityCode
+                if (cityCodes) {
+                    provinceCode = cityCodes.split(",")[0]
+                    cityCode = cityCodes.split(",")[1]
+                }
+
+                if (!cityCodes || $("#datetime-picker").val() == "") {
+                    // alter("地点和时间请填写完整");
+                    Global.messageWin("地点和时间请填写完整");
+                    return;
+                }
+                
+                //详细地点
+                if($("#detailPlaceInput").val().trim()==""){
+                    Global.messageWin("请填写详细地点")
+                    return
+                }
+                
+                //--------------------------
+
+
+                //jquery.form.js方法
+                $(":input[name='user_id']").val(ReleInvite._user_id);
+                $(":input[name='user_sex']").val(ReleInvite._user_sex);
+                $(":input[name='type']").val(ReleInvite._type);
+                if (ReleInvite._theme == "其他") {
+                    $(":input[name='title']").val($(".inviteTheme #mTitle").val().trim());
+                } else {
+                    $(":input[name='title']").val(ReleInvite._theme);
+                }
+                $(":input[name='description']").val($("#descripTextarea").val().trim());
+                $(":input[name='time']").val($("#datetime-picker").val());
+                $(":input[name='province']").val(provinceCode);
+                $(":input[name='city']").val(cityCode);
+                $(":input[name='place']").val($(".detailPlace-inputWrap>input").val().trim());
+                $(":input[name='object']").val($(".otherSide .choose .active").text());
+                console.log($(".payMoney .choose .active").text())
+                $(":input[name='pay']").val($(".payMoney .choose .active").text());
+                $(":input[name='is_jiesong']").val($("#myCheck").is(':checked') ? 1 : 0);
+                $(":input[name='with_confidante']").val($("#myCheck1").is(':checked') ? 1 : 0);
+                // $(":input[name='longitude']").val("123.4606860");
+                // $(":input[name='latitude']").val("41.7329370");
+                // 经纬度
+                let userInfo=JSON.parse(localStorage.getItem("mUserInfo"))
+                $(":input[name='longitude']").val(userInfo.longitude);
+                $(":input[name='latitude']").val(userInfo.latitude);
+                
+                //图片
+                let srcArr = [];
+                $("img.showPic").each(function () {
+                    let srcTemp = "/public/" + $(this).attr("src").split("/public/")[1];
+                    srcArr.push(srcTemp);
+                });
+                console.log(srcArr)
+                let imageStr = JSON.stringify(srcArr);
+                // alert(imageStr)
+                // console.log(imageJson)
+                $(":input[name='file']").val(imageStr);
+
+                Global.openLoading();
+
+                $("#releInviteForm").ajaxSubmit(function (result) {  
+                    if (Number(result.code) == 200) {
+                        Global.closeLoading("发布成功", function () {
+                            //关闭 返回
+                            if(ReleInvite.isFromHomePage){
+                                window.history.back(-1)
+                                return
+                            }
+                            if(Global.isIOS()){
+                                localStorage.setItem("isFromAdd",1)
+                                window.history.back(-1);
+                            }else{
+                                window.Android.goback("reloadInviteIndex")
+                                // window.history.back(-1);
+                            }
+                        });
+                    }else{
+                        Global.closeLoadingNow()
+                        Global.messageWin(result.msg)
+                    }
+                });
+
+            },
+            showFullPic: function (el) {
+                let srcArr = [];
+                $(".showPicUl .showPic").each(function (index,element) {
+                    $(this).attr("data-index",index);
+                    srcArr.push($(this).attr("src"));
+                });
+                console.log(srcArr)
+                let swiper = $.photoBrowser({
+                    items: srcArr,
+                    initIndex:Number($(el).attr("data-index"))
+                });
+                // swiper.open(index);
+                swiper.open();
+            },
+            eventsBind: function () {
+                //取消发布
+                $(".cancle").click(function () {
+                    window.history.back(-1)
+                })
+                //切换男女,切换买单
+                $(".detailSelect .choose>span").click(function () {
+                    $(this).addClass('active').siblings().removeClass('active')
+                })
+                //让textarea限制字数
+                Global.bindLimitCount(
+                    document.getElementById("descripTextarea"),
+                    200,
+                    document.getElementsByClassName("textCount")[0]
+                );
+                //发布邀约
+                $(".publish").click(function () {
+                    ReleInvite.publishInvit();
+                });
+                //添加图片
+                $(".addPic").click(function () {
+                    if ($("img.showPic").length >= 3) {
+                        Global.messageWin("最多上传3张图片");
+                        return;
+                    }
+                    if(Global.isIOS()){
+                        // alert("ios")
+                        // jumpIOS(1);
+                        jumpIOS(1,"uploadOne") //参数1：1图片 2视频  参数2：调用的js方法的名称
+                    }else{
+                        // alert("android")
+                        // window.Android.gotoJavaCamera(1); //参数1：1图片 3视频
+                        window.Android.gotoJavaCamera(1,"uploadOne"); //参数1：1图片 2视频  参数2：调用的js方法的名称
+                    }
+                });
+                //点击图片显示大图
+                $(".showPicUl").delegate("img.showPic", "click", function () {
+                    console.log($(this).attr("src"))
+                    ReleInvite.showFullPic(this);
+                });
+                //点击video显示全屏预览
+                $(".showPicUl").delegate("video.showPic", "click", function () {
+                    // Global.fullScreen(src);
+                });
+                //点击事件选择器 其他的input blur
+                $("#datetime-picker")[0].addEventListener("click",function(){
+                    let $inputs=$("input").add($("textarea"));
+                    // console.log($inputs)
+                    $inputs.each(function(){
+                        console.log(3)
+                        this.blur();
+                    });
+                });
+            },
+            init: function () {
+                //获取页面基本信息
+                ReleInvite.getPageData()
+
+                //初始化 地点 时间 选择器
+                ReleInvite.initSomeDom();
+
+                //
+                ReleInvite.eventsBind()
+            }
+        };
+
+        $(function () {
+            ReleInvite.init();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>全国人气代表大会</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/user-congress.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/congress.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="congress-page">
+    <div class="appWrap" id="app">
+        <header>
+            <a href="javascript:void(0)" class="back" @click="back"></a>
+            <div class="cutBtnWrap">
+                <div class="tabCut actived">
+                    魅力榜
+                </div>
+                <!-- <div class="tabCut" :class="{actived:nowList=='newcomerList'}" @click="cutTab('newcomerList')">
+                    新人
+                </div> -->
+            </div>
+        </header>
+
+        <div class="contentWrap">
+            <div class="weui-pull-to-refresh__layer" v-cloak>
+                <div class='weui-pull-to-refresh__arrow'></div>
+                <div class='weui-pull-to-refresh__preloader'></div>
+                <div class="down">下拉刷新</div>
+                <div class="up">释放刷新</div>
+                <div class="refresh">正在刷新</div>
+            </div>
+
+
+            <!-- 魅力榜 -->
+            <div class="charmList">
+                <div class="board">
+                    <!-- <div class="myRank">
+                        我的排名:未上榜
+                    </div> -->
+                    <div class="">
+                        <div class="diyimingHead">
+                            <div class="ersanmingHeadItem">
+                                <div class="head_pic">
+                                    <div class="img-box img-box-rank1">
+                                        <img v-cloak v-if="topThreeList[0]&&topThreeList[0].head_pic&&topThreeList[0].head_pic!==''" :src="topThreeList[0].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[0])">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="topThreeList[0]&&Number(topThreeList[0].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[0])"></span>
+                                </div>
+                                <span class="rankingNum rankingNum1">NO.1</span>
+                            </div>
+                        </div>
+                        <div class="ersanmingHead">
+                            <div class="ersanmingHeadItem">
+                                <div class="head_pic">
+                                    <div class="img-box img-box-rank2">
+                                        <img v-cloak v-if="topThreeList[1]&&topThreeList[1].head_pic&&topThreeList[1].head_pic!==''" :src="topThreeList[1].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[1])">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="topThreeList[1]&&Number(topThreeList[1].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[1])"></span>
+                                </div>
+                                <span class="rankingNum rankingNum2">NO.2</span>
+                            </div>
+                            <div class="diyimingPlaceholder"></div>
+                            <div class="ersanmingHeadItem">
+                                <div class="head_pic">
+                                    <div class="img-box img-box-rank2">
+                                        <img v-cloak v-if="topThreeList[2]&&topThreeList[2].head_pic&&topThreeList[2].head_pic!==''" :src="topThreeList[2].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[2])">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="topThreeList[2]&&Number(topThreeList[2].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[2])"></span>
+                                </div>
+                                <span class="rankingNum rankingNum3">NO.3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diyiming" v-cloak v-if="topThreeList[0]">
+                        {{topThreeList[0].nickname}}
+                    </div>
+                    <div class="ersanming">
+                        <div class="ersanmingText" v-cloak v-if="topThreeList[1]">
+                            {{topThreeList[1].nickname}}
+                        </div>
+                        <div class="diyimingPlaceholder"></div>
+                        <div class="ersanmingText" v-cloak v-if="topThreeList[2]">
+                            {{topThreeList[2].nickname}}
+                        </div>
+                    </div>
+                </div>
+
+                <ul>
+                    <li class="list-item" v-cloak v-for="(item,index) in fourthList" :key="index" >
+                        <div class="list-rank" v-cloak>
+                            {{index+4}}
+                        </div>
+                        <div class="list-content">
+                            <div class="">
+                                <div class="head_pic">
+                                    <div class="img-box" @click="gotoHomePage(item)">
+                                        <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
+                                        <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                                    </div>
+                                    <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span>
+                                </div>
+                            </div>
+                            <div class="nameNcharm">
+                                <div class="nickName">
+                                    <span v-cloak>{{item.nickname}}</span>
+                                    <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
+                                        <i class="sex"></i>
+                                        <span class="age" v-cloak>{{item.age}}</span>
+                                    </span>
+                                </div>
+                                <!-- <div class="charmValue">
+                                    魅力值：17260
+                                </div> -->
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="min-height: 4.7em;overflow: hidden;">
+                <!-- <div class="weui-loadmore" v-cloak v-show="isLoading"> -->
+                <div class="weui-loadmore" style="display:none;">
+                    <i class="weui-loading"></i>
+                    <span class="weui-loadmore__tips">正在加载</span>
+                </div>
+            </div>
+        </div>
+    </div>
+          
+
+
+    <!-- -------------------------------------- -->
+    <script src="__STATIC__/js-min/user-congress.min.js"></script>
+    <!-- 页面--js -->
+    <script>
+        let congressApp=new Vue({
+            el:"#app",
+            data:{
+                userInfo:{},
+
+                charmList:[],
+
+                //魅力榜前三名
+                topThreeList:[],
+                //魅力榜第四名开始
+                fourthList:[],
+            },
+            watch:{
+                charmList(newValue,oldValue){
+                    this.topThreeList=newValue.slice(0,3)
+                    this.fourthList=newValue.slice(4,this.charmList.length) //?
+                }
+            },
+            mounted() {
+                //下拉刷新
+                this.initPullToRefresh();
+
+                //先查session,把session的值放到data里
+                // if (sessionStorage.getItem("congressPage") && sessionStorage.getItem("congressPage") !== null) {
+                //     let pageData = JSON.parse(sessionStorage.getItem("congressPage"))
+                //     console.log(pageData)
+
+                //     this.userInfo=pageData.userInfo
+                //     this.charmList=pageData.charmList
+
+                //     //滚动位置
+                //     setTimeout(function () {
+                //         document.getElementsByClassName('contentWrap')[0].scrollTop = pageData.pageScrollTop
+                //     }, 0)
+
+                //     return;
+                // }
+
+                this.getUserInfo()
+
+                this.getCharmList()
+            },
+            filters:{
+                ifHttpImg(src){
+                    if(src.indexOf("http:")>-1){
+                        return src;
+                    }else{
+                        return Global.host+src;
+                    }
+                }
+            },
+            methods:{
+                getUserInfo(){
+                    if (localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!== null&&localStorage.getItem("mUserInfo") !== "null") {
+                        let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                        console.log(mUserInfo)
+                        this.userInfo = mUserInfo;
+                    } else {
+                        //this.userInfo = JSON.parse("{\"user_id\":1,\"uuid\":97875266,\"account_mobile\":\"13051832424\",\"email\":\"\",\"sex\":1,\"birthday\":\"1991-09-24\",\"age\":26,\"height\":127,\"weight\":37,\"reg_time\":1536025186,\"last_login\":1536025186,\"last_ip\":\"\",\"qq\":\"437753880\",\"head_pic\":\"/public/upload/head_pic//20180904/65d288e656d9d0b192bec982d76d99e8.png\",\"province\":0,\"city\":0,\"district\":0,\"nickname\":\"tong\",\"level\":1,\"discount\":\"1.00\",\"total_amount\":\"0.00\",\"is_lock\":0,\"token\":\"4b14230c1c1956d4cedd9e49c0d2c145\",\"message_mask\":63,\"satisfactory_parts\":null,\"longitude\":\"0.0000000\",\"latitude\":\"0.0000000\",\"auth_video_status\":2,\"auth_identity_status\":0,\"auth_car_status\":0,\"active_time\":1536282087,\"is_line\":1,\"income\":null,\"rockets\":0,\"signInDays\":null,\"flower_num\":0,\"signature\":\"个性\",\"permanent_province\":null,\"permanent_city\":null,\"profession\":\"航空公司\",\"phoneOwechat\":\"13051832424\",\"emotion_status\":null,\"rongyun_token\":\"2Mxv2N0Kg2WPNFftBKjLsjoJzC1b/p237t784hHIriRLkvc548Y7iX2boQyN2n7kj6RpzxE4XchLf2hz0SZhgg==\",\"sort\":0,\"vip_expire_date\":\"2020-12-04\",\"fansNum\":0}") //测试用
+                        alert("请求失败")
+                        return
+                    }
+                },
+                back(){
+                    window.history.back(-1);
+                },
+                //切换tab
+                // cutTab(listStr){
+                //     this.nowList=listStr
+                // }
+                //初始化下拉刷新
+                initPullToRefresh() {
+                    let self = this;
+                    //下拉刷新
+                    $(".contentWrap").pullToRefresh(function () {
+                        console.log("刷新")
+                        self.getCharmList()
+                    });
+                },
+                getCharmList(){
+                    let self = this;
+                    console.log("ajax")
+                    $.ajax({
+                        type: "POST",
+                        url: Global.host + "/index.php/Api/User/congress",
+                        // data: ,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result)
+                            if(result.code==200){
+                                self.charmList=result.data
+
+                                //下拉刷新done
+                                $(".contentWrap").pullToRefreshDone();
+                            }
+                        }
+                    })
+                },
+                savePageToSession(){
+                    //key : congressPage
+                    let pageData = {
+                        userInfo:this.userInfo,
+                        charmList:this.charmList,
+                        pageScrollTop: document.getElementsByClassName('contentWrap')[0].scrollTop
+                    }
+                    console.log(pageData)
+                    sessionStorage.setItem('congressPage', JSON.stringify(pageData))
+                },
+                gotoHomePage(item) {
+                    this.savePageToSession();
+
+                    let user_id = this.user_id;
+                    let toUserId = item.user_id;
+                    let url = "";
+                    if (user_id === toUserId) {
+                        url = Global.host + "/index.php/mobile/user/myHomePage.html";
+                    } else {
+                        url = Global.host + "/index.php/mobile/user/homePage/user_id/" + user_id + "/toUserId/" + toUserId + ".html";
+                    }
+                    window.location.href = url;
+                },
+                openVideoScreen(item) {
+                    // let user_id=item.user_id;
+                    // Global.getAuthVideoUrl(user_id,function(url){
+                    //     let src=Global.host+url;
+                    //     Global.fullScreen(src);
+                    // });
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

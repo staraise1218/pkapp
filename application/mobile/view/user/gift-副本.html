@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>礼物</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/gift.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="../static/js/Global.js"></script>
+</head>
+
+<body class="gift-page">
+    <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">礼物</div>
+    </header>
+
+
+    <div class="giftWrap">
+        <div class="leftCoin">剩余：<span class="leftCoinCount">0</span> 金币</div>
+
+        <div class="giftList">
+            <ul class="giftUl">
+            </ul>
+        </div>
+
+        <div class="btnBox">
+            <button class="btn submit">发送</button>
+        </div>
+    </div>
+
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script>
+        // 页面携带参数toUserId 送给谁礼物
+        var Gift = {
+            toUserId:"",
+            minfo:{},
+            goldcoin:"", //我的金币
+
+            
+            //获取页面参数toUserId
+            getToUserId(){
+                let url=window.location.href
+                if(url.indexOf("file://") > -1){ 
+                    url="http://app.yujianhaoshiguang.cn//index.php/mobile/User/gift/toUserId/2.html" //测试用
+                }
+                if(url.indexOf(".html")==-1){
+                    url=url+".html"
+                }
+                let toUserId=url.split("/gift/toUserId/")[1].split(".")[0]
+                Gift.toUserId=Number(toUserId)
+            },
+            //获取mUserInfo
+            getmuserinfo(){
+                if(Global.getMyInfo()){
+                    Gift.minfo=Global.getMyInfo()
+                }
+            },
+            //获取礼物列表,自己的金币数
+            getGift(){
+                let postData={
+                    // user_id:Number(Gift.minfo.user_id)
+                    user_id:1 //测试用
+                }
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/Gift/alllist",
+                    data: postData,
+                    success: function (res) {
+                        console.log(res)
+                        if(Number(res.code)==200){
+                            //礼物列表
+                            if(res.data.gift.length>0){
+                                let arr=res.data.gift
+                                Gift.updateDomGift(arr)
+                            }
+                            //我的金币
+                            Gift.goldcoin=Number(res.data.user.goldcoin)
+                            // Gift.goldcoin=100000000 //测试用
+                        }
+                    }
+                })
+            },
+            updateDomGift(arr){
+                if(arr.length>0){
+                    let giftUl=document.getElementsByClassName("giftUl")[0]
+                    arr.forEach(function(obj){
+                        let li=document.createElement("li")
+                        li.innerHTML=`
+                            <div class="gift-item-content">
+                                <img src=${Global.host+obj.image}>
+                                <p class="glamour">+<span class="glamourCount">${obj.glamour}</span>魅力</p>
+                            </div>
+                            <p class="price"><span class="priceCount">${obj.price}</span>金币</p>
+                            <span class="selectedIcon"></span>
+                        `
+                        li.className="gift-item"
+                        li.setAttribute("data-giftId",obj.id)
+                        giftUl.appendChild(li)
+                    })
+                }
+            },
+            checkMyCoin(){
+                //当前选择的礼物价格
+                let price=Number($("li.selected").find(".priceCount").text())
+                // console.log(price)
+                // console.log(Number(Gift.goldcoin))
+                if(Number(Gift.goldcoin)<price){
+                    Global.messageConfirWin("您的金币不足，立即购买金币",function(){
+                        //去购买金币页面
+                        //?
+                    })
+                    return false
+                }else{
+                    return true
+                }
+            },
+            //发送礼物
+            submit(){
+                if($("li.selected").length==0){
+                    Global.messageWin("请选择礼物")
+                }else{
+                    let flag=Gift.checkMyCoin()
+                    if(!flag){
+                        return
+                    }
+                    let $giftArr=$("li.selected")
+                    let giftIdArr=[]
+                    $giftArr.each(function(){
+                        giftIdArr.push($(this).attr("data-giftId"))
+                    })
+                    console.log(giftIdArr)
+                    //赠送礼物ajax
+                    let postData={
+                        // user_id:Number(Gift.minfo.user_id),
+                        user_id:1, //测试用
+                        to_user_id:Number(Gift.toUserId),
+                        gift_id:Number(giftIdArr[0]),
+                    }
+                    console.log(postData)
+                    console.log(Global.host + "/index.php/Api/Gift/give")
+                    $(".submit").addClass("eventsDisabled")
+                    $.ajax({
+                        type: "POST",
+                        url: Global.host + "/index.php/Api/Gift/give",
+                        data: postData,
+                        success: function (res) {
+                            $(".submit").removeClass("eventsDisabled")
+                            console.log(res)
+                            if(Number(res.code)==200){
+                                
+                                // //礼物列表
+                                // if(res.data.gift.length>0){
+                                //     let arr=res.data.gift
+                                //     Gift.updateDomGift(arr)
+                                // }
+                                // //我的金币
+                                // Gift.goldcoin=Number(res.data.user.goldcoin)
+                                // // Gift.goldcoin=100000000 //测试用
+                            }
+                        }
+                    })
+                }
+            },
+            eventsBind(){
+                //点击礼物selected
+                $(".giftUl").delegate(".gift-item","click",function(event){
+                    event.stopPropagation()
+                    //目前认为只能选择一个
+                    if($(this).hasClass("selected")){
+                        $(this).removeClass("selected")
+                    }else{
+                        $(this).addClass("selected").siblings().removeClass("selected")
+                    }
+                })
+                //点击发送
+                document.getElementsByClassName("submit")[0].onclick=function(){
+                    Gift.submit()
+                }
+            },
+            init(){
+                Gift.getToUserId()
+                Gift.getmuserinfo()
+                Gift.getGift()
+
+                Gift.eventsBind()
+            }
+        };
+        $(function () {
+            Gift.init();
+        });
+    </script>
+</body>
+
+</html>

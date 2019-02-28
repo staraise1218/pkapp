@@ -1,0 +1,118 @@
+<include file="public/layout" />
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.config.js"/>
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"/>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+
+<style type="text/css">
+html, body {overflow: visible;}
+</style>  
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>动态详情</h3>
+        <h5></h5>
+      </div>
+    </div>
+  </div>
+    <div class="ncap-form-default">
+      <dl class="row">
+          <dt class="tit">
+            <label>发布者美丽约ID</label>
+          </dt>
+          <dd class="opt">
+            {$info.uuid}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>主题</label>
+          </dt>
+          <dd class="opt">
+            {$info.title}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>描述</label>
+          </dt>
+          <dd class="opt">
+            {$info.description}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>约会时间</label>
+          </dt>
+          <dd class="opt">
+            {$info.time}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>地点</label>
+          </dt>
+          <dd class="opt">
+            {:getRegionNameByCode($info['province'])}  {:getRegionNameByCode($info['city'])} {$info.place}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>对象</label>
+          </dt>
+          <dd class="opt">
+            {$info.object}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>支付方式</label>
+          </dt>
+          <dd class="opt">
+            {$info.pay}
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>我接送</label>
+          </dt>
+          <dd class="opt">
+            <if condition="$info.is_jiesong eq 1">是</if>
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>对方可携带一名闺蜜</label>
+          </dt>
+          <dd class="opt">
+            <if condition="$info.with_confidante eq 1">是</if>
+          </dd>
+      </dl>
+      <dl class="row">
+          <dt class="tit">
+            <label>发布时间</label>
+          </dt>
+          <dd class="opt">
+            {$info.add_time|date="Y-m-d H:i:s", ###}
+          </dd>
+      </dl>
+    </div>
+</div>
+<script type="text/javascript">
+   
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#thumb").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+    
+</script>
+</body>
+</html>

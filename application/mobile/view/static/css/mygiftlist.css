@@ -1,0 +1,129 @@
+.sexAge {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 0.34rem;
+    height: 0.14rem;
+    border-radius: 2px;
+}
+
+.sexAge .sex {
+    display: inline-block;
+    width: 0.11rem;
+    height: 0.11rem;
+}
+
+.sexAge .age {
+    font-size: 12px;
+    color: #fff;
+}
+
+.female {
+    background-color: #ffa5ce;
+}
+
+.female .sex {
+    background: url(../images/icon/女.png) center center;
+    background-size: 100%;
+}
+
+.male {
+    background-color: #a4c8fe;
+}
+
+.male .sex {
+    background: url(../images/icon/男1.png) center center;
+    background-size: 100%;
+}
+
+/* ///////////////// */
+
+.gift-page body{
+    /* background-color: #f2f2f2; */
+}
+.gift-page header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #302e40;
+    color: #fff;
+    font-size: 16px;
+    z-index: 1;
+}
+.gift-page .title{
+    text-align: center;
+}
+.gift-page .back {
+    width: 0.2rem;
+    height: 0.16rem;
+    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0.1rem;
+    transform: translate(0, -50%);
+}
+.gift-page .giftWrap{
+    margin-top: 50px;
+    padding: 0 0.1rem;
+}
+.gift-page .leftCoin{
+    line-height: 0.30rem;
+}
+.gift-page .leftCoinCount{
+    color:#fb6273;
+}
+.gift-page .giftUl{
+    padding-top: 0.1rem;
+}
+/* li */
+.gift-page .gift-item{
+    margin: 0.05rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.05rem 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.gift-page .gift-item:last-of-type{
+    border-bottom: none;
+}
+.headnage{
+    display: flex;
+    align-items: flex-start;
+}
+.img-box{
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.nameAge{
+    margin-left: 0.1rem;
+}
+.spendCoin{
+    margin-top: 0.1rem;
+}
+.giftImg-box{
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.gift-page .submit{
+    display: block;
+    margin: 0.2rem auto 0;
+    outline: none;
+    border: none;
+    background-color: #ffe658;
+    line-height: 0.35rem;
+    text-align: center;
+    width: 1.4rem;
+    border-radius: 0.04rem;
+    font-size: 15px;
+}

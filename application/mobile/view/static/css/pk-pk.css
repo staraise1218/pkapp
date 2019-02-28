@@ -1,0 +1,706 @@
+/* pk */
+.pk-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: #fff;
+}
+.user1-title-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    width: 2.6rem;
+    height: 1.4rem;
+    background-position: -2.1rem -5.5rem;
+    color: #fff;
+    /* border: 1px solid red; */
+}
+.user1-title-wrapper .poster-wrapper {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.03rem solid #fff;
+    margin-left: 0.4rem;
+}
+.user1-title-wrapper .poster-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.user1-title-wrapper p {
+    margin-left: 0.2rem;
+}
+.user1-title-wrapper .user1-name {
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0.2rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 1.5rem;
+}
+
+/* user2 */
+.user2-title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    width: 2.6rem;
+    height: 1.4rem;
+    background-position: 0rem -3.8rem;
+    color: #fff;
+}
+.user2-title-wrapper .poster-wrapper {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.03rem solid #fff;
+    margin-right: 0.4rem;
+}
+.user2-title-wrapper .poster-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.user2-title-wrapper p {
+    margin-right: 0.2rem;
+}
+.user2-title-wrapper .user2-name {
+    position: absolute;
+    bottom: -0.5rem;
+    right: 0rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 1.5rem;
+    text-align: right;
+    padding-right: 0.2rem;
+}
+
+/* bifen */
+.bifen {
+    color: #fff;
+    font-size: 0.45rem;
+    font-weight: 600;
+    line-height: 1.4rem;
+    flex: 1;
+}
+
+
+
+.pk-title {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+.pk-title form h5 {
+    font-size: 0.32rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+.pk-title form label {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 1rem;
+    background: #fff;
+    color: #222;
+    border-radius: 0.2rem;
+    line-height: 1rem;
+    text-align: center;
+}
+.pk-title form label .circle-icon {
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-position: -0.86rem -1.48rem;
+}
+
+
+/* user-fo */
+.user-fo {
+    position: absolute;
+    bottom: 0.3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.user-fo .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3rem;
+    color: #fff;
+    font-size: 0.2rem;
+}
+.user-fo .item i {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid red;
+    margin-bottom: 0.1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* pk-pk-choose */
+.pk-pk-choose {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
+
+
+.pk-pk-choose form h5 {
+    font-size: 0.32rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+.pk-pk-choose form label {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 1rem;
+    background: #fff;
+    color: #222;
+    border-radius: 0.2rem;
+    line-height: 1rem;
+    text-align: center;
+}
+.pk-pk-choose form label .circle-icon {
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-position: -0.86rem -1.48rem;
+}
+
+/* .pk-pk-choose form .user1-active::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+} */
+.pk-pk-choose form label {
+    margin-top: 0.3rem;
+}
+
+
+
+
+
+/* ****************************************************************** */
+/* 挑战成功 */
+.pk-user-poster-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* border: 1px solid red; */
+    margin-top: 1rem;
+}
+.pk-user-poster-wrapper .user1-wrapper,
+.pk-user-poster-wrapper .user2-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: auto;
+    /* border: 1px solid red; */
+}
+.pk-user-poster-wrapper .user1-wrapper .user1-poster,
+.pk-user-poster-wrapper .user2-wrapper .user2-poster{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 0.04rem solid #fff;
+    overflow: hidden;
+}
+.pk-user-poster-wrapper .user1-wrapper .user1-poster img,
+.pk-user-poster-wrapper .user2-wrapper .user2-poster img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* user-success-wrapper */
+.user-success-wrapper {
+    width: 100%;
+    position: relative;
+    color: #fff;
+    margin-top: 0.6rem;
+}
+.user-success-wrapper .user-success-info {
+    width: 5.2rem;
+    height: 1.4rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 1px solid red;
+    background-image: url("__STATIC__/image/PK-18.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.user-success-wrapper .success-number {
+    font-size: 0.5rem;
+    line-height: 1.4rem;
+    margin-left: 0.3rem;
+    font-weight: 500;
+}
+.user-success-wrapper .user-success-poster-wrapper .user-success-poster {
+    position: absolute;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.04rem solid #fff;
+    top: -0.8rem;;
+    left: 50%;
+    transform: translateX(-50%)
+}
+.user-success-wrapper .user-success-poster img {
+    width: 100%;
+    height: 100%;
+}
+.user-success-wrapper .success-info {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    width: 2.1rem;
+    height: 0.7rem;
+    background-position: -2.4rem -6.1rem;
+}
+
+
+.user-success-wrapper .loser-number {
+    width: 2rem;
+    height: 1.4rem;
+    border: 1px solid red;
+    background-position: 0rem -3.8rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+
+
+
+
+.jindu-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pk-pk-choose .jindu1-wrapper {
+    order: 1;
+    margin-top: 1.5rem;
+    margin-left: 0.3rem;
+}
+.pk-pk-choose .jindu2-wrapper {
+    order: 3;
+    margin-top: 1.5rem;
+    margin-right: 0.3rem;
+}
+.pk-pk-choose .jindu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid #fff;
+    border-radius: 0.2rem;
+    width: 0.2rem;
+    height: 4.5rem;
+    overflow: hidden;
+}
+.pk-pk-choose ul {
+    order: 2;
+}
+.jindu-con {
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    border-radius: 0.2rem;
+    width: 0.2rem;
+    height: 0%;
+    background: rgb(252, 52, 101);
+}
+
+.jindu-wrapper em {
+    width: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pk-pk-choose form .user1-active{
+    background: #413c6c;
+    color: #fff;
+}
+/* 状态 */
+.user1-dui {
+    background: rgb(52,252,213) !important;
+    color: #fff !important;
+}
+.user1-dui::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.38rem;
+}
+
+.user1-cuo {
+    background: rgb(253,53,102) !important;
+    color: #fff !important;
+}
+.user1-cuo::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon1.png');
+    background-size: 10rem 10rem;
+    background-position: -5.1rem -6.2rem;    
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.38rem;
+}
+
+.user2-dui {
+    background: rgb(52,252,213) !important;
+    color: #fff !important;
+}
+.user2-dui::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.38rem;
+}
+.user2-cuo {
+    background: rgb(253,53,102) !important;
+    color: #fff !important;
+}
+.user2-cuo::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon1.png');
+    background-size: 10rem 10rem;
+    background-position: -5.1rem -6.2rem;    
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.38rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pk-title form .dui::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position:-5.1rem -6.2rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+.pk-title form .cuo{
+    background: rgb(255, 192, 36);
+    color: #fff;
+}
+.pk-title form .cuo::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    border: 1px solid red;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form .cuo::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('__STATIC__/image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form label {
+    margin-top: 0.3rem;
+}
+
+
+.pk-title form .dui{
+    background: rgb(254, 135, 137);
+    color: #fff;
+}
+.pk-title form .dui::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    border: 1px solid red;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.3rem;
+}
+
+
+/* ************************************************** */
+/* pk 结束 */
+.pk-end-wrapper .wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1rem;
+}
+.pk-end-wrapper .wrapper .user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 0.2rem;
+}
+.pk-end-wrapper .wrapper .poster {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.04rem solid #fff;
+    margin-bottom: 0.1rem;
+}
+.pk-end-wrapper .wrapper .poster img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.pk-end-wrapper .info-wrapper {
+    position: relative;
+    width: 100%;
+    height: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    margin-top: 0.6rem;
+    background-image: url('../image/success.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.pk-end-wrapper .info-wrapper .user1-info {
+    position: absolute;
+    left: 50%;
+    top: -1rem;
+    transform: translateX(-50%);
+}
+.pk-end-wrapper .info-wrapper .user1-info .poster {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    border: 0.04rem solid #fff;
+    overflow: hidden;
+}
+.pk-end-wrapper .info-wrapper .user1-info .poster img {
+    width: 100%;
+    height: 100%;
+}
+.pk-end-wrapper .info-wrapper .user1-number,
+.pk-end-wrapper .info-wrapper .user2-number {
+    display: flex;
+    margin: 0 0.3rem;
+    font-size: 0.5rem;
+}
+.pk-end-wrapper .info-wrapper .user1-info-b {
+    width: 2rem;
+    height: 0.7rem;
+    position: absolute;
+    bottom: -0.65rem;
+    left: 0;
+    background-image: url('../image/icon-bg.png');
+    background-size: 5.45rem 4.5rem;
+    background-repeat: no-repeat;
+    background-position: -3.4rem 0rem;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    margin-top: -0.2rem;
+}
+.pk-end-wrapper .info-wrapper .info {
+    text-align: center;
+}
+
+.pk-end-wrapper .jiangli-wrapper {
+    margin-top: 0.6rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.pk-end-wrapper .jiangli-wrapper div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.4rem;
+    width: 80%;
+    padding: 0.2rem 0;
+}
+.pk-end-wrapper .jiangli-wrapper .bottom-img {
+    display: inline-block;
+    width: 100%;
+    height: 0.05rem;
+    background-image: url('../image/c8c5ac37ebb4195d84ac2499139555b.png');
+    background-size: contain;
+}
+
+.pk-end-wrapper .jiangli-wrapper i {
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.2rem;
+}
+.pk-end-wrapper .jiangli-wrapper i.jinbi-icon {
+    background-position: -1.6rem -1.2rem !important;
+}
+.pk-end-wrapper .jiangli-wrapper i.jingyan-icon {
+    background-position: -2.5rem -1.1rem !important;
+}
+
+
+.pk-end-wrapper .btn-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    /* margin-top: 0.5rem; */
+}
+.pk-end-wrapper .btn-wrapper div {
+    padding: 0.25rem 1.5rem;
+    margin-top: 0.3rem;
+    border-radius: 0.2rem;
+}
+.pk-end-wrapper .btn-wrapper .contain-btn {
+    position: relative;
+    background: rgb(140, 204, 231);
+    margin: 0;
+}
+.pk-end-wrapper .btn-wrapper .share {
+    background: rgb(252, 52, 101);
+}
+.pk-end-wrapper .btn-wrapper .huigu-btn {
+    color: #fff;
+}
+.pk-end-wrapper .btn-wrapper p {
+    font-size: 0.2rem;
+    margin-top: 0.26rem;
+}
+/* pk 结束 end */

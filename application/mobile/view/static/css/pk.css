@@ -1,0 +1,649 @@
+.user1-wrapper {
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    color: #fff
+}
+.user1-wrapper .user1-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1.2rem;
+}
+.user1-wrapper .user1-info p {
+    margin-bottom: 0.12rem;
+    font-size: 0.26rem;
+}
+.user1-wrapper .user1-poster-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 3rem;
+    height: 1.4rem;
+    background-position: -0.7rem -3.8rem;
+    color: #fff;
+    /* border: 1px solid red; */
+
+}
+.user1-wrapper .user1-poster-wrapper::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -0.8rem;
+    background-image: url(../image/icon3.png);
+    background-size: 10rem 10rem;
+    background-position: 0rem 0rem;
+    background-repeat: no-repeat;
+    background-position: 0rem -3.8rem;
+    width: 0.8rem;
+    height: 1.4rem;
+    /* border: 1px solid red */
+}
+/* .user1-wrapper .user1-poster-wrapper::after {
+    content: "接受者";
+    display: block;
+    color: rgb(124, 111, 253);
+    position: absolute;
+    top: 1.6rem;
+    left: 0.3rem;
+    text-align: center;
+    line-height: 0.8rem;
+    background-image: url(../image/icon5.png);
+    background-size: 5.7rem 4.5rem;
+    background-position: 0rem 0rem;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-position: -0.9rem -3.8rem;
+    width: 1.3rem;
+    height: 0.8rem;
+} */
+.user1-wrapper .user1-poster-wrapper .poster {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 0.04rem solid #fff;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user1-wrapper .user1-poster-wrapper .poster img{
+    width: 100%;
+    height: 100%;
+}
+.user1-wrapper .user1-poster-wrapper .title_tag {
+    position: absolute;
+    left: 0.16rem;
+    top: -0.15rem;
+}
+.user1-wrapper .user1-poster-wrapper .user1_name {
+    color: #fff;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* border: 1px solid red; */
+    width: 1rem;
+}
+
+
+/* ****************************************************************** */
+
+.user2-wrapper {
+    margin-top: 4.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    color: #fff;
+}
+.user2-wrapper .user2-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1.2rem;
+}
+.user2-wrapper .user2-info p {
+    margin-bottom: 0.12rem;
+    font-size: 0.26rem;
+}
+.user2-wrapper .user2-poster-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 3rem;
+    height: 1.4rem;
+    background-position: -0.7rem -5.5rem;
+    color: #fff;
+    /* border: 1px solid red; */
+
+}
+.user2-wrapper .user2-poster-wrapper::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -0.8rem;
+    background-image: url(../image/icon3.png);
+    background-size: 10rem 10rem;
+    background-position: 0rem 0rem;
+    background-repeat: no-repeat;
+    background-position: -4rem -5.5rem;
+    width: 0.8rem;
+    height: 1.4rem
+}
+/* .user2-wrapper .user2-poster-wrapper::after {
+    content: "发起者";
+    display: block;
+    color: rgb(124, 111, 253);
+    position: absolute;
+    top: -0.9rem;
+    left: 0.3rem;
+    text-align: center;
+    line-height: 0.8rem;
+    background-image: url(../image/icon5.png);
+    background-size: 5.7rem 4.5rem;
+    background-position: 0rem 0rem;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-position: -0.8rem 0.2rem;
+    width: 1.3rem;
+    height: 0.8rem;
+} */
+.user2-wrapper .user2-poster-wrapper .poster {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 0.04rem solid #fff;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user2-wrapper .user2-poster-wrapper .poster img{
+    width: 100%;
+    height: 100%;
+}
+.user2-wrapper .user2-poster-wrapper .title_tag {
+    position: absolute;
+    right: -0.46rem;
+    top: -0.15rem;
+    z-index: 1;
+}
+.user2-wrapper .user2-poster-wrapper .user2_name {
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* border: 1px solid red; */
+    width: 1rem;
+}
+
+/* ****************************************************************** */
+
+/* 中间状态 */
+.zhuangtai-wrapper {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    /* border: 1px solid red; */
+}
+/* # vs */
+.zhuangtai-wrapper .vs-poster {
+    display: inline-block;
+    width: 2rem;
+}
+.zhuangtai-wrapper .vs-poster img {
+    width: 100%;
+    max-height: 100%;
+}
+/* # abandon */
+.zhuangtai-wrapper .abandon-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.zhuangtai-wrapper .abandon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #fff;
+    text-align: center;
+    color: RGB(65, 60, 108);
+}
+.zhuangtai-wrapper .abandon .abandon-icon {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+.zhuangtai-wrapper .abandon span {
+    font-size: 0.2rem;
+    font-weight: 600;
+}
+/* begin */
+.zhuangtai-wrapper .begin-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.zhuangtai-wrapper .begin-wrapper .abandon-b {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+}
+.zhuangtai-wrapper .begin-wrapper .abandon-b .abandon-b-icon {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    background-position: -2.1rem -2.7rem;
+}
+.zhuangtai-wrapper .begin-wrapper span {
+    font-size: 0.2rem;
+    font-weight: 600;
+}
+.zhuangtai-wrapper .begin-wrapper .begin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    text-align: center;
+    color: RGB(65, 60, 108);
+    background: #fff;
+    margin-left: 1rem;
+}
+.zhuangtai-wrapper .begin-wrapper .begin .begin-icon {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+
+/* ****************************************************************** */
+
+/* 年级 */
+.grade-wrapper {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    /* color: #fff; */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.grade-wrapper .title {
+    display: inline-block;
+    color: #fff
+}
+.grade-wrapper .title #grade {
+    background: transparent;
+    color: #fff;
+    border: 0;
+    vertical-align: center;
+}
+.grade-wrapper .title #grade option {
+
+}
+
+
+
+
+/* ****************************************************************** */
+/* pk-pk */
+.daojishi-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    font-size: 0.2rem;
+    text-align: center;
+}
+.daojishi-icon {
+    display: inline-block;
+    width: 0.8rem;
+    height: 1.3rem;
+    background-position: 0 -1.1rem;
+}
+
+
+
+
+
+
+
+
+/* ****************************************************************** */
+/* pk */
+.pk-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: #fff;
+}
+
+
+
+.user1-title-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    width: 2.6rem;
+    height: 1.4rem;
+    background-position: -2.1rem -5.5rem;
+    color: #fff;
+    /* border: 1px solid red; */
+}
+.user1-title-wrapper .poster-wrapper {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.03rem solid #fff;
+    margin-left: 0.4rem;
+}
+.user1-title-wrapper .poster-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.user1-title-wrapper p {
+    margin-left: 0.2rem;
+}
+.user1-title-wrapper .user1-name {
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0.2rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 1.5rem;
+}
+
+/* user2 */
+.user2-title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    width: 2.6rem;
+    height: 1.4rem;
+    background-position: 0rem -3.8rem;
+    color: #fff;
+}
+.user2-title-wrapper .poster-wrapper {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.03rem solid #fff;
+    margin-right: 0.4rem;
+}
+.user2-title-wrapper .poster-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.user2-title-wrapper p {
+    margin-right: 0.2rem;
+}
+.user2-title-wrapper .user2-name {
+    position: absolute;
+    bottom: -0.5rem;
+    right: 0rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 1.5rem
+}
+
+/* bifen */
+.bifen {
+    color: #fff;
+    font-size: 0.45rem;
+    font-weight: 600;
+    line-height: 1.4rem;
+    flex: 1;
+}
+
+
+/* pk-title */
+.pk-title {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+.pk-title form h5 {
+    font-size: 0.32rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+.pk-title form label {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 1rem;
+    background: #fff;
+    color: #222;
+    border-radius: 0.2rem;
+    line-height: 1rem;
+    text-align: center;
+}
+.pk-title form label .circle-icon {
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-position: -0.86rem -1.48rem;
+}
+.pk-title form .dui{
+    background: rgb(254, 135, 137);
+    color: #fff;
+}
+.pk-title form .dui::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    border: 1px solid red;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form .dui::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('../image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form .cuo{
+    background: rgb(255, 192, 36);
+    color: #fff;
+}
+.pk-title form .cuo::before {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    border: 1px solid red;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form .cuo::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('../image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+}
+.pk-title form label {
+    margin-top: 0.3rem;
+}
+
+
+
+/* user-fo */
+.user-fo {
+    position: absolute;
+    bottom: 0.3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.user-fo .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3rem;
+    color: #fff;
+    font-size: 0.2rem;
+}
+.user-fo .item i {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid red;
+    margin-bottom: 0.1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* pk-pk-choose */
+.pk-pk-choose {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
+
+
+.pk-pk-choose form h5 {
+    font-size: 0.32rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+.pk-pk-choose form label {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 1rem;
+    background: #fff;
+    color: #222;
+    border-radius: 0.2rem;
+    line-height: 1rem;
+    text-align: center;
+}
+.pk-pk-choose form label .circle-icon {
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-position: -0.86rem -1.48rem;
+}
+.pk-pk-choose form .pk-active{
+    background: rgb(252, 52, 101);
+    color: #fff;
+}
+.pk-pk-choose form .pk-active::after {
+    display: block;
+    content: "";
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url('../image/icon2.png');
+    background-size: 3.98rem 3.91rem; 
+    background-repeat: no-repeat;
+    background-position: -0.86rem -1.48rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.3rem;
+}
+.pk-pk-choose form label {
+    margin-top: 0.3rem;
+}
+
+
+
+
+
+/* ****************************************************************** */
+/* 挑战成功 */
+.pk-user-poster-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* border: 1px solid red; */
+    margin-top: 1rem;
+}
+.pk-user-poster-wrapper .user1-wrapper,
+.pk-user-poster-wrapper .user2-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: auto;
+    /* border: 1px solid red; */
+}
+.pk-user-poster-wrapper .user1-wrapper .user1-poster,
+.pk-user-poster-wrapper .user2-wrapper .user2-poster{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 0.04rem solid #fff;
+    overflow: hidden;
+}
+.pk-user-poster-wrapper .user1-wrapper .user1-poster img,
+.pk-user-poster-wrapper .user2-wrapper .user2-poster img {
+    width: 100%;
+    height: 100%;
+}
+
+
+

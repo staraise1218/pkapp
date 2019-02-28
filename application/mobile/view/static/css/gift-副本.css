@@ -1,0 +1,103 @@
+.gift-page body{
+    background-color: #f2f2f2;
+}
+.gift-page header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #302e40;
+    color: #fff;
+    font-size: 16px;
+    z-index: 1;
+}
+.gift-page .title{
+    text-align: center;
+}
+.gift-page .back {
+    width: 0.2rem;
+    height: 0.16rem;
+    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0.1rem;
+    transform: translate(0, -50%);
+}
+.gift-page .giftWrap{
+    margin-top: 50px;
+    padding: 0 0.08rem;
+}
+.gift-page .leftCoin{
+    line-height: 0.30rem;
+}
+.gift-page .leftCoinCount{
+    color:#fb6273;
+}
+.gift-page .giftUl{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+/* li */
+.gift-page .gift-item{
+    flex: 0 0 22%;
+    margin: 0.05rem 0;
+    position: relative;
+}
+.gift-page .gift-item-content{
+    height: 0;
+    padding-bottom: 100%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.gift-page .glamour{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom:0;
+    background-color: rgba(255, 88, 106, 0.8);
+    color: #fff;
+    line-height: 0.22rem;
+    text-align: center;
+}
+.gift-page .price{
+    line-height: 0.25rem;
+    text-align: center;
+    color:#969696;
+}
+.gift-page .selectedIcon{
+    /* display: inline-block; */
+    display: none;
+    background: url(../images/icon/对号\ \(1\).png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.2rem;
+    height: 0.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ffe658;
+}
+.gift-page .gift-item.selected .selectedIcon{
+    display: inline-block;
+}
+.gift-page .submit{
+    display: block;
+    margin: 0.2rem auto 0;
+    outline: none;
+    border: none;
+    background-color: #ffe658;
+    line-height: 0.35rem;
+    text-align: center;
+    width: 1.4rem;
+    border-radius: 0.04rem;
+    font-size: 15px;
+}

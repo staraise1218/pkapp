@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/user-myHomePage.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/js/js-plugins/jquery-weui-build/jquery-weui.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/wode-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="homepage myHomepage">
+    <!-- 修改头像 隐藏域 -->
+    <form id="editHeapicForm" action="http://app.yujianhaoshiguang.cn/index.php/Api/user/uploadFile" method="post" enctype="multipart/form-data"
+        style="display:none;">
+        <input type="text" name="user_id" style="display:none;">
+        <input id="editHeadpic" type="file" name="file" accept="image/*" style="display: none;">
+        <input type="text" name="type" value="head_pic" style="display:none;">
+        <input type="text" name="action" value="edit" style="display:none;">
+    </form>
+    <!-- 修改头像 隐藏域 end -->
+    <div class="allWrap">
+        <header>
+            <a class="back homepageBack" href="javascript:void(0)"></a>
+            <div class="title"></div>
+            <a class="editHomePage" href="javascript:void(0)"></a>
+        </header>
+
+        <div class="all-content">
+
+            <div class="head">
+                <div class="picMask"></div>
+            </div>
+
+            <div class="edit-personal-avatar">
+                <div style="position: relative;">
+                    <div class="avatar-pic">
+                        <img src="__STATIC__/images/icon/tx.png" onload="Global.resizeHeadpic(this)">
+                    </div>
+                    <span class="videoStatus" style="display: none;"></span>
+                </div>
+
+                <div class="avatar-content">
+                    <span class="sexAge">
+                        <i class="sex"></i>
+                        <span class="age"></span>
+                    </span>
+                    <!-- <span class="edit-personal-constellation">摩羯座</span> -->
+                    <p class="edit-personal-areaWrap" style="display:none;">
+                        <img class="areaPic" src="__STATIC__/images/icon/定位-2.png">
+                        <span class="edit-personal-area">
+                            <span class="province"></span>
+                            <span class="province-city"></span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="publicPic">
+                <div class="publicPic-title">
+                    <p>个人相册</p>
+                    <p class="picCount"></p>
+                </div>
+                <ul class="myPhotos photos">
+                    <a href="javascript:void(0)" class="addMyPhotos flex4 addMyPhotos1" data-type="1" style="padding: 0.05rem;">
+                        <img src="__STATIC__/images/icon/拍照.png">
+                    </a>
+                </ul>
+            </div>
+
+            <div class="publicPic">
+                <div class="publicPic-title">
+                    <p>精华照片</p>
+                    <p class="picCount quintessenceCount"></p>
+                </div>
+                <ul class="myPhotos quintessencePhotos">
+                    <a href="javascript:void(0)" class="addMyPhotos flex4 addMyPhotos2" data-type="2" style="padding: 0.05rem;">
+                        <img src="__STATIC__/images/icon/拍照.png">
+                    </a>
+                </ul>
+            </div>
+
+            <div class="myInvite">
+                <div class="myInvite-title">
+                    <p class="myInviteText">我的邀约</p>
+                    <p class="myInviteCount"></p>
+                </div>
+
+                <div class="myInvite-content">
+                    <div class="myInvite-tip myInviteSome">
+                        <p class="noInvite noInviteSome" style="display: none;">未发布任何邀约</p>
+                    </div>
+                    <div class="releaseInvite">
+                        发布邀约
+                    </div>
+                </div>
+            </div>
+
+            <div class="myTalk">
+                <div class="myTalk-title">
+                    <p class="myTalkText">动态</p>
+                    <p class="myTalkCount"></p>
+                </div>
+
+                <div class="myInvite-content">
+                    <div class="myInvite-tip myTalkSome">
+                        <p class="noInvite noTalkSome" style="display: none;">未发布任何动态</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myApprove">
+                <div class="myApprove-title">
+                    <p class="myApproveText">我的认证</p>
+                </div>
+
+                <ul>
+                    <li class="myApprove-item">
+                        <div class="myApprove-pic">
+                            <img src="__STATIC__/images/icon/tx.png">
+                        </div>
+                        <p class="myApprove-phone"></p>
+                    </li>
+                    <li class="myApprove-item showVideo">
+                        <div class="myApprove-pic">
+                            <img src="__STATIC__/images/icon/tx.png">
+                        </div>
+                        <p class="myApprove-video"></p>
+                    </li>
+                    <li class="myApprove-item">
+                        <div class="myApprove-pic">
+                            <img src="__STATIC__/images/icon/tx.png">
+                        </div>
+                        <p class="myApprove-identity"></p>
+                    </li>
+                    <!-- <li class="myApprove-item">
+                        <div class="myApprove-pic">
+                            <img src="__STATIC__/images/icon/tx.png">
+                        </div>
+                        <p class="myApprove-job">职业未认证</p>
+                    </li> -->
+                </ul>
+            </div>
+
+            <div class="myGift" style="padding-bottom:0.1rem;">
+                <div class="myGift-title">
+                    <p class="myGiftText">礼物</p>
+                    <p class="myGiftCount"></p>
+                </div>
+
+                <div class="myInvite-content">
+                    <div class="myGiftSome" style="padding:0.1rem 0.05rem;">
+                        <p class="noInvite noGiftSome" style="display: none;">还没有收到任何礼物</p>
+                    </div>
+                    <a href="javascript:void(0)" id="lookMyGift">我收到的礼物</a>
+                </div>
+            </div>
+
+            <div class="aboutMe">
+                <div class="aboutMe-title">
+                    <p class="aboutText">关于我</p>
+                    <p class="aboutMeCount">18%</p>
+                </div>
+
+                <div class="aboutMe-contentWrap">
+                    <ul class="aboutMe-list1">
+                        <li class="aboutMe-item">
+                            <label>遇见好时光ID</label>
+                            <div class="aboutMe-item-content">
+                                <span class="yuewanID"></span>
+                            </div>
+                        </li>
+                        <!-- <li class="aboutMe-item">
+                            <label>星座</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData constellation">摩羯座</span>
+                            </div>
+                        </li> -->
+                        <li class="aboutMe-item">
+                            <label>感情状况</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData emotion_status"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item">
+                            <label>职业</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData profession"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item">
+                            <label>收入</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData income"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item">
+                            <label>身高</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData height"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item">
+                            <label>体重</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData weight"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item">
+                            <label>个性签名</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData signature"></span>
+                            </div>
+                        </li>
+                        <!-- <li class="aboutMe-item">
+                            <label>对另一半的要求</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData canChoose"></span>
+                            </div>
+                        </li> -->
+                        <li class="aboutMe-item">
+                            <label>最近活跃时间</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData active_time"></span>
+                            </div>
+                        </li>
+                        <li class="aboutMe-item satis_parts_item">
+                            <label>最满意部位</label>
+                            <div class="aboutMe-item-content">
+                                <span class="modifyData satisfactory_parts">
+                                    <!-- <ul class="clearfix">
+                                        <li>鼻子</li>
+                                        <li>脸</li>
+                                    </ul> -->
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 模态框 -->
+
+            <div class="gotoEditHome" style="display: none;">
+                <ul>
+                    <li class="gotoEditHomePage">编辑资料</li>
+                    <li class="">认证形象视频</li>
+                    <li class="home-cancel">取消</li>
+                </ul>
+            </div>
+            <!-- 播放认证视频 -->
+            <div class="fullScreen" style="display: none;">
+              <div class="videoHeader">
+                  <div class="closeFullScreen"></div>
+              </div>
+              <div class="fullScreenScroll">
+                  <div class="fullScreenWrap">
+                      <video id="video2" width="100%" height="100%" src="" poster="" loop></video>
+                  </div>
+              </div>
+            </div>
+            <!-- 修改头像 -->
+            <div class="changeHeadpic" style="display: none;">
+                <ul>
+                    <li class="lookFullScreenImg">查看大图</li>
+                    <li class="editHeadpic">修改头像</li>
+                    <li class="home-cancel">取消</li>
+                </ul>
+            </div>
+
+            <!-- 发布邀约 -->
+
+            <div class="m_shade"></div>
+
+            <div class="maskm">
+                <div class="title">发起邀约</div>
+                <div class="box-top">
+                    <ul>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=1>
+                                <span class="travel"></span>旅行</a>
+                        </li>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=2>
+                                <span class="food"></span>吃饭</a>
+                        </li>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=3>
+                                <span class="movie"></span>电影</a>
+                        </li>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=4>
+                                <span class="sing"></span>唱歌</a>
+                        </li>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=5>
+                                <span class="sport"></span>运动</a>
+                        </li>
+                        <li>
+                            <a class="openReleaseInvite" href="javascript:void(0)" data-type=6>
+                                <span class="other"></span>其他</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 发布邀约 end -->
+
+            <!-- 修改个人资料div wrap -->
+            <div class="modifyDataWrap" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------- -->
+
+    <!-- <script src="__STATIC__/js-min/user-myHomePage.min.js"></script> -->
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script src="__STATIC__/js/js-plugins/jquery-weui-build/jquery-weui.min.js"></script>
+    <script src="__STATIC__/js/js-plugins/jquery-weui-build/swiper.min.js"></script>
+    <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
+    <script src="__STATIC__/js/areaCodeArr.js"></script>
+    <script>
+        var Homepage = {
+            _mTimer: null,
+            user_id: "",
+            userInfo:{},
+
+            videoUrl:null,
+
+            updateDom: function (data) {
+                //昵称
+                $(".homepage>.allWrap>header .title").html(data.baseinfo.nickname)
+                //头像
+                if (data.baseinfo.head_pic && data.baseinfo.head_pic !== "") {
+                    let head_pic=Global.filterHttpImg(data.baseinfo.head_pic);
+                    $(".avatar-pic img").attr("src", head_pic);
+                }
+                //视频认证
+                // if (Number(data.baseinfo.auth_video_status) == 2) {
+                //     $(".edit-personal-avatar .videoStatus").show();
+                // }
+                //sex
+                var sexClass = Number(data.baseinfo.sex) ==1 ? "male" : "female";
+                $(".avatar-content .sexAge").addClass(sexClass);
+                //age
+                $(".avatar-content .sexAge .age").html(data.baseinfo.age);
+                //星座
+                // $(".edit-personal-constellation").html() 
+                //地区
+                let provinceObj=getProvObj(data.baseinfo.province.toString())
+                let cityObj=getCityObj(data.baseinfo.city.toString())
+                console.log(provinceObj,cityObj)
+                if(JSON.stringify(provinceObj)!=="{}"&&JSON.stringify(cityObj)!=="{}"){
+                    let provStr=JSON.stringify(provinceObj)!=="{}"?provinceObj.name:""
+                    let cityStr=JSON.stringify(cityObj)!=="{}"?cityObj.name:""
+                    $("span.province").html(provStr)
+                    $("span.province-city").html(cityStr)
+                    $(".edit-personal-areaWrap").show();
+                }
+                //个人相册
+                if (data.photos && data.photos !== "" && data.photos.length !== 0) {
+                    let showArr = data.photos.length >= 20 ? data.photos.slice(0, 20) : data.photos;
+                    //图片升序排列
+                    showArr.sort(function (a, b) {
+                        return a.id - b.id;
+                    });
+                    console.log(showArr)
+                    showArr.forEach(function (item) {
+                        let $liTemp = $(
+                            `
+                                <li class="edit-pic-item flex4">
+                                    <div style="margin:0.05rem;height:calc(100% - 0.1rem);overflow:hidden;">
+                                        <img class="showPic" src=${Global.host+item.url}>
+                                    </div>
+                                </li>
+                            `
+                        );
+                        $("ul.photos").prepend($liTemp);
+                    });
+                }
+                //个人相册数量
+                $(".picCount").html(data.count.normalPhotoCount);
+                //精华照片
+                if (data.quintessence_photos && data.quintessence_photos !== "" && data.quintessence_photos.length !==0) {
+                    let showArr = data.quintessence_photos.length >= 20 ? data.quintessence_photos.slice(0, 20) :
+                        data.quintessence_photos;
+                    //图片升序排列
+                    showArr.sort(function (a, b) {
+                        return a.id - b.id;
+                    });
+                    showArr.forEach(function (item) {
+                        let $liTemp = $(
+                            `
+                                <li class="edit-pic-item flex4">
+                                    <div style="margin:0.05rem;height:calc(100% - 0.1rem);overflow:hidden;">
+                                        <img class="showPic" src=${Global.host+item.url}>
+                                    </div>
+                                </li>
+                            `
+                        );
+                        $("ul.quintessencePhotos").prepend($liTemp);
+                    });
+                }
+                //精华照片数量
+                $(".quintessenceCount").html(data.count.jinghuaPhotoCount);
+                //我的邀约
+                if (data.invite.length == 0) {
+                    $(".noInviteSome").show()
+                } else {
+                    data.invite.forEach(function (value, index) {
+                        $(".myInviteSome").append($('<p class="inviDetail" data-id="' + value.id + '">' +
+                            value.title + '</p>'))
+                    })
+                }
+                //我的邀约数量
+                $(".myInviteCount").html(data.count.inviteCount);
+                //我的动态
+                if (data.dynamics) {
+                    let title=data.dynamics.content+data.dynamics.description;
+                    title=title.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "").replace(/<img[^>]*>/g, "").trim()
+                    let dynamics_id=data.dynamics.id;
+                    $(".myTalkSome").append($('<p class="inviDetail" data-id="' + dynamics_id + '">' +title + '</p>'))
+                }else{
+                    $(".noTalkSome").show();
+                }
+                //我的动态数量
+                $(".myTalkCount").html(data.count.dynamicsCount)
+                //礼物
+                if(data.gift&&data.gift.length>0){
+                    let arr=data.gift.slice(0,4) //取前四个
+                    console.log(arr)
+                    let myGiftSome=document.getElementsByClassName("myGiftSome")[0]
+                    myGiftSome.innerHTML=""
+                    arr.forEach(function(obj){
+                        let div=document.createElement("div")
+                        div.innerHTML=`
+                            <img src=${Global.host+obj.image}>
+                            <span class="giftCount">${obj.count}</span>
+                        `
+                        div.className="myGiftSomeItemWrap"
+                        myGiftSome.appendChild(div)
+                    })
+                }else{ //没收到礼物
+                    $(".noGiftSome").show()
+                }
+                //礼物数量
+                $(".myGiftCount").html(data.gift.length)
+                //认证
+                if (Number(data.baseinfo.mobile_validated) == 0) {
+                    $(".myApprove-phone").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/手机号未认证.png")
+                    $(".myApprove-phone").html("手机号未认证")
+                } else {
+                    $(".myApprove-phone").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/手机号认证.png")
+                    $(".myApprove-phone").html("手机号已认证")
+                }
+
+                if (Number(data.baseinfo.auth_video_status) == 2) { //视频已认证
+                    $(".myApprove-video").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/视频已认证@2x.png")
+                    $(".myApprove-video").html("形象视频已认证")
+                } else {
+                    $(".myApprove-video").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/视频未认证@2x.png")
+                    $(".myApprove-video").html("形象视频未认证")
+                }
+
+                if (Number(data.baseinfo.auth_identity_status) == 2) {
+                    $(".myApprove-identity").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/身份已认真@2x.png")
+                    $(".myApprove-identity").html("身份已认证")
+                } else {
+                    $(".myApprove-identity").prev(".myApprove-pic").find("img").attr("src",
+                        "__STATIC__/images/icon/身份未认真@2x.png")
+                    $(".myApprove-identity").html("身份未认证")
+                }
+
+                // about me----------------------------------
+                $(".yuewanID").html(data.baseinfo.uuid);
+                //星座
+                // $(".constellation").html()
+                //感情状态
+                if (data.baseinfo.emotion_status && data.baseinfo.emotion_status !== "") {
+                    $(".emotion_status").html(data.baseinfo.emotion_status)
+                } else {
+                    $(".emotion_status").html("请选择").addClass("canChoose")
+                }
+                //情感状况
+                if (data.baseinfo.emotion_status && data.baseinfo.emotion_status !== "") {
+                    $(".emotion_status").html(data.baseinfo.emotion_status)
+                } else {
+                    $(".emotion_status").html("请选择").addClass("canChoose")
+                }
+                //职业
+                if (data.baseinfo.profession && data.baseinfo.profession !== "") {
+                    $(".profession").html(data.baseinfo.profession)
+                } else {
+                    $(".profession").html("请选择").addClass("canChoose")
+                }
+                //收入
+                if (data.baseinfo.income && data.baseinfo.income !== "") {
+                    switch (Number(data.baseinfo.income)) {
+                        case 1:
+                            $(".income").html("3000元以上/月")
+                            break;
+                        case 2:
+                            $(".income").html("5000元以上/月")
+                            break;
+                        case 3:
+                            $(".income").html("10000元以上/月")
+                            break;
+                        case 4:
+                            $(".income").html("20000元以上/月")
+                            break;
+                        case 5:
+                            $(".income").html("50万元以上/年")
+                            break;
+                        case 6:
+                            $(".income").html("100万元以上/年")
+                            break;
+                        case 7:
+                            $(".income").html("保密")
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    $(".income").html("请选择").addClass("canChoose")
+                }
+                //身高
+                if (data.baseinfo.height && data.baseinfo.height !== "") {
+                    $(".height").html(data.baseinfo.height + "cm")
+                } else {
+                    $(".height").html("请选择").addClass("canChoose")
+                }
+                //体重
+                if (data.baseinfo.weight && data.baseinfo.weight !== "") {
+                    $(".weight").html(data.baseinfo.weight + "kg")
+                } else {
+                    $(".weight").html("请选择").addClass("canChoose")
+                }
+                //对爱情的看法
+                if (data.baseinfo.signature && data.baseinfo.signature !== "") {
+                    $(".signature").html(data.baseinfo.signature)
+                } else {
+                    $(".signature").html("请选择").addClass("canChoose")
+                }
+
+                //对另一半的要求？
+
+
+                //最近活跃时间
+                if (data.baseinfo.active_time && data.baseinfo.active_time !== "") {
+                    let timeStr = Global.stampToStr(data.baseinfo.active_time);
+                    $(".active_time").html(timeStr);
+                }
+                //最满意部位
+                if (data.baseinfo.satisfactory_parts && data.baseinfo.satisfactory_parts !== "") {
+                    $(".satisfactory_parts").append($('<ul class="clearfix"></ul>'))
+                    var partsArr = data.baseinfo.satisfactory_parts.split(",")
+                    partsArr.forEach(function (value) {
+                        $(".satisfactory_parts ul").append($('<li>' + value + '</li>'))
+                    })
+                } else {
+                    $(".satisfactory_parts").html("请选择").addClass("canChoose")
+                }
+
+                //updateDom之后
+
+                //-----------------------------------
+
+                Homepage.setProps();
+
+                //根据sesstion 返回页面滚动位置
+                if (sessionStorage.getItem("homePage") && sessionStorage.getItem("homePage") !== null && sessionStorage.getItem("homePage") !== "null") {
+                    let pageData = JSON.parse(sessionStorage.getItem("homePage"))
+                    console.log(pageData)
+                    //滚动位置
+                    setTimeout(function () {
+                        $(".homepage .all-content")[0].scrollTop = pageData.pageScrollTop;
+                    }, 0);
+                }
+
+                //修改个人主页里的资料 绑定事件
+                Homepage.modifyDataBind();
+            },
+            getDataUpdateDom: function () {
+                var postData = {
+                    user_id: Homepage.user_id,
+                    toUserId: Homepage.user_id
+                }
+                var url = Global.host + "/index.php/Api/User/myHomePage";
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result.data)
+
+                        Homepage.userInfo=result.data
+
+                        Homepage.updateDom(result.data);
+                    }
+                });
+            },
+            //上传普通/精华图片
+            // uploadPic: function (type, $li, callback) { //type类型：1普通，2精华
+            //     // jquery.form.js方法
+            //     $li.find(":input[name='user_id']").val(Homepage.user_id);
+            //     $li.find(":input[name='type']").val(type);
+            //     $li.find(":input[name='file_type']").val(1);
+
+            //     Global.openLoading();
+            //     console.log("上传")
+            //     $li.find("#homeForm").ajaxSubmit(function (result) {  
+            //         console.log(result)                  
+            //         if (result.data && result.data !== "" && result.data.length !== 0) {
+            //             console.log("上传结束")
+            //             Global.closeLoading("上传成功", function () {
+            //                 callback(result.data.files[0]); //上传文件的图片路径
+            //             });
+            //         }  
+            //     });
+            // },
+            //上传普通照片
+            uploadPic:function(srcArr,type,callback){ //参数1：路径数组 参数2：1普通照片or2精华照片 参数3：回调
+                var jsonArr=JSON.stringify(srcArr)
+                var postData = {
+                    user_id: Homepage.user_id,
+                    type:type,
+                    file_type:1,
+                    file: jsonArr,
+                }
+                // alert(JSON.stringify(postData))
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/uploadPhoto",
+                    data: postData,
+                    success: function (res) {
+                        // alert(JSON.stringify(res))
+                        if(res.code==200){
+                            //更新dom
+                            let ul
+                            if(type==1){ //普通照片
+                                ul = document.querySelector("ul.photos")
+                            }else{ //精华照片
+                                ul = document.querySelector("ul.quintessencePhotos")
+                            }
+                            srcArr.forEach(function(src){
+                                let li=document.createElement("li")
+                                li.className="edit-pic-item flex4"
+                                li.innerHTML=`
+                                    <div style="margin:0.05rem;height:calc(100% - 0.1rem);overflow:hidden;">
+                                        <img class="showPic" src=${Global.host+src}>
+                                    </div>
+                                    <div>${Global.host+src}</div>
+                                `
+                                //更新dom
+                                if ($(ul).find("li").length >= 20) {
+                                    $(ul).find("li:last").remove();
+                                }
+                                $(ul).prepend($(li))
+                    
+                                //
+                                Homepage.setProps();
+                            })
+                        }
+                    }
+                });
+            },
+            addMyPhotos: function (el) { //el点击的加号
+                let $curUl = $(el).closest(".myPhotos");
+                let type = Number($(el).attr("data-type")); //1普通图片，2精华图片
+
+                let url = Global.host + "/index.php/Api/User/uploadPhoto";
+                let $liTemp = $(
+                    `
+                        <li class="edit-pic-item flex4">
+                            <div style="margin:0.05rem;height:calc(100% - 0.1rem);overflow:hidden;">
+
+                                <img class="showPic" src="__STATIC__/images/icon/tx.png">
+                                
+                                <div class="homeFormWrap" style="display:none;">
+                                    <form id="homeForm" action=${url} method="post" enctype="multipart/form-data">
+                                        <input type="text" value="" name="user_id" style="display: none;">
+                                        <input type="text" value="" name="type" style="display: none;">
+                                        <input type="text" value="" name="file_type" style="display: none;">
+                                        <input class="albumInput" type="file" name="file[]" accept="image/*" style="display: none">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </li>
+                    `
+                );
+
+                $liTemp.find(".albumInput").change(function () {
+                    gotoUploadPic(this);
+                });
+
+                //触发点击input file change
+                $liTemp.find(".albumInput")[0].click();
+                //gotoUploadPic($liTemp.find(".albumInput")[0]); //第一次input不触发change，手动触发
+
+                function gotoUploadPic(ele) { //ele input file
+                    console.log(ele.files.length)
+                    console.log(ele.value)
+                    console.log(ele.files[0].name)
+                    if(ele.files[0].name.indexOF("IMG_")>-1){ //临时解决上传？
+                        return
+                    }
+                    if (ele.files.length > 0) {
+                        //上传图片+回调
+                        Homepage.uploadPic(type, $liTemp, function (src) {
+                            //更新dom
+                            if ($curUl.find("li").length >= 20) {
+                                $curUl.find("li:last").remove();
+                            }
+
+                            $liTemp.find(".showPic").attr("src", Global.host + src);
+                            $curUl.prepend($liTemp);
+
+                            //删除上传时的form
+                            $(".homeFormWrap").remove();
+
+                            Homepage.setProps();
+                        });
+                    }
+                }
+            },
+            modifyDataBind: function () {
+                //感情状况
+                $(".emotion_status").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">感情状况</span>
+                                <a href="javascript:void(0)" class="fr mSave saveEmotion">确定</a>
+                            </header>
+                            <div class="emotion-content">
+                                <ul>
+                                    <li>单身</li>
+                                    <li>恋爱</li>
+                                    <li>貌似恋爱</li>
+                                    <li>已婚</li>
+                                    <li>分居</li>
+                                    <li>离异</li>
+                                </ul>
+                            </div>
+                        `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    $(".emotion-content ul li").click(function () {
+                        $(this).addClass("actived").siblings().removeClass("actived")
+                    })
+                    $(".saveEmotion").click(function () {
+                        if ($(".emotion-content ul li.actived").length > 0) {
+                            var valueStr = $(".emotion-content ul li.actived").html()
+                            Homepage.modifyData("emotion_status", valueStr, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                $(".emotion_status").html(valueStr).removeClass(
+                                    "canChoose")
+                            })
+                        }
+                    })
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //职业
+                $(".profession").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">职业</span>
+                                <a href="javascript:void(0)" class="fr mSave saveProfess">确定</a>
+                            </header>
+                            <div class="profession-content">
+                                <div class="profInputWrap">
+                                    <span class="clearInput" style="display: none;"></span>
+                                    <input id="profInput" type="text" placeholder="选择下面或自填">
+                                </div>
+    
+                                <ul class="professionList">
+                                    <li>私营企业主</li>
+                                    <li>中层管理者</li>
+                                    <li>高校学生</li>
+                                    <li>公司职员</li>
+                                    <li>工程师</li>
+                                    <li>军人</li>
+                                    <li>警察</li>
+                                    <li>医生</li>
+                                    <li>护士</li>
+                                    <li>空乘</li>
+                                    <li>航空公司</li>
+                                    <li>模特</li>
+                                    <li>教师</li>
+                                    <li>国企工作者</li>
+                                    <li>机关工作者</li>
+                                    <li>媒体工作者</li>
+                                    <li>互联网从业者</li>
+                                    <li>风险投资人</li>
+                                </ul>
+                            </div>
+                            `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    document.getElementById("profInput").oninput = function () {
+                        if (this.value == "") {
+                            $(".clearInput").hide()
+                        } else {
+                            $(".clearInput").show()
+                        }
+                    }
+                    $(".clearInput").click(function () {
+                        document.getElementById("profInput").value = ""
+                        $(this).hide()
+                    })
+                    $(".professionList li").click(function () {
+                        $(this).addClass("actived").siblings().removeClass("actived")
+                        document.getElementById("profInput").value = $(this).text()
+                        $(".clearInput").show()
+                    })
+                    $(".saveProfess").click(function () {
+                        var valueStr = document.getElementById("profInput").value
+                        if (valueStr !== "") {
+                            Homepage.modifyData("profession", valueStr, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                $(".profession").html(valueStr).removeClass("canChoose")
+                            })
+                        }
+                    })
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //收入
+                $(".income").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">收入</span>
+                                <a href="javascript:void(0)" class="fr mSave saveIncome">确定</a>
+                            </header>
+                            <div class="income-content">
+                                <ul>
+                                    <li data-income="1">3000元以上/月</li>
+                                    <li data-income="2">5000元以上/月</li>
+                                    <li data-income="3">10000元以上/月</li>
+                                    <li data-income="4">20000元以上/月</li>
+                                    <li data-income="5">50万元以上/年</li>
+                                    <li data-income="6">100万元以上/年</li>
+                                    <li data-income="7">保密</li>
+                                </ul>
+                            </div>
+                        `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    $(".income-content ul li").click(function () {
+                        $(this).addClass("actived").siblings().removeClass("actived")
+                    })
+                    $(".saveIncome").click(function () {
+                        if ($(".income-content ul li.actived").length > 0) {
+                            var valueStr = Number($(".income-content ul li.actived").attr(
+                                "data-income"))
+                            Homepage.modifyData("income", valueStr, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                let realStr
+                                switch (Number(valueStr)) {
+                                    case 1:
+                                        realStr = "3000元以上/月"
+                                        break;
+                                    case 2:
+                                        realStr = "5000元以上/月"
+                                        break;
+                                    case 3:
+                                        realStr = "10000元以上/月"
+                                        break;
+                                    case 4:
+                                        realStr = "20000元以上/月"
+                                        break;
+                                    case 5:
+                                        realStr = "50万元以上/年"
+                                        break;
+                                    case 6:
+                                        realStr = "100万元以上/年"
+                                        break;
+                                    case 7:
+                                        realStr = "保密"
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                $(".income").html(realStr).removeClass("canChoose")
+                            })
+                        }
+                    })
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //身高
+                $(".height").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">身高</span>
+                                <a href="javascript:void(0)" class="fr mSave saveHeight">确定</a>
+                            </header>
+                            <div class="height-content">
+                                <ul>
+                                </ul>
+                            </div>
+                        `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    for (let index = 0; index <= 80; index++) {
+                        $(".modifyDataWrap .height-content ul").append($('<li>' + (140 + index) +
+                            'cm</li>'))
+                    }
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    $(".height-content ul li").click(function () {
+                        $(this).addClass("actived").siblings().removeClass("actived")
+                    })
+                    $(".saveHeight").click(function () {
+                        if ($(".height-content ul li.actived").length > 0) {
+                            var valueStr = $(".height-content ul li.actived").html()
+                            var valueStrNum = valueStr.substr(0, valueStr.length - 2)
+                            console.log(valueStrNum)
+                            Homepage.modifyData("height", valueStrNum, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                $(".height").html(valueStr).removeClass("canChoose")
+                            })
+                        }
+                    })
+
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //体重
+                $(".weight").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">体重</span>
+                                <a href="javascript:void(0)" class="fr mSave saveWeight">确定</a>
+                            </header>
+                            <div class="weight-content">
+                                <ul>
+                                </ul>
+                            </div>
+                        `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    for (let index = 0; index <= 65; index++) {
+                        $(".modifyDataWrap .weight-content ul").append($('<li>' + (35 + index) +
+                            'kg</li>'))
+                    }
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    $(".weight-content ul li").click(function () {
+                        $(this).addClass("actived").siblings().removeClass("actived")
+                    })
+                    $(".saveWeight").click(function () {
+                        if ($(".weight-content ul li.actived").length > 0) {
+                            var valueStr = $(".weight-content ul li.actived").html()
+                            var valueStrNum = valueStr.substr(0, valueStr.length - 2)
+                            console.log(valueStrNum)
+                            Homepage.modifyData("weight", valueStrNum, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                $(".weight").html(valueStr).removeClass("canChoose")
+                            })
+                        }
+                    })
+
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //个性签名
+                $(".signature").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                            <header>
+                                <a href="javascript:void(0)" class="back fl"></a>
+                                <span class="title">个性签名</span>
+                                <a href="javascript:void(0)" class="fr mSave saveSignature">确定</a>
+                            </header>
+                            <div class="signature-content">
+                                <div class="signatureInputWrap">
+                                    <textarea id="signatureInput" placeholder="选择下面或自填"></textarea>
+                                    <span class="signatureCount">50</span>
+                                </div>
+    
+                                <p class="signatureTitle">请勿填写任何与索要礼物有关的内容，被发现将直接封号</p>
+                                <p class="signatureTitle">可以简单说自己，也可以说说你喜欢怎样的男生/女生</p>
+    
+                            </div>
+                            `
+                    // <ul class="signatureList">
+                    //     <li><p>经历许多，现在只想简简单单，相爱到老</p></li>
+                    //     <li><p>向往忠贞不渝的爱情，但现实太残酷</p></li>
+                    //     <li><p>哪怕王菲和李亚鹏都分手了，我仍相信爱情</p></li>
+                    //     <li><p>有时麻木得已经对感情不抱期望了，但还是期待那可能出现的美好未来</p></li>
+                    // </ul>
+
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    //js
+                    var textarea = document.getElementById('signatureInput')
+                    if ($(".signature").html() !== "请选择" && $(".signature").html() !== "填写") {
+                        textarea.value = $(".signature").html()
+                    }
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    Global.bindLimitCount(
+                        textarea,
+                        50,
+                        $(".signatureCount")[0]
+                    );
+                    // $(".signatureList li").click(function () {
+                    //     $(this).addClass("actived").siblings().removeClass("actived")
+                    //     textarea.value = $(this).find("p").text()
+                    // })
+                    $(".saveSignature").click(function () {
+                        var valueStr = textarea.value
+                        if (valueStr !== "") {
+                            Homepage.modifyData("signature", valueStr, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                $(".signature").html(valueStr).removeClass("canChoose")
+                            })
+                        }
+                    })
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+                //最满意部位
+                $(".satisfactory_parts").closest(".aboutMe-item").click(function () {
+                    let mHtml =
+                        `
+                        <header>
+                            <a href="javascript:void(0)" class="back fl"></a>
+                            <span class="title">最满意部位</span>
+                            <a href="javascript:void(0)" class="fr mSave saveParts">确定</a>
+                        </header>
+                        <div class="parts-content">
+                            <p class="partsTitle">从以下便签中选择(最多选择6个)</p>
+    
+                            <ul class="partsList">
+                                <li>笑容</li>
+                                <li>鼻梁</li>
+                                <li>眼睛</li>
+                                <li>酒窝</li>
+                                <li>腹肌</li>
+                                <li>络腮胡</li>
+                                <li>腰肌</li>
+                                <li>胸肌</li>
+                                <li>傻笑</li>
+                                <li>磁性声音</li>
+                                <li>只懂赚钱男</li>
+                                <li>黝黑的皮肤</li>
+                                <li>大鼻子</li>
+                            </ul>
+                        </div>
+                        `
+                    $(".modifyDataWrap")[0].innerHTML = mHtml
+                    //js
+                    $(".modifyDataWrap>header .back").click(function () {
+                        $(".modifyDataWrap").hide()
+                        $(".modifyDataWrap").html("")
+                    })
+                    $(".partsList li").click(function () {
+                        if ($(this).hasClass("actived")) {
+                            $(this).removeClass("actived")
+                        } else {
+                            $(this).addClass("actived")
+                            if ($(".partsList li.actived").length >= 7) {
+                                $(this).removeClass("actived")
+                            }
+                        }
+                    })
+                    $(".saveParts").click(function () {
+                        var valueArr = []
+                        $(".partsList li.actived").each(function () {
+                            valueArr.push($(this).html())
+                        })
+                        var valueStr = valueArr.join(",")
+                        console.log(valueStr)
+
+                        if (valueStr !== "") {
+                            Homepage.modifyData("satisfactory_parts", valueStr, function () {
+                                $(".modifyDataWrap").hide()
+                                $(".modifyDataWrap").html("")
+
+                                //更新原网页
+                                var $ul = $('<ul class="clearfix"></ul>')
+                                valueArr.forEach(function (item) {
+                                    $ul.append($('<li>' + item + '</li>'))
+                                })
+                                $(".satisfactory_parts").html($ul).removeClass(
+                                    "canChoose")
+                            })
+                        }
+                    })
+                    //js end
+
+                    $(".modifyDataWrap").show()
+                })
+
+            },
+            modifyData: function (key, value, callback) {
+                var postData = {
+                    user_id: Homepage.user_id,
+                    field: key,
+                    fieldValue: value,
+                }
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/changeInfo",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        Global.updateLocalUserinfo(key,value);
+                        callback()
+                    }
+                });
+            },
+            savePageSession: function () {
+                //key : homePage
+                let scroll = $(".homepage .all-content")[0].scrollTop;
+                let pageData = {
+                    pageScrollTop: scroll
+                }
+                console.log(pageData)
+
+                sessionStorage.setItem('homePage', JSON.stringify(pageData))
+            },
+            showFullPic: function (el) { //bug不能选index
+                let srcArr = [];
+                let $curUl = $(el).closest(".myPhotos");
+                $curUl.find("img.showPic").each(function (index,element) {
+                    $(this).attr("data-index",index);
+                    srcArr.push($(this).attr("src"));
+                });
+                console.log(srcArr)
+                let swiper = $.photoBrowser({
+                    items: srcArr,
+                    initIndex:Number($(el).attr("data-index"))
+                });
+                // swiper.open(index);
+                swiper.open();
+            },
+            //设置一些元素的属性 宽 高
+            setProps: function () {
+                $(".flex4").each(function () {
+                    let width = $(this).width();
+                    $(this).height(width);
+                });
+            },
+            //点击头像input file选择图片了，修改头像
+            editHeadpic: function (input) { //input file
+                let fileList=input.files;
+                // alert(input.files[0].name)
+                if (fileList.length > 0) {
+                    //修改头像
+                    //jquery.form.js方法
+                    $(":input[name='user_id']").val(Homepage.user_id);
+
+                    // console.log({
+                    //     user_id: $(":input[name='user_id']").val(),
+                    //     file: $("#editHeadpic")[0],
+                    //     type: $(":input[name='type']").val(),
+                    //     action: $(":input[name='action']").val()
+                    // })
+
+                    Global.openLoading();
+
+                    $("#editHeapicForm").ajaxSubmit(function (result) {  
+                        console.log(result)                  
+                        if (result.code==200&&result.data&&result.data!=="") {
+                            Global.closeLoading("修改成功", function () {
+                                //更新页面的头像
+                                let head_pic=Global.filterHttpImg(result.data.head_pic);
+                                $(".avatar-pic").find("img").attr("src",head_pic);
+                            });
+                        }  
+                    });
+                }
+            },
+            //获取认证视频url
+            getVideoUrl(callback){
+              if(!Homepage.videoUrl){
+                Global.getAuthVideoUrl(Homepage.toUserId,function(url){
+                  console.log(url)
+                  Homepage.videoUrl=url //得到url
+                  let realVideoUrl=Global.host+Homepage.videoUrl
+                  // realVideoUrl="https://media.w3.org/2010/05/sintel/trailer.mp4" //测试
+                  $("#video2").attr("src",realVideoUrl)
+                  if(callback){
+                    callback()
+                  }
+                })
+              }else{
+                if(callback){
+                  callback()
+                }
+              }
+            },
+            eventsBind: function () {
+                //返回
+                $(".homepageBack").click(function () {
+                    window.history.back(-1);
+                })
+                //添加图片 个人相册
+                $(".addMyPhotos1").click(function () {
+                    // Homepage.addMyPhotos(this);
+                    if(Global.isIOS()){
+                        // Homepage.addMyPhotos(this);
+                        iosMulUpload(1,"uploadPhotos")
+                    }else{
+                        window.Android.androidMulUpload(1,"uploadPhotos") //参数1：1图片 2视频  参数2：调用的js方法的名称
+                    }
+                })
+                //添加图片 精华照片
+                $(".addMyPhotos2").click(function () {
+                    if(Global.isIOS()){
+                        // Homepage.addMyPhotos(this);
+                        iosMulUpload(1,"uploadPhotos2")
+                    }else{
+                        window.Android.androidMulUpload(1,"uploadPhotos2")
+                    }
+                })
+                //发布邀约
+                $(".releaseInvite").click(function (event) {
+                    event.stopPropagation();
+                    $(".m_shade").add($(".maskm")).show();
+                })
+                //关闭发布邀约
+                // $("body").click(function () {
+                //     $(".m_shade").add($(".maskm")).hide();
+                // })
+                $(".allWrap").click(function () {
+                    $(".m_shade").add($(".maskm")).hide();
+                })
+                //跳添加邀约页面
+                $(".openReleaseInvite").click(function () {
+                    let self=this;
+                    Global.openLoading();
+                    Global.checkInvite(Homepage.user_id,function(num){
+                        Global.closeLoadingNow();
+                        $(".m_shade").add($(".maskm")).hide();
+                        if(num>=5){
+                            Global.messageWin("您已发满5条邀约，请删除不需要的邀约后再发布");
+                            return;
+                        }
+                        let type = $(self).attr("data-type");
+                        window.location.href = Global.host + "/index.php/mobile/invite/add/type/" + type +".html?fromHomePage=1";
+                    });
+                })
+                //点击编辑图标
+                $(".editHomePage").click(function () {
+                    // if ($(".mask").length == 0) {
+                    //     $('body').append($('<div class="mask"></div>'))
+                    // }
+                    // $('.gotoEditHome').show();
+
+                    Homepage.savePageSession();
+
+                    window.location.href = Global.host + "/index.php/mobile/user/editHomePage.html";
+                })
+                //点击弹出的 取消
+                $('.home-cancel').click(function () {
+                    $('.mask').remove()
+
+                    $('.gotoEditHome').hide();
+                    $(".changeHeadpic").hide();
+                })
+                //点击编辑资料
+                $(".gotoEditHomePage").click(function () {
+                    Homepage.savePageSession();
+
+                    window.location.href = Global.host + "/index.php/mobile/user/editHomePage.html";
+                })
+                //点击视频认证
+                $(".edit-personal-avatar").delegate(".videoStatus", "click", function () {
+                    // let user_id=Homepage.user_id;
+                    // Global.getAuthVideoUrl(user_id,function(url){
+                    //     let src=Global.host+url;
+                    //     Global.fullScreen(src);
+                    // });
+                });
+                //点击我的邀约，跳邀约详情
+                $(".myInviteSome").delegate("p.inviDetail", "click", function () {
+                    let detailId = $(this).attr("data-id");
+                    let url = Global.host + "/index.php/mobile/invite/detail/id/" + detailId + ".html";
+                    window.location.href = url;
+                });
+                //点击我的动态，跳动态列表
+                // $(".myTalkSome").delegate("p.inviDetail", "click", function () {
+                //     let detailId = $(this).attr("data-id");
+                //     window.location.href = Global.host + '/index.php/mobile/dynamics/detail/id/' +
+                //         detailId +
+                //         '.html';
+                // });
+                $(".myTalkSome").click(function () {
+                    let displayStatus=$(this).find(".noTalkSome").css("display");
+                    if(displayStatus!=="none"){ //这个人没动态
+                        return;
+                    }
+                    //去我的动态列表页面
+                    window.location.href = Global.host + '/index.php/mobile/user/myDynamicList.html';
+                });
+                //点击图片显示大图 -- 普通图片
+                $(".photos").delegate("img.showPic", "click", function () {
+                    Homepage.showFullPic(this);
+                });
+                //点击图片显示大图 -- 精华图片
+                $(".quintessencePhotos").delegate("img.showPic", "click", function () {
+                    Homepage.showFullPic(this);
+                });
+                //点击头像 修改头像弹窗
+                $(".avatar-pic").click(function () {
+                    if ($(".mask").length == 0) {
+                        $('body').append($('<div class="mask"></div>'))
+                    }
+                    $(".changeHeadpic").show();
+                });
+                //头像 查看大图
+                $(".lookFullScreenImg").click(function () {
+                    $('.home-cancel')[0].click(); //关闭弹窗
+
+                    let src = $(".avatar-pic").find("img").attr("src");
+                    Global.fullScreenImg(src);
+                });
+                //头像 修改头像 隐藏域 input
+                // $("#editHeadpic").change(function () {
+                //     Homepage.editHeadpic(this);
+                // });
+                //头像 修改头像
+                $(".editHeadpic").click(function () {
+                    $('.home-cancel')[0].click(); //关闭弹窗
+                    // $("#editHeadpic")[0].click();
+                    if(Global.isIOS()){
+                        console.log("ios")
+                        jumpIOS(1,"uploadHeadPic");
+                    }else{
+                        window.Android.gotoJavaCamera(1,"uploadHeadPic"); //参数1：1图片 2视频  参数2：调用的js方法的名称
+                    }
+                });
+                //点击查看我收到的礼物
+                document.getElementById("lookMyGift").onclick=function(){
+                    window.location.href=Global.host+"/index.php/mobile/user/mygiftlist";
+                }
+
+                //2019.01.18点击认证视频
+                $(".showVideo").click(function(){
+                  if(Homepage.userInfo.baseinfo.auth_video_status.toString()!=="2"){ //视频未认证
+                    return
+                  }
+                  Homepage.getVideoUrl(function(){
+                    $(".fullScreen").show()
+                    $("#video2")[0].currentTime = 0; 
+                    $("#video2")[0].play()
+                  })
+                })
+                $(".closeFullScreen").click(function(){
+                  $("#video2")[0].pause()
+                  $(".fullScreen").hide()
+                })
+            },
+            init: function () {
+                // 得到user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Homepage.user_id = Number(mUserInfo.user_id);
+                } else {
+                    // Homepage.user_id = 2; //测试用
+                    alert("请求失败")
+                    return
+                }
+                // Homepage.user_id = 1
+
+                //获取认证视频url
+                Homepage.getVideoUrl()
+
+                //获取用户信息，绑定dom
+                Homepage.getDataUpdateDom();
+
+                Homepage.eventsBind();
+            }
+        }
+        $(function () {
+            Homepage.init();
+        });
+
+         //个人相册原生回调
+         function uploadPhotos(){
+            // alert(1)
+            if(true){ //安卓
+                var res=arguments[0] //图片路径数组
+
+                Homepage.uploadPic(res,1)
+            }else{ //ios
+
+            }
+        }
+
+        //精华照片原生回调
+        function uploadPhotos2(){
+            // alert(2)
+            if(true){ //安卓
+                var res=arguments[0] //图片路径数组
+
+                Homepage.uploadPic(res,2)
+            }else{ //ios
+
+            }
+        }
+        
+        //修改头像回调
+        function uploadHeadPic(src){
+            // alert(src)
+            let postData={
+                user_id:Homepage.user_id,
+                file:src
+            }
+            console.log(postData)
+            let url = Global.host + "/index.php/Api/User/editHeadPic";
+            Global.openLoading();
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: postData,
+                success: function (res) {
+                    if (res.code==200) {
+                        Global.closeLoading("修改成功", function () {
+                            //更新页面的头像
+                            let head_pic_src=Global.host+src
+                            $(".avatar-pic").find("img").attr("src",head_pic_src);
+                        });
+                    }  
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

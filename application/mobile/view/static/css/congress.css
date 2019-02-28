@@ -1,0 +1,274 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #302e40;
+    color: #fff;
+    font-size: 16px;
+    z-index: 1;
+}
+
+.back {
+    width: 0.2rem;
+    height: 0.16rem;
+    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0.1rem;
+    transform: translate(0, -50%);
+}
+
+.cutBtnWrap {
+    margin: 0 0.8rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tabCut {
+    text-align: center;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 0.62rem;
+    position: relative;
+}
+
+.tabCut.actived {
+    color: #fff;
+}
+
+.tabCut.actived::after {
+    /* content: '';
+    display: block;
+    border-bottom: 3px solid #ffe459;
+    width: 0.36rem;
+    margin-left: -0.18rem;
+    position: absolute;
+    bottom: 1px;
+    left: 50%; */
+}
+
+.contentWrap {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+
+    transform: translate3d(0, 0, 0);
+}
+
+.myRank {
+    color: #fff;
+    line-height: 0.25rem;
+    text-indent: 1.5em;
+}
+
+.head_pic {
+    position: relative;
+}
+
+.img-box {
+    width: 0.56rem;
+    height: 0.56rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* 前三名 */
+.board {
+    width: 3.50rem;
+    height: 2.4rem;
+    border-radius: 0.08rem;
+    margin: 0.15rem auto;
+    padding-top: 0.1rem;
+    background: linear-gradient(to right, #ffbfab, #fe9acc);
+    box-shadow: 0 0.05rem 0.2rem 3px #ffc3b0;
+    position: relative;
+    overflow: hidden;
+
+    transform: translate3d(0, 0, 0);
+}
+
+/* .board .head_pic{
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translate(-50%,0);
+} */
+
+.ersanming,
+.diyiming {
+    padding-top: 0.1rem;
+    color: #fff;
+}
+
+.ersanming {
+    width: 3.26rem;
+    height: 0.52rem;
+    background: linear-gradient(to right, #ff92bc, #ff89c6);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    z-index: 1;
+    /* 文字 */
+    display: flex;
+    justify-content: space-between;
+
+    /* transform: translate3d(0, 0, 0); */
+}
+
+.ersanming::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    border: 0.14rem solid;
+    border-color: transparent transparent #ffb1d9 transparent;
+    position: absolute;
+    left: 0;
+    top: -0.28rem;
+}
+
+.diyimingPlaceholder {
+    /* 与第一名等宽 */
+    width: 1.16rem;
+}
+
+.ersanmingText {
+    flex: 1 0 0;
+    text-align: center;
+}
+
+.diyiming {
+    width: 1.16rem;
+    height: 0.87rem;
+    background-color: #ff89cb;
+    box-shadow: 0 0 15px 1px #f486af;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    z-index: 2;
+    /* 文字 */
+    text-align: center;
+
+    /* transform: translate3d(0, 0, 0); */
+}
+
+.diyiming::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    border: 0.14rem solid;
+    border-color: transparent transparent #ffb1d9 transparent;
+    position: absolute;
+    left: 0;
+    top: -0.28rem;
+}
+
+.ersanmingHead {
+    width: 3.26rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    margin-top: -0.36rem;
+}
+
+.ersanmingHeadItem {
+    flex: 1 0 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.rankingNum {
+    display: inline-block;
+    width: 0.65rem;
+    height: 0.18rem;
+    line-height: 0.18rem;
+    text-align: center;
+    border-radius: 0.04rem;
+    position: absolute;
+    bottom: -0.2rem;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+
+    /* transform: translate3d(0, 0, 0); */
+}
+
+.rankingNum1 {
+    background-color: #fff3a1;
+}
+
+.rankingNum2 {
+    background-color: #f6f6f6;
+}
+
+.rankingNum3 {
+    background-color: #fedaa0;
+}
+
+.img-box-rank1 {
+    width: 0.83rem;
+    height: 0.83rem;
+}
+
+.img-box-rank2 {
+    width: 0.79rem;
+    height: 0.79rem;
+}
+
+/* 第四名列表 */
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 0 0.1rem;
+
+    transform: translate3d(0, 0, 0);
+}
+
+.list-rank {
+    width: 0.16rem;
+    height: 0.16rem;
+    line-height: 0.16rem;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(to bottom right, #feb5b0, #fd9fc4);
+    margin-right: 0.1rem;
+    font-size: 11px;
+}
+
+.list-content {
+    border-bottom: 1px solid #efefef;
+    flex: 1 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0.15rem 0;
+}
+
+.videoStatus {
+    width: 0.19rem;
+    height: 0.19rem;
+    right: -0.02rem;
+    bottom: -0.01rem;
+}
+
+.nameNcharm {
+    margin-left: 0.1rem;
+}
+
+/* 下拉刷新修正 */
+.congress-page .weui-pull-to-refresh__layer {
+    height: 50px;
+    line-height: 50px;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>每日领奖励</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/signIn.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="signIn-page">
+    <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">每日领奖励</div>
+    </header>
+    
+    <div class="contentWrap">
+        <div class="content">
+            <div class="board">
+                <div class="dayTitle">
+                    累计签到
+                </div>
+                <div class="days">
+                    <div class="daysNumWrap" style="display:flex">
+                        <div class="daysNum"><span class="daysNumReal daysNumReal1"></span></div>
+                        <div class="daysNum"><span class="daysNumReal daysNumReal2"></span></div>
+                        <div class="daysNum"><span class="daysNumReal daysNumReal3"></span></div>
+                        <span class="dayTip">天</span>
+                    </div>
+                </div>
+                <div class="tip">
+                    每日签到，领取10朵小花
+                </div>
+            </div>
+            <div class="property">
+                <div class="flower">
+                    <img class="flowerIcon" src="__STATIC__/images/icon/花2.png">
+                    <div class="">拥有小花<span class="flowerCount"></span>朵</div>
+                </div>
+            </div>
+            <div class="btnWrap">
+                <div class="btn signInBtn {$isSign ? 'gray' : ''}">
+                <!-- <div class="btn signInBtn gray"> -->
+                    签到
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script>
+        let SignIn={
+            userInfo:{},
+            
+            //userInfo
+            getPageInfo(){
+                if (localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!== null&&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    SignIn.userInfo = mUserInfo;
+                } else {
+                    // SignIn.userInfo = JSON.parse("{\"user_id\":1,\"uuid\":97875266,\"account_mobile\":\"13051832424\",\"email\":\"\",\"sex\":1,\"birthday\":\"1991-09-24\",\"age\":26,\"height\":127,\"weight\":37,\"reg_time\":1536025186,\"last_login\":1536025186,\"last_ip\":\"\",\"qq\":\"437753880\",\"head_pic\":\"/public/upload/head_pic//20180904/65d288e656d9d0b192bec982d76d99e8.png\",\"province\":0,\"city\":0,\"district\":0,\"nickname\":\"tong\",\"level\":1,\"discount\":\"1.00\",\"total_amount\":\"0.00\",\"is_lock\":0,\"token\":\"4b14230c1c1956d4cedd9e49c0d2c145\",\"message_mask\":63,\"satisfactory_parts\":null,\"longitude\":\"0.0000000\",\"latitude\":\"0.0000000\",\"auth_video_status\":2,\"auth_identity_status\":0,\"auth_car_status\":0,\"active_time\":1536282087,\"is_line\":1,\"income\":null,\"rockets\":0,\"signInDays\":null,\"flower_num\":0,\"signature\":\"个性\",\"permanent_province\":null,\"permanent_city\":null,\"profession\":\"航空公司\",\"phoneOwechat\":\"13051832424\",\"emotion_status\":null,\"rongyun_token\":\"2Mxv2N0Kg2WPNFftBKjLsjoJzC1b/p237t784hHIriRLkvc548Y7iX2boQyN2n7kj6RpzxE4XchLf2hz0SZhgg==\",\"sort\":0,\"vip_expire_date\":\"2020-12-04\",\"fansNum\":0}")
+                    alert("请求失败")
+                    return
+                }
+            },
+            //更新签到天数
+            updateSignInDays(num){ //数字
+                if(num==null){
+                    num=0
+                }
+                let numStr=num+"";
+                while (numStr.length<3){
+                    numStr="0"+numStr
+                }
+                console.log(numStr)
+                $(".daysNumReal1").html(numStr[0])
+                $(".daysNumReal2").html(numStr[1])
+                $(".daysNumReal3").html(numStr[2])
+            },
+            updateDom(){
+                //签到天数
+                SignIn.updateSignInDays(SignIn.userInfo.signInDays)
+                //小花数量
+                $(".flowerCount").html(SignIn.userInfo.flower_num)
+            },
+            //签到
+            signIn(){
+                let postData = {
+                    user_id: SignIn.userInfo.user_id
+                }
+                console.log(postData)
+                $(".signInBtn").addClass("eventsDisabled")
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/signIn",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        console.log(3)
+                        $(".signInBtn").removeClass("eventsDisabled")
+                        Global.messageWin("签到成功")
+                        if(result.code==200){
+                            //签到成功updateDom、更新userInfo
+                            SignIn.userInfo.signInDays=Number(SignIn.userInfo.signInDays)+1
+                            SignIn.updateSignInDays(SignIn.userInfo.signInDays)
+                            SignIn.userInfo.flower_num=Number(SignIn.userInfo.flower_num)+10
+                            $(".flowerCount").html(SignIn.userInfo.flower_num)
+                            $(".signInBtn").addClass("gray")
+
+                            //更新localStorage
+                            localStorage.setItem("mUserInfo",JSON.stringify(SignIn.userInfo))
+                        }
+                    }
+                })
+            },
+            eventsBind(){
+                //back
+                $("header .back").click(function(){
+                    window.history.back(-1)
+                })
+                //点击签到
+                $(".signInBtn").click(function(){
+                    if($(this).hasClass("gray")){
+                        Global.messageWin("您今天已签到")
+                    }else{
+                        SignIn.signIn()
+                    }
+                })
+            },
+            init(){
+                SignIn.getPageInfo()
+                SignIn.updateDom()
+                SignIn.eventsBind()
+            }
+        }
+        $(function(){
+            SignIn.init(); 
+        })
+    </script>
+</body>
+
+</html>

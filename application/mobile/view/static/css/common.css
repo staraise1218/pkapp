@@ -1,0 +1,1965 @@
+body {
+  background-color: #f1f1f1;
+}
+
+/*header*/
+
+header {
+  background-color: #000;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+}
+
+header>span {
+  display: inline-block;
+  color: #fff;
+  font-size: 16px;
+}
+
+header>a {
+  display: inline-block;
+  color: #fff;
+  width: 0.28rem;
+  height: 0.14rem;
+  background: url(../images/icon/left.png) no-repeat left center;
+  background-size: 0.1rem;
+  margin-top: 0.14rem;
+  line-height: 0.14rem;
+}
+
+header>a.sure {
+  background-image: none;
+}
+
+.view-detail .horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1.7rem;
+  margin: 0 auto;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.view-detail .horizontal li {
+  flex: 1;
+}
+
+.view-detail .horizontal li a {
+  color: #bbb6b6;
+  display: inline-block;
+  height: 0.26rem;
+}
+
+.view-detail .horizontal li.active a {
+  color: #fff;
+  border-bottom: 3px solid yellow;
+}
+
+/*footer*/
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  height: 60px;
+  line-height: 60px;
+  z-index: 1;
+  border-top: 1px solid #ccc;
+}
+
+footer ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer li {
+  width: 25%;
+  text-align: center;
+}
+
+footer li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: url(../images/icon/xiaolian.png) no-repeat center 8px;
+  background-size: 0.26rem;
+  padding-top: 18px;
+}
+
+.weui-switch:checked,
+.weui-switch-cp__input:checked~.weui-switch-cp__box {
+  border-color: orange !important;
+  background-color: orange !important;
+}
+
+/*邀约*/
+
+.plus {
+  width: 40px;
+  height: 40px;
+  background: url(../images/icon/发布.png) no-repeat center;
+  background-size: 100%;
+  background-color: red;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0.7rem;
+  right: 0.28rem;
+  z-index: 7;
+  transition: all 0.2s;
+  box-shadow: 0 0 5px #000;
+}
+
+.plus.actived {
+  transform: rotate(45deg);
+}
+
+.indexPage {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* overflow-y: auto; */
+
+
+  /* transition: top 0.4s;
+  opacity: 1;
+  -webkit-backface-visibility: hidden; */
+
+  z-index: 6;
+  transition: transform 0.4s;
+  transform: translate3d(0, 0, 0);
+}
+
+.invitation .view {
+  background-color: #fff;
+  padding: 0.14rem;
+  margin-bottom: 10px;
+  /* height: 6.7rem; */
+  height: 108px;
+}
+
+.invitation .blurDiv {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.invitation .inviteTopWrap {
+  height: 248px;
+  margin-top: 0;
+  /* transition: transform 0.4s; */
+  /* 覆盖下拉刷新 */
+  position: relative;
+  z-index: 3;
+
+  /* transform: translate3d(0,0,0); */
+
+  /* position: absolute;
+  left: 0;
+  right: 0;
+
+  opacity: 1;
+  -webkit-backface-visibility: hidden; */
+}
+
+.invitation .view a {
+  display: inline-block;
+  border-radius: 0.14rem;
+  overflow: hidden;
+  height: 100%;
+}
+
+.invitation .optionsWrap {
+  /* height: 5.5rem; */
+  height: 88px;
+  overflow: hidden;
+  border-bottom: 1px solid #f0f2f7;
+}
+
+.invitation .options {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f1f1;
+  overflow-y: hidden;
+  overflow-x: auto;
+  height: calc(100% + 20px);
+}
+
+.invitation .classify {
+  background-color: #fff;
+}
+
+.invitation .classify .all {
+  width: 20%;
+  text-align: center;
+  height: 45px;
+  line-height: 40px;
+  padding-top: 15px;
+  display: inline-block;
+  background: url(../images/icon/xiaolian.png) no-repeat center 0;
+  background-size: 0.2rem;
+}
+
+.invitation .classify .all span {
+  display: inline-block;
+  background-color: yellow;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 8px;
+  border-radius: 5px;
+}
+
+.invitation .classify ul {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 45px;
+  /* height: 3.2rem; */
+  line-height: 40px;
+}
+
+.invitation .classify ul li {
+  width: 0.6rem;
+  text-align: center;
+}
+
+.invitation .classify ul li a {
+  display: inline-block;
+  padding-top: 20px;
+  width: 100%;
+}
+
+/* optionsBtn */
+
+.invitation .classify ul li a.allBtn {
+  background: url(../images/icon/全部@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li a.travelBtn {
+  background: url(../images/icon/旅行@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li a.foodBtn {
+  background: url(../images/icon/吃饭@2x.png) no-repeat center 0;
+  background-size: 33px;
+}
+
+.invitation .classify ul li a.movieBtn {
+  background: url(../images/icon/电影院@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li a.singBtn {
+  background: url(../images/icon/唱歌@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li a.sportBtn {
+  background: url(../images/icon/运动健身@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li a.otherBtn {
+  background: url(../images/icon/其他@2x.png) no-repeat center 0;
+  background-size: 24px;
+}
+
+.invitation .classify ul li .optionsBtn span {
+  padding: 1px 5px;
+  font-family: "微软雅黑";
+}
+
+.invitation .classify ul li .optionsBtn span.actived {
+  border-radius: 10px;
+  background-color: #ffe456;
+  color: #000;
+  font-weight: bold;
+}
+
+.invitation .address {
+  height: 100%;
+  line-height: 40px;
+  padding: 0 10px;
+}
+
+.invitation .address .select {
+  color: #6692fe;
+}
+
+.invitation .address .cancelSelected {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: url(../images/icon/cha.png) center center no-repeat;
+  background-size: 100%;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-left: 2px;
+}
+
+.invitation .items li {
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.invitation .items li .top {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.invitation .items li .top .img-box {
+  width: 0.57rem;
+  height: 0.57rem;
+  /* margin-right: 10px; */
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+}
+
+.invitation .items li .top .img-box>img {
+  width: 100%;
+  height: auto;
+}
+
+.videoStatus {
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url(../images/icon/播放.png) center center no-repeat;
+  background-size: 100%;
+  position: absolute;
+  right: 0.13rem;
+  bottom: 0;
+}
+
+/* .interested .invitation-enrollWrap .videoStatus{
+  width: 0.2rem;
+  height: 0.2rem;
+  bottom: 0;
+  right: 0.06rem;
+} */
+
+.yaoyueIndex .videoStatus {
+  bottom: 0;
+  right: -0.03rem;
+}
+
+.invitation .items li .top .details {
+  flex: 1;
+  border-bottom: 1px solid #f1f1f1;
+  padding-top: 10px;
+}
+
+.invitation .items li .top .person {
+  position: relative;
+}
+
+/* .invitation .items li .person .age {
+  margin-left: 10px;
+  width: 3rem;
+  text-align: center;
+  background-color: #f72461;
+  display: inline-block;
+  color: #fff;
+  padding-left: 10px;
+  border-radius: 3px;
+  font-size: 12px;
+} */
+
+.invitation .items li .person .man {
+  background-color: #95c7de;
+}
+
+.invitation .items li .person .img {
+  width: 0.14rem;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.invitation .items li .person .job {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #868080;
+}
+
+.invitation .items li .distance {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.invitation .items li span.active {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  color: red;
+}
+
+.invitation .items li .bottom {
+  line-height: 0.14rem;
+}
+
+.invitation .items li .bottom .title {
+  margin-top: 0.07rem;
+  /* padding-left: 1.5rem; */
+  font-size: 16px;
+  height: 0.28rem;
+  line-height: 0.28rem;
+  /* background: url(../images/icon/checkbox.png) no-repeat 10px center;
+  background-size: 10px; */
+  color: #000;
+}
+
+.invitation .items li .bottom .more {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.invitation .items li .bottom .more ul {
+  flex: 1 0 0;
+}
+
+.invitation .items .bottom .more ul li {
+  margin: 0;
+  padding: 0;
+  max-width: 2.71rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* padding-left: 1.5rem; */
+  line-height: 20px;
+  /* background: url(../images/icon/checkbox.png) no-repeat 10px center;
+  background-size: 6px; */
+}
+
+.bigDot,
+.smallDot {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  vertical-align: middle;
+  margin-right: 5px;
+  background: url(../images/icon/checkbox.png) center center no-repeat;
+}
+
+.bigDot {
+  background-size: 10px 10px;
+}
+
+.smallDot {
+  background-size: 6px 6px;
+}
+
+.invitation .items li .bottom .more>div {
+  /* width: 0.43rem;
+  height: 0.43rem; */
+  width: 0.75rem;
+  height: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #f1f1f1;
+}
+
+.mask {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  /* width: 22rem; */
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  /* display: none; */
+}
+
+.mask .title {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  border-bottom: 1px solid #f1f1f1;
+  color: #000;
+}
+
+.mask ul {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: 12px 10px;
+  justify-content: flex-start;
+}
+
+.mask ul li {
+  /* width: 4.5rem; */
+  flex: 0 0 33.3333%;
+  height: 1rem;
+  margin: 0 auto;
+}
+
+.mask ul li a {
+  display: inline-block;
+  width: 100%;
+}
+
+.mask ul li a span {
+  display: block;
+  width: 0;
+  /* height: 4.5rem; */
+  padding: 33%;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #ccc;
+}
+
+.mask ul li a span.travel {
+  background: url(../images/icon/旅行1@3x.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask ul li a span.food {
+  background: url(../images/icon/吃饭1@3x.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask ul li a span.movie {
+  background: url(../images/icon/电影1@3x.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask ul li a span.sing {
+  background: url(../images/icon/唱歌1@3x.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask ul li a span.sport {
+  background: url(../images/icon/运动1@3x.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask ul li a span.other {
+  background: url(../images/icon/m其他.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.mask .box-btm ul {
+  margin-left: 0.5rem;
+}
+
+.mask .box-btm ul li {
+  margin: 0 10px;
+}
+
+.maskTrgle {
+  display: inline-block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 14px solid;
+  border-color: #fff #fff transparent transparent;
+  right: 70px;
+  bottom: -27px;
+}
+
+/*邀约详情*/
+
+.invitation .theme ul {
+  margin-top: 10px;
+}
+
+.invitation .theme ul li {
+  margin-bottom: 0;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 12px 15px;
+}
+
+.invitation .theme li.title span {
+  font-weight: 600;
+}
+
+.invitation .theme li input[type="text"] {
+  text-align: right;
+  background: url(../images/icon/back.png) no-repeat right center;
+  padding-right: 20px;
+}
+
+.invitation .theme .choose {
+  padding-right: 15px;
+}
+
+.invitation .theme .choose span {
+  display: inline-block;
+  padding: 0 15px;
+  border-right: 1px solid #dbdbdb;
+}
+
+.invitation .theme .choose span:last-child {
+  border: none;
+}
+
+.invitation .theme .choose span {
+  color: #bebebe;
+}
+
+.invitation .theme .choose span.active {
+  position: relative;
+  color: #000;
+}
+
+.invitation .theme .catch {
+  margin: 0;
+  background-color: #f1f1f1;
+}
+
+.invitation .theme textarea {
+  width: 100%;
+  height: 0.86rem;
+  /*border: none;*/
+}
+
+.invitation .theme div a {
+  width: 0.71rem;
+  height: 0.71rem;
+  background-color: #f1f1f1;
+  float: left;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.invitation .theme div input[type="file"] {
+  width: 100%;
+  height: 0.5rem;
+}
+
+.invitation .theme div.speak a {
+  padding-top: 0.51rem;
+  background: url(../images/icon/add.png) no-repeat center 10px;
+  background-size: 0.43rem;
+  background-color: #f1f1f1;
+}
+
+/*一对一视频*/
+
+.main-content>.view {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 0;
+  margin-bottom: 10px;
+}
+
+.main-content>.view .open {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  text-align: center;
+  z-index: 1;
+  background-color: yellow;
+  width: 0.14rem;
+  padding: 10px 0;
+  border-radius: 0.43rem;
+}
+
+.invitation .view-list li {
+  margin-bottom: 0;
+}
+
+.invitation .view-list li .distance {
+  margin-top: 0;
+}
+
+.invitation .view-list li .label span {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.invitation .view-list li .label {
+  margin-top: 5px;
+}
+
+.view-detail .cash {
+  background-color: #fff;
+}
+
+.view-detail .cash .top {
+  padding: 10px;
+}
+
+.view-detail .cash .top p {
+  line-height: 30px;
+  color: #b9b8b8;
+}
+
+.view-detail .cash .top p span {
+  color: #4a4a4a;
+}
+
+.view-detail .cash .top .money span {
+  color: red;
+}
+
+.view-detail .cash .top .money a {
+  display: inline-block;
+  background-color: yellow;
+  padding: 0 0.14rem;
+  border-radius: 20px;
+}
+
+.view-detail .cash .bottom {
+  padding: 10px;
+  border-top: 1px solid #f1f1f1;
+  color: #b9b8b8;
+}
+
+.view-detail .none img {
+  width: 1.14rem;
+  margin: 1rem auto 0;
+}
+
+.view-detail .none {
+  text-align: center;
+}
+
+.view-detail .none p {
+  font-size: 16px;
+  margin-top: 0.28rem;
+}
+
+/*开通视频*/
+
+.invitation .input-box {
+  margin: 10px 0;
+  background-color: #fff;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  padding: 0 10px;
+}
+
+.invitation .input-box input {
+  height: 0.28rem;
+  line-height: 0.28rem;
+  margin-top: 8px;
+}
+
+.invitation .input-box .close {
+  display: inline-block;
+  width: 0.14rem;
+  height: 0.14rem;
+  background: url(../images/icon/close.png) no-repeat center;
+  margin-top: 14px;
+}
+
+.invitation .labels {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 3.14rem;
+  margin-top: 0.2rem;
+}
+
+.invitation .labels li {
+  width: 0.94rem;
+  height: 0.28rem;
+  line-height: 0.28rem;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.43rem;
+  margin: 0 10px 10px 0;
+}
+
+.invitation .labels li:nth-child(3n) {
+  margin-right: 0;
+}
+
+.invitation>.details {
+  width: 100%;
+  text-align: center;
+}
+
+.invitation>.details p {
+  line-height: 30px;
+}
+
+.invitation .open-now {
+  width: 2.86rem;
+  background-color: yellow;
+  display: inline-block;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  margin-top: 0.14rem;
+  line-height: 0.36rem;
+  border-radius: 0.43rem;
+  font-weight: 600;
+}
+
+.open-mask {
+  width: 2.57rem;
+}
+
+.open-mask .top {
+  padding: 20px 15px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.open-mask .bottom {
+  text-align: center;
+  padding: 18px 0;
+  color: blue;
+}
+
+.invitation>.price {
+  padding: 0.14rem 10px;
+}
+
+.invitation>.price .cost {
+  padding-left: 0.21rem;
+  background: url(../images/icon/price.png) no-repeat left center;
+  background-size: 0.14rem;
+}
+
+.invitation>.price .rates {
+  background: url(../images/icon/back.png) no-repeat right center;
+  background-size: 0.07rem;
+  padding-right: 15px;
+}
+
+.invitation>.state .title {
+  height: 0.28rem;
+  line-height: 0.28rem;
+  padding-left: 10px;
+}
+
+.invitation>.state .weui-cell_switch {
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.state .weui-cell__bd {
+  padding-left: 0.17rem;
+  background: url(../images/icon/cha.png) no-repeat left center;
+  background-size: 0.14rem;
+}
+
+.view-list .opened .details {
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 10px;
+}
+
+.viewOpen .mask .top {
+  padding: 0.14rem;
+  text-align: center;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.viewOpen .mask .top .notice {
+  line-height: 0.28rem;
+  display: inline-block;
+  margin-top: 0.14rem;
+}
+
+.viewOpen .mask .top .detail {
+  text-align: left;
+  line-height: 0.43rem;
+}
+
+.viewOpen .mask button {
+  border: none;
+  background-color: #fff;
+  width: 50%;
+  height: 0.43rem;
+  line-height: 0.43rem;
+  float: left;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.viewOpen .mask button.disturb {
+  color: red;
+  border-left: 1px solid #f1f1f1;
+}
+
+/*一对一视频设置*/
+
+.view.price {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.feedback {
+  padding: 10px 10px 10px 0.21rem;
+  background: url(../images/icon/checkbox.png) no-repeat 10px 16px;
+  background-size: 6px;
+}
+
+.feedback a {
+  color: blue;
+}
+
+/*视频聊天价格*/
+
+.view.all-time {
+  background: url(../images/icon/checkbox.png) no-repeat 10px center;
+  background-size: 0.07rem;
+  background-color: #e2ebf1;
+  color: #a9a5a5;
+  padding-left: 0.23rem;
+}
+
+.view.all-time .time {
+  color: #000;
+}
+
+.cost-list li {
+  background-color: #fff;
+  border-bottom: 1px solid #f1f1f1;
+  height: 0.43rem;
+  line-height: 0.43rem;
+  padding: 0 10px;
+}
+
+.cost-list li.active {
+  background: url(../images/icon/checkbox1.png) no-repeat 96% center;
+  background-size: 0.14rem;
+  background-color: #fff;
+}
+
+.cost-list li>span {
+  display: inline-block;
+  margin-left: 0.14rem;
+  color: #ccc;
+}
+
+.cost-list li>span span {
+  color: orange;
+}
+
+/*一对一聊天活跃*/
+
+.viewOpen .tabs {
+  position: relative;
+}
+
+.viewOpen .tabs .horizontal {
+  position: absolute;
+  top: -35px;
+  right: 10px;
+  z-index: 2;
+  width: 0.71rem;
+  margin: 0;
+  left: auto;
+  transform: translateX(0);
+}
+
+.viewOpen .tabs .horizontal li {
+  float: left;
+  padding-left: 10px;
+}
+
+.viewOpen .tabs .horizontal li a {
+  color: #000;
+  height: 0.16rem;
+  line-height: 0.16rem;
+}
+
+.viewOpen .tabs .horizontal li:nth-child(1) {
+  border-right: 1px solid #f1f1f1;
+  padding-right: 10px;
+  padding-left: 0;
+}
+
+.chart-list {
+  background-color: #fff;
+  padding: 0 10px;
+  height: 0.37rem;
+  line-height: 0.37rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.viewOpen .tabs .horizontal li.active a {
+  border: none;
+  color: blue;
+}
+
+.invitation .view-list li .label .close {
+  width: 0.14rem;
+  height: 0.14rem;
+  border-radius: 4px;
+  background: url(../images/icon/close.png) no-repeat center;
+  margin-top: 5px;
+}
+
+.invitation .items li .top .person .call {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 0.79rem;
+  height: 0.28rem;
+  background-color: green;
+  border-radius: 0.28rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.28rem;
+  padding-left: 0.17rem;
+}
+
+.viewOpen .mask button.buy {
+  color: blue;
+}
+
+/*筛选*/
+
+.select-page {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  /* top: 110vh; */
+  top: 130vh;
+  background-color: #efefef;
+  z-index: 10;
+  transition: top 0.3s;
+}
+
+.select-page.actived {
+  top: 0;
+}
+
+.yaoyueIndex .select-page header {
+  position: absolute;
+}
+
+header .search {
+  background: none;
+  margin: 0;
+  height: 100%;
+  width: auto;
+  line-height: 50px;
+  text-align: center;
+}
+
+.selectPage {
+  margin-top: 50px;
+}
+
+.selectPage .tabs>.title {
+  height: 0.36rem;
+  line-height: 0.36rem;
+  padding: 0 10px;
+}
+
+.selectPage .tabs .horizontal {
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectPage .horizontal li {
+  flex: 1;
+  text-align: center;
+}
+
+.selectPage .horizontal li a {
+  color: #b7b7b7 !important;
+  z-index: 2;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 5px 12px;
+}
+
+.selectPage .horizontal li.active a {
+  color: #000 !important;
+  font-size: 15px
+}
+
+.selectPage .tab-content {
+  margin-top: 0.36rem;
+}
+
+.selectPage .opened {
+  padding: 0 10px;
+  background-color: #fff;
+}
+
+.selectPage .opened li {
+  padding: 13.5px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.selectPage .opened li.present,
+.selectPage .opened li.select {
+  padding: 0;
+}
+
+.selectPage .opened li .weui-cell_switch {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.selectPage .opened .gender .fr {
+  margin-right: -11px;
+}
+
+.selectPage .opened .gender .fr span {
+  display: inline-block;
+  width: 0.57rem;
+  border-right: 1px solid #f1f1f1;
+  text-align: center;
+  color: #b7b7b7;
+}
+
+.selectPage .opened .gender .fr span.active {
+  color: #000;
+  position: static;
+}
+
+.selectPage input[type="text"] {
+  color: #b7b7b7;
+  text-align: right;
+  background: url(../images/icon/back.png) no-repeat right center;
+  background-size: 8px;
+  padding-right: 15px;
+}
+
+.selectPage .weui-cell:before {
+  border: none;
+}
+
+/*筛选结果*/
+
+.invitation .addressWrap {
+  height: 40px;
+  overflow: hidden;
+}
+
+.invitation .address {
+  background-color: #fff;
+  border-bottom: 1px solid #e8e9ee;
+}
+
+.invitation .address.addressFixed {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 4;
+}
+
+.invitation .address .fl {
+  position: relative;
+}
+
+.invitation .address .fl .close {
+  display: inline-block;
+  width: 0.14rem;
+  height: 0.14rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background: url(../images/icon/close.png) no-repeat center;
+  background-size: 100%;
+  position: absolute;
+  top: 2px;
+  right: -0.21rem;
+}
+
+.selectpage .classify ul li {
+  width: 20%;
+}
+
+/*邀约详情*/
+
+.invite-detail li .person .distance {
+  margin-top: 0;
+  color: #b7b7b7;
+}
+
+.invitation .invite-detail li .top .details {
+  border-bottom: none;
+}
+
+.invitation .invite-detail li .bottom .title {
+  padding-left: 0.66rem;
+  background-position: 0.14rem center;
+  background-size: 0.28rem;
+}
+
+.invite-detail .detail p {
+  height: 0.36rem;
+  line-height: 0.36rem;
+  padding-left: 0.66rem;
+  background: url(../images/icon/checkbox.png) no-repeat 0.26rem center;
+  background-size: 6px;
+}
+
+.invite-detail .time p {
+  padding-left: 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.invite-detail.items li.detail {
+  padding: 0;
+}
+
+.invite-detail.items li.time p {
+  padding-left: 10px;
+}
+
+.interest {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* width: 100%; */
+  /* width: 100vw; */
+  border: none;
+  background: #ffe455 url(../images/icon/price.png) 35vw center no-repeat;
+  background-size: 0.23rem 0.23rem;
+  height: 0.43rem;
+  line-height: 0.43rem;
+  text-align: center;
+  padding-left: 0.23rem;
+  z-index: 4;
+}
+
+._share {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 5;
+  text-align: center;
+  font-size: 16px;
+  display: none;
+}
+
+._share p {
+  height: 0.43rem;
+  line-height: 0.43rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* ------------------- */
+
+/* 2018.7.27 */
+
+/* indexPage */
+
+[v-cloak] {
+  display: none;
+}
+
+body.yaoyueIndex {
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.yaoyueIndex header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  z-index: 7;
+}
+
+.sexAge {
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 34px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.sexAge .sex {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+}
+
+.sexAge .age {
+  font-size: 12px;
+  color: #fff;
+}
+
+.female {
+  background-color: #ffa5ce;
+}
+
+.female .sex {
+  background: url(../images/icon/女.png) center center;
+  background-size: 100%;
+}
+
+.male {
+  background-color: #a4c8fe;
+}
+
+.male .sex {
+  background: url(../images/icon/男1.png) center center;
+  background-size: 100%;
+}
+
+.dropRefresh {
+  flex: 1 0 0;
+  overflow-y: auto;
+  /* margin-top: 10px; */
+  /* transition: all .4s; */
+
+
+  /* position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 250px; */
+}
+
+.mInviteList-item .ding {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 14px solid;
+  border-color: #fc6676 #fc6676 transparent transparent;
+}
+
+.mInviteList-item .ding .dingText {
+  position: absolute;
+  color: #fff;
+  right: -13px;
+  top: -15px;
+  font-size: 12px;
+}
+
+.m_shade {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  background-color: rgba(0, 0, 0, .3);
+  /* display: none; */
+}
+
+/* m筛选 */
+
+.closeSelect {
+  transform: rotate(-90deg);
+  margin-top: 0px;
+  /* margin-left: -3px; */
+  height: 100%;
+  background: url(../images/icon/left.png) 9px center no-repeat;
+}
+
+.blur {
+  height: 100%;
+  filter: blur(2px);
+}
+
+/* 发布邀约 */
+
+.releInvite-page .invitation .theme ul li {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#descriptionWrap-li {
+  padding-left: 0;
+  padding-right: 0;
+  min-height: 180px;
+}
+
+.descriptionWrap {
+  margin: 0 15px;
+  position: relative;
+}
+
+.descriptionWrap .textCountWrap {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+}
+
+#descripTextarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.releInvite-page .detailPlace {
+  display: flex;
+}
+
+.releInvite-page .detailPlace .detailPlace-title {
+  margin-right: 15px;
+}
+
+.releInvite-page .detailPlace .detailPlace-inputWrap {
+  flex: 1 0 0;
+}
+
+.releInvite-page .detailPlace .detailPlace-inputWrap input {
+  background: none !important;
+  text-align: left !important;
+  width: 100%;
+}
+
+/* 我感兴趣 界面 */
+
+.interested header a {
+  height: 100%;
+  margin: 0;
+}
+
+.interested header a.back {
+  background: url(../images/icon/left.png) no-repeat 7px center;
+  background-size: 0.1rem;
+}
+
+a.operate {
+  width: 0.28rem;
+  height: 0.14rem;
+  background: url(../images/icon/三个点.png) center center no-repeat;
+  background-size: 100%;
+}
+
+li.inviteDetail {
+  overflow: hidden;
+}
+
+li.inviteDetail ul.inviteDetail-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+li.inviteDetail ul.inviteDetail-list li {
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+li.inviteDetail ul.inviteDetail-list li .bigDot,
+li.inviteDetail ul.inviteDetail-list li .smallDot {
+  vertical-align: top;
+}
+
+li.inviteDetail ul.inviteDetail-list li .title {
+  color: #000;
+}
+
+li.inviteDetail ul.inviteDetail-list li .description {
+  display: inline-block;
+  width: calc(100% - 30px);
+}
+
+li.inviteDetail ul.inviteDetail-list li.detailImages {
+  padding-left: 35px;
+  /* 与dot span相同 */
+}
+
+/* li.detailImages img {
+  max-width: 100px;
+  max-height: 100px;
+} */
+
+.invitation .items ul.areaTime li {
+  margin: 0;
+}
+
+.avatarOperating {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* bottom: -2rem; */
+  bottom: 0;
+  z-index: 5;
+}
+
+.avatarOperating li {
+  /* height: 0.48rem; */
+  border-top: 1px solid #f7f7f7;
+  background-color: #fff;
+  font-size: 16px;
+  line-height: 0.43rem;
+  text-align: center;
+  color: #000;
+}
+
+.avatarOperating li:last-of-type {
+  border-top: 5px solid #eae9ef;
+  color: #7e7e7e;
+}
+
+/* 修改邀约index下拉刷新 */
+
+.dropRefresh .weui-pull-to-refresh__layer {
+  height: 50px;
+  line-height: 50px;
+}
+
+/* 无任何内容 */
+
+.noComments {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.noComments img {
+  width: 60px;
+  height: 50px;
+}
+
+/* 小视频全屏 */
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 8;
+  background-color: #000;
+}
+
+.fullScreen .videoHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  line-height: 50px;
+  /* background-color: #fff; */
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.fullScreen .videoHeader>.img-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+
+.fullScreen .videoHeader>.img-box>img {
+  width: 100%;
+  height: auto;
+}
+
+.fullScreen .closeFullScreen {
+  width: 30px;
+  height: 30px;
+  transform: translateX(-50%) rotate(45deg);
+  margin-right: auto;
+  margin-left: 25px;
+}
+
+.fullScreen .videoOperate {
+  width: 30px;
+  height: 30px;
+  background: url(../images/icon/三个点.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.fullScreen .progressBar {
+  display: block;
+  position: absolute;
+  top: 0;
+  height: 5px;
+  width: 0%;
+  background-color: #fff;
+}
+
+.fullScreen .fullScreenScroll {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  font-size: 0;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.fullScreen .fullScreenScroll .videoInput {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap>video {
+  background-color: #000;
+}
+
+.fullScreen .fullScreenScroll .fullScreenWrap .videoFooter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoCommentBtn {
+  width: 30px;
+  height: 30px;
+  background: url(../images/icon/评论-4.png) center center no-repeat;
+  background-size: 100%;
+}
+
+.videoFooter .littleTri {
+  width: 9px;
+  height: 9px;
+  border: 1px solid;
+  border-color: transparent transparent #fff #fff;
+  transform-origin: center center;
+  transform: rotate(-45deg) translate(-50%);
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+}
+
+.fullScreen .closeFullScreen::before {
+  content: '';
+  display: block;
+  border-top: 1px solid #e8e7e9;
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fullScreen .closeFullScreen::after {
+  content: '';
+  display: block;
+  border-left: 1px solid #e8e7e9;
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* m弹出框 */
+
+/* 也是遮罩 */
+
+.msgWrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 9;
+}
+
+.msgWrap .msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2rem;
+  height: 1.2rem;
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.msgWrap .msgText {
+  flex: 1 0 0;
+  padding: 0.05rem 0.1rem;
+  line-height: 0.3rem;
+  text-align: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.msgWrap .msgCtrl {
+  height: 0.35rem;
+  line-height: 0.35rem;
+  text-align: center;
+  color: #6692fe;
+  display: flex;
+}
+
+.msgWrap .msgCtrl>span {
+  flex: 1 0 0;
+}
+
+.msgWrap .msgCtrl>span:nth-of-type(2) {
+  border-left: 1px solid #e2e2e2;
+}
+
+/* 添加邀约，上传图片 */
+
+ul.showPicUl {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+ul.showPicUl>a {
+  margin: 0.05rem;
+}
+
+li.edit-pic-item {
+  font-size: 0;
+  width: 0.71rem;
+  height: 0.71rem;
+  margin: 0.05rem;
+  padding: 0 !important;
+  border: none;
+  overflow: hidden;
+}
+
+.edit-pic-item video,
+.edit-pic-item img {
+  width: 100%;
+  height: 100%;
+}
+
+.invitation .edit-pic-item .edit-closePic {
+  display: inline-block;
+  width: 0.16rem;
+  height: 0.16rem;
+  background: url(../images/icon/close.png) center center no-repeat;
+  background-size: 100%;
+  position: absolute;
+  margin-left: -0.16rem;
+}
+
+.confirmDelete {
+  width: 2.79rem;
+  height: 1.03rem;
+  border: 1px solid #acacac;
+  border-radius: 6px;
+  background-color: #fff;
+  /* position: absolute; */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.confirmDelete>p {
+  flex: 1 0 0;
+  padding: 0.2rem;
+  line-height: 0.2rem;
+  text-align: center;
+  color: #000;
+}
+
+.confirmDelete .confirmDelete-btngroup {
+  height: 0.48rem;
+  border-top: 1px solid #eeeeef;
+  display: flex;
+}
+
+.confirmDelete .confirmDelete-btngroup>a {
+  flex: 1 0 0;
+  text-align: center;
+  height: 100%;
+  padding-top: 0.12rem;
+  color: #46a3ff;
+}
+
+.confirmDelete .confirmDelete-btngroup>a:last-of-type {
+  border-left: 1px solid #e9e9e9;
+}
+
+.mLoadingMask {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  opacity: 0.3;
+  z-index: 9;
+}
+
+.mLoading {
+  width: 1rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  border-radius: 5px;
+  text-align: center;
+  color: #000;
+}
+
+/* 邀约详情is_jiesong */
+
+.is_jiesong,
+.with_confidante {
+  margin-right: 0.05rem;
+}
+
+/* 头像列表 */
+
+.comments-item {
+  height: 0.6rem;
+  border-top: 1px solid #d8d8d8;
+  background-color: #fff;
+  display: flex;
+  /* align-items: center; */
+  padding-top: 0.05rem;
+}
+
+.comments-item:last-of-type {
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.comments-item .comments-avatar {
+  font-size: 0;
+  margin: 0 0.1rem;
+  position: relative;
+}
+
+.comments-item .comments-avatar .comments-avatar-wrap {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.fans-tab .comments-text,
+.attention-tab .comments-text,
+.comments-item .comments-text {
+  flex: 1 0 0;
+  max-width: calc(100% - 0.9rem);
+}
+
+/* 我感兴趣 */
+
+.invitation-enrollWrap {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow-y: auto;
+  background-color: #f1f4fd;
+}
+
+.enrollTips,
+.enrollTitle {
+  padding-left: 0.1rem;
+  line-height: 0.4rem;
+}
+
+.enrollTitle {
+  color: #000;
+}
+
+.enroll-list {
+  background-color: #fff;
+}
+
+.enrollUl {
+  padding-bottom: 0.05rem;
+}
+
+.invitation-enrollWrap .videoStatus {
+  width: 0.18rem;
+  height: 0.18rem;
+  right: -0.02rem;
+  bottom: 0.09rem;
+}
+
+.invitation-enrollWrap .comments-item:last-of-type,
+.invitation-enrollWrap .comments-item {
+  border: none;
+}
+
+.invitation-enrollWrap .comments-text {
+  border-bottom: 1px solid #d8d8d8;
+}
+
+/* 邀约详情图片 */
+.inviImgWrap {
+  display: inline-block;
+  /* width: calc(30% - 16px); */
+  width: 28%;
+  margin: 5px;
+  overflow: hidden;
+  height: 90px;
+  /* height: 0;
+  padding-bottom: 28%; */
+}
+/* 邀约详情图片 数量 */
+.showImgNum{
+  position: absolute;
+  top: 0;
+  right: 1px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+}
+.showImgNum>img{
+  width: 0.16rem;
+  height: 0.12rem;
+  margin: 1px;
+}
+.showImgNumCount{
+  color: #fff;
+}

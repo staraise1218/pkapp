@@ -1,0 +1,5 @@
+public/upload/
+application/database.php
+application/api/logic/SmsLogic.php
+application/api/logic/RongyunLogic.php
+runtime/*

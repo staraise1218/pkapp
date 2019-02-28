@@ -1,0 +1,207 @@
+<include file="public/layout" />
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>VIP购买记录</h3>
+                <h5></h5>
+            </div>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+        </ul>
+    </div>
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>购买记录列表</h3>
+                <h5>(共<span id="user_count"></span>条记录) 总金额：{$total_amount}</h5>
+            </div>
+            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline"  id="search-form2" method="get" action="{:U('admin/Vip/index')}" onsubmit="return check_form();">
+
+                <div class="sDiv">
+                    <div class="sDiv2">
+                        
+                        <div class="sDiv2" style="margin-right: 10px;">
+                            <input type="text" size="30" id="start_time" name="start_time" value="{$start_time}" placeholder="起始时间" class="qsbox">
+                            <input type="button" class="btn" value="起始时间">
+                        </div>
+                        <div class="sDiv2" style="margin-right: 10px;">
+                            <input type="text" size="30" id="end_time" name="end_time" value="{$end_time}" placeholder="截止时间" class="qsbox">
+                            <input type="button" class="btn" value="截止时间">
+                        </div>
+                        <select name="searchtype" class="select">
+                            <option value="nickname" <if condition="$searchtype == 'nickname'">selected=selected</if>>用户昵称</option>
+                            <option value="uuid" <if condition="$searchtype == 'uuid'">selected=selected</if>>uuid</option>
+                        </select>
+                        <input type="text" id="keyword" size="30" name="keyword" class="qsbox" placeholder="请输入关键字" value="{$keyword}">
+                        <input type="submit" class="btn" value="搜索">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="hDiv">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th class="sign" axis="col0">
+                            <div style="width: 24px;"><i class="ico-check"></i></div>
+                        </th>
+                        <th align="left" abbr="user_id" axis="col3" class="">
+                            <div style="text-align: center; width: 40px;" class="">ID</div>
+                        </th>
+                        <th align="left" abbr="nickname" axis="col4" class="">
+                            <div style="text-align: center; width: 150px;" class="">会员昵称</div>
+                        </th>
+                        <th align="center" abbr="mobile" axis="col6" class="">
+                            <div style="text-align: center; width: 80px;" class="">uuid</div>
+                        </th>
+                        <th align="center" abbr="reg_time" axis="col6" class="">
+                            <div style="text-align: center; width: 120px;" class="">支付时间</div>
+                        </th>
+                        <th align="center" abbr="reg_time" axis="col6" class="">
+                            <div style="text-align: center; width: 80px;" class="">支付金额</div>
+                        </th>
+                        <th align="center" abbr="reg_time" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">会员级别</div>
+                        </th>
+                        <th align="center" abbr="reg_time" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">支付状态</div>
+                        </th>
+                        <th align="center" abbr="reg_time" axis="col6" class="">
+                            <div style="text-align: center; width: 120px;" class="">到期日期</div>
+                        </th>
+                        <th align="center" axis="col1" class="handle">
+                            <div style="text-align: center; width: 150px;">操作</div>
+                        </th>
+                        <th style="width:100%" axis="col7">
+                            <div></div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="tDiv">
+            <div class="tDiv2">
+
+                <div class="fbutton">
+                    <a href="{:U('vip/export')}">
+                        <div title="导出">
+                            <span><i class="fa fa-share"></i>导出</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="bDiv" style="height: auto;" id="ajax_return">
+            <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+    <table>
+        <tbody>
+        <volist name="lists" id="list">
+            <tr data-id="{$list['id']}" user_id="{$list['user_id']}">
+                <td class="sign">
+                    <div style="width: 24px;"><i class="ico-check"></i></div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 40px;">{$list.id}</div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 150px;">{$list.nickname}</div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 80px;">{$list.uuid}</div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 120px;">{$list.paytime|date='Y-m-d H:i',###}</div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 80px;">{$list.amount}</div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 100px;">
+                        <if condition="$list.level eq 1">白银VIP</if>
+                        <if condition="$list.level eq 2">黄金VIP</if>
+                        <if condition="$list.level eq 3">铂金VIP</if>
+                        <if condition="$list.level eq 4">钻石VIP</if>
+                    </div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 100px;">
+                        <if condition="$list.paystatus eq 1">已支付</if>
+                        <if condition="$list.paystatus eq 0">未支付</if>
+                    </div>
+                </td>
+                <td align="left" class="">
+                    <div style="text-align: center; width: 120px;">
+                        {$list.vip_expire_date}
+                    </div>
+                </td>
+
+                <td align="center" class="handle">
+                    <div style="text-align: center; width: 170px; max-width:250px;">
+                        <!-- <a class="btn blue" href="{:U('Admin/UserAuthVideo/video',array('id'=>$list['id']))}">查看视频</a> -->
+                        
+                    </div>
+                </td>
+                <td align="" class="" style="width: 100%;">
+                    <div>&nbsp;</div>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<!--分页位置-->
+{$show}
+
+
+        </div>
+    </div>
+</div>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<script>
+    $(document).ready(function(){
+        // 点击刷新数据
+       
+
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    });
+
+
+    /**
+     * 回调函数
+     */
+    function call_back(v) {
+        layer.closeAll();
+        if (v == 1) {
+            layer.msg('发送成功',{icon:1});
+        } else {
+            layer.msg('发送失败',{icon:2});
+        }
+    }
+
+</script>
+
+
+
+
+</body>
+</html>

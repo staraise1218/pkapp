@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我感兴趣</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="__STATIC__/css-min/invite-detail.min.css">
+    <link rel="stylesheet" href="__STATIC__/css/common.css">
+    <script>
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+    <style>
+        html{
+            height: 100vh;
+        }
+        body{
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="interested">
+    <header style="position:absolute;left: 0;right: 0;">
+        <a href="javascript:void(0)" class="back fl"></a>
+        <span class="title">邀约详情</span>
+        <a href="javascript:void(0)" class="operate fr" style="display: none;"></a>
+    </header>
+
+    <div class="invitation-enrollWrap" style="position:absolute;">
+
+        <div class="main-content invitation">
+            <div class="items invite-detail">
+                <ul>
+                    <li>
+                        <div class="top">
+                            <div class="videoStatusWrap" style="position:relative;margin-right: 0.1rem;">
+                                <div class="img-box">
+                                    <img src="__STATIC__/images/icon/tx.png" onload="Global.resizeHeadpic(this)">
+                                </div>
+                                <span class="videoStatus" style="display:none;width: 0.18rem;height: 0.18rem;right: -0.02rem;bottom: 0;"></span>
+                            </div>
+                                
+                            <div class="details">
+                                <div class="person">
+                                    <span class="name"></span>
+                                    <span class="sexAge">
+                                        <i class="sex"></i>
+                                        <span class="age"></span>
+                                    </span>
+                                    <!-- <span class="distance fr">
+                                        <span class="distanceText">100</span>km
+                                    </span> -->
+                                </div>
+                                <div class="" style="margin-top: 10px;"></div>
+                            </div>
+                        </div>
+
+                    </li>
+                    <!-- 邀约详情 -->
+                    <li class="detail inviteDetail">
+                        <ul class="inviteDetail-list">
+                            <!-- 主题 -->
+                            <li class="titleLi">
+                                <span class="bigDot"></span>
+                                <span class="title"></span>
+                            </li>
+                            <!-- 描述 -->
+                            <li class="descriptionLi" style="display: none;">
+                                <span class="smallDot"></span>
+                                <span class="description"></span>
+                            </li>
+                            <!-- 图片 -->
+                            <li class="detailImages" style="display:none;font-size:0;">
+                            </li>
+                            <!-- 付钱 -->
+                            <li class="payTypeLi" style="display:none;">
+                                <span class="smallDot"></span>
+                                <span class="payType"></span>
+                            </li>
+                            <!-- 邀约对象性别 -->
+                            <li class="otherSideSexLi" style="display:none;">
+                                <span class="smallDot"></span>
+                                <span class="otherSideSex"></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="areaTime">
+                    <li>
+                        时间：
+                        <span class="detailTime"></span>
+                    </li>
+                    <li class="areaPlaceLi" style="display:none;">
+                        地点：
+                        <span class="areaPlace"></span>
+                    </li>
+                    <li class="clearfix">
+                        <span class="fl is_jiesong" style="display: none;">
+                            <input type="checkbox" checked="checked" id="myCheck">
+                            <label></label>
+                            <label class="jiesongText"></label>
+                        </span>
+                        <span class="fl with_confidante" style="display: none;">
+                            <input type="checkbox" checked="checked" id="myCheck1">
+                            <label></label>
+                            <label class="with_confidante_text"></label>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="enrollWrap" style="display:none;">
+            <div class="enrollTips">
+                感兴趣的人(共计<span class="interestedCount"></span>人)
+            </div>
+            <div class="enroll-list">
+                <!-- <div class="enrollTitle">
+                    报名人数(共计<span class="interestedCount"></span>人)
+                </div> -->
+                <ul class="enrollUl">
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <button class="interest" style="display: none;">我感兴趣</button> -->
+    <div class="interest" style="display: none;">我感兴趣</div>
+
+    <!-- 弹框 -->
+    <div class="_shade"></div>
+    <div class="avatarOperating" style="display: none;">
+        <ul>
+            <!-- <li class="">分享到好友</li> -->
+            <!-- <li class="">举报</li> -->
+            <li class="deleteDetail" style="display:none;">删除</li>
+            <li class="home-cancel">取消</li>
+        </ul>
+    </div>
+
+    <!-- --------------------------------------------- -->
+
+    <script src="__STATIC__/js-min/invite-detail.min.js"></script>
+    <script>
+        var Interested = {
+            originUserId: "", //自己的user_id
+            toUserId: "", //这条邀约发布者的user_id
+            toUserSex:"", //这条邀约发布者的sex
+            detailId: "", //这条邀约的id
+
+
+            //获取一些页面参数
+            getPageData: function () {
+                //originUserId我自己的user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Interested.originUserId = Number(mUserInfo.user_id);
+                } else {
+                    // Interested.originUserId = 3; //测试用
+                    alert("请求失败")
+                    return
+                }
+
+                //detailId
+                let url = window.location.href;
+                if (!(url.indexOf(".html") > -1)) { //没有.html
+                    url = url + ".html";
+                }
+                if (url.indexOf("file:///") > -1) {
+                    // url = "http://app.yujianhaoshiguang.cn/index.php/mobile/invite/detail/id/24.html"; //测试用
+                    alert("请求失败")
+                    return
+                }
+                let strTemp = url.split("/detail/id/")[1];
+                Interested.detailId = Number(strTemp.substr(0, strTemp.length - 5));
+
+                //ajax邀约详情信息
+                Interested.getInviteData();
+            },
+            getInviteData: function () {
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/invite/detail",
+                    data: {
+                        id: Interested.detailId
+                    },
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+
+                        if (result.data && result.data !== "") {
+                            Interested.toUserId = result.data.user_id;
+                            Interested.toUserSex = result.data.sex;
+
+                            //更新dom
+                            Interested.updateDom(result.data);
+                        }
+                    }
+                });
+            },
+            //根据inviteItem更新Dom
+            updateDom: function (data) {
+                console.log(data)
+                //右上角a标签
+                if(Number(Interested.originUserId)==Number(Interested.toUserId)){
+                    $("header a.operate").show()
+                }
+                //头像
+                if(data.head_pic&&data.head_pic!==""){
+                    if(data.head_pic.indexOf("http:")>-1){
+                        $(".img-box img").attr("src", data.head_pic);
+                    }else{
+                        $(".img-box img").attr("src", Global.host + data.head_pic)
+                    }
+                }
+                //视频认证
+                if(Number(data.auth_video_status)==2){
+                    $(".videoStatus").show();
+                }
+                //昵称
+                $(".person .name").html(data.nickname)
+                //性别
+                if (Number(data.sex) == 1) {
+                    $(".sexAge").addClass("male");
+                } else {
+                    $(".sexAge").addClass("female");
+                }
+                //年龄
+                $(".sexAge .age").html(data.age);
+                // $(".person .distance .distanceText").html(data.distance)
+
+                // 邀约内容了
+                //主题
+                $(".inviteDetail .inviteDetail-list li .title").html(data.title)
+                //描述
+                if(data.description&&data.description!==""){
+                    $(".inviteDetail .inviteDetail-list li .description").html(data.description);
+                    $(".descriptionLi").show();
+                }
+                //图片
+                if (data.image && data.image !== "" && data.image.length !== 0) {
+                    data.image.forEach(function (src, index) {
+                        $(".detailImages").append($(
+                            `
+                                <div class="inviImgWrap" style="font-size:0;">
+                                    <img class="inviImg" data-index=${index} src=${Global.host+src} onload="Global.resizeHeadpic(this)">
+                                </div>
+                            `
+                        ));
+                    });
+                    $(".detailImages").css("display","flex");
+                }
+                //买单
+                if(data.pay&&data.pay!==""){
+                    $(".inviteDetail .inviteDetail-list li .payType").html(data.pay);
+                    $(".payTypeLi").show();
+                }
+                //邀约对象性别
+                if(data.object&&data.object!==""){
+                    $(".inviteDetail .inviteDetail-list li .otherSideSex").html(data.object);
+                    $(".otherSideSexLi").show();
+                }
+                //时间和place
+                $(".areaTime .detailTime").html(data.time)
+                if(data.place&&data.place!==""){
+                    $(".areaTime .areaPlace").html(data.place);
+                    $(".areaPlaceLi").show();
+                }
+                //接送
+                if (Number(data.is_jiesong) === 1) {
+                    if(Number(Interested.toUserSex)==1){
+                        $(".jiesongText").html("我接送");
+                    }else{
+                        $(".jiesongText").html("需要接送");
+                    }
+                    $(".is_jiesong").show();
+                }
+                //携带好友
+                if (Number(data.with_confidante) === 1) {
+                    if(Number(Interested.toUserSex)==1){
+                        $(".with_confidante_text").html("对方可携带一名闺蜜");
+                    }else{
+                        $(".with_confidante_text").html("对方可携带三两好友");
+                    }
+                    $(".with_confidante").show();
+                }
+                //----------------------------------------
+                //不是自己的邀约
+                if (Number(Interested.originUserId) !== Number(Interested.toUserId)) {
+                    $(".interest").show(); //btn
+                    $(".invitation-enrollWrap").css("bottom","0.43rem"); //有btn挡着
+                }
+                //是自己的邀约
+                else {
+                    // $(".enroll-list").show();
+                    $(".deleteDetail").show();
+                    Interested.showInterestedList();
+                }
+
+                // Interested.showInterestedList(); //测试用
+            },
+            getInterested: function () {
+                let btn = document.getElementsByClassName("interest")[0];
+                let postData = {
+                    user_id: Interested.originUserId,
+                    invite_id: Interested.detailId
+                };
+                console.log(postData)
+                Global.eleCantClick(btn);
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/invite/enroll",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+
+                        if (result.msg == "您已感兴趣此邀约") {
+                            Global.messageWin("您已感兴趣此邀约");
+                        } else {
+                            Global.messageWin("成功感兴趣此邀约");
+                        }
+
+                        Global.eleCanClick(btn);
+                    }
+                });
+            },
+            showInterestedList: function () {
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/invite/getEnroll",
+                    data: {
+                        invite_id: Interested.detailId
+                    },
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        if (result.data && result.data !== "" && result.data.length !== 0) {
+
+                            //update list dom
+                            let inArr=result.data;
+
+                            $(".interestedCount").html(inArr.length);
+                            inArr.forEach(function(item){
+                                let headUrl="";
+                                if(item.head_pic&&item.head_pic!==""){
+                                    if(item.head_pic.indexOf("http:")>-1){
+                                        headUrl=item.head_pic;
+                                    }else{
+                                        headUrl=Global.host+item.head_pic;
+                                    }
+                                }else{
+                                    // headUrl="__STATIC__/images/icon/tx.png";
+                                    headUrl="/application/mobile/view/static/images/icon/tx.png";
+                                }
+                                let $liTemp=$(`
+                                    <li class="comments-item" data-toUserId=${item.user_id}>
+                                        <div class="comments-avatar">
+                                            <div class="comments-avatar-wrap">
+                                                <img src="${headUrl}" onload="Global.resizeHeadpic(this)">
+                                            </div>
+                                            <span class="videoStatus" style="display:none;"></span>
+                                        </div>
+
+                                        <div class="comments-text">
+                                            <div class="comments-text-item">
+                                                <span class="listName">${item.nickname}</span>
+                                                <span class="sexAge">
+                                                    <i class="sex"></i>
+                                                    <span class="age">${item.age}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                `);
+
+                                //视频认证
+                                if(Number(item.auth_video_status)==2){
+                                    $liTemp.find(".videoStatus").show();
+
+                                    // $liTemp.find(".videoStatus").click(function(){
+                                    //     let user_id=$liTemp.attr("data-toUserId");
+                                    //     Global.getAuthVideoUrl(user_id,function(url){
+                                    //         let src=Global.host+url;
+                                    //         Global.fullScreen(src);
+                                    //     });
+                                    // });
+                                }
+                                //sex
+                                if (Number(item.sex) == 1) { //男
+                                    $liTemp.find(".sexAge").addClass("male");
+                                } else {
+                                    $liTemp.find(".sexAge").addClass("female");
+                                }
+
+                                $(".enrollUl").append($liTemp);
+                            });
+
+                            $(".enrollWrap").show();
+                        }
+                    }
+                });
+            },
+            showFullPic: function (el) {
+                let srcArr = [];
+                $(".detailImages img.inviImg").each(function (index,element) {
+                    $(this).attr("data-index",index);
+                    srcArr.push($(this).attr("src"));
+                });
+                console.log(srcArr)
+                let swiper = $.photoBrowser({
+                    items: srcArr,
+                    initIndex:Number($(el).attr("data-index"))
+                });
+                // swiper.open(index);
+                swiper.open();
+            },
+            deleteDetail(){
+                let postData = {
+                    user_id: Interested.originUserId,
+                    invite_id:Interested.detailId
+                }
+                let url = Global.host + "/index.php/Api/Invite/del";
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        if(result.msg=="删除成功"){
+                            //删除邀约成功 后
+                            //删除邀约列表session
+                            if (sessionStorage.getItem("inviIndexPage") && sessionStorage.getItem("inviIndexPage") !==null && sessionStorage.getItem("inviIndexPage") !== "null") {
+                                sessionStorage.setItem('inviIndexPage', null);
+                            }
+                            //删除myHomePage session
+                            if (sessionStorage.getItem("homePage") && sessionStorage.getItem("homePage") !== null && sessionStorage.getItem("homePage") !== "null") {
+                                sessionStorage.setItem('homePage', null);
+                            }
+                            window.history.back(-1);
+                        }
+                    }
+                });
+            },
+            eventsBind: function () {
+                //返回
+                $("a.back").click(function () {
+                    window.history.back(-1)
+                })
+                //更多操作
+                $("a.operate").click(function () {
+                    $("._shade").add($('.avatarOperating')).show()
+                })
+                //更多操作-取消
+                $(".avatarOperating .home-cancel").click(function () {
+                    $("._shade").add($('.avatarOperating')).hide()
+                })
+                //我感兴趣
+                $(".interest").click(function () {
+                    Interested.getInterested();
+                });
+                //点击头像看他人的个人主页
+                $(".interested .img-box").click(function (event) {
+                    event.stopPropagation();
+                    let url = "";
+                    if (Number(Interested.originUserId) !== Number(Interested.toUserId)) {
+                        url = Global.host + "/index.php/mobile/user/homePage/user_id/" + Interested.originUserId +
+                            "/toUserId/" + Interested.toUserId + ".html";
+                    } else {
+                        url = Global.host + "/index.php/mobile/user/myHomePage.html";
+                    }
+
+                    window.location.href = url;
+                });
+                //点击邀约详情的图片 查看大图
+                $(".inviteDetail-list").delegate("img.inviImg", "click", function () {
+                    console.log($(this).attr("src"))
+                    Interested.showFullPic(this);
+                });
+
+                //点击报名的人 进入个人主页
+                $(".enrollUl").delegate("li.comments-item","click",function(event){
+                    event.stopPropagation();
+                    
+                    let user_id = Interested.originUserId;
+                    let toUserId = $(this).closest(".comments-item").attr("data-toUserId");
+                    let url = Global.host + "/index.php/mobile/user/homePage/user_id/" + user_id + "/toUserId/" + toUserId + ".html";
+                    console.log(url)
+                    window.location.href = url;
+                });
+                //点击认证视频
+                $(".videoStatusWrap").delegate(".videoStatus","click",function(){
+                    // let user_id=Interested.toUserId;
+                    // Global.getAuthVideoUrl(user_id,function(url){
+                    //     let src=Global.host+url;
+                    //     Global.fullScreen(src);
+                    // });
+                });
+                //点击删除
+                $(".deleteDetail").click(function(){
+                    $(".avatarOperating .home-cancel")[0].click();
+                    Global.messageConfirWin("确认删除这条邀约？",function(){
+                        Interested.deleteDetail();
+                    });
+                });
+            },
+            init: function () {
+                //获取传来的邀约item信息
+                Interested.getPageData()
+
+                Interested.eventsBind()
+            }
+        }
+        $(function () {
+            Interested.init()
+
+            // window.addEventListener('touchmove', evt => evt.preventDefault())
+            // window.addEventListener('touchstart',function(e){e.preventDefault();});
+            // window.addEventListener('touchmove',function(e){e.preventDefault();});
+        })
+    </script>
+</body>
+
+</html>

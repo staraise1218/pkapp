@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我收到的礼物</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/mygiftlist.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="gift-page">
+    <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">我收到的礼物</div>
+    </header>
+
+
+    <div class="giftWrap">
+        <div class="giftList">
+            <ul class="giftUl">
+            </ul>
+        </div>
+
+        <div class="noGiftTip" style="display:none;line-height: 0.5rem;text-align: center;">
+            您目前还没收到礼物
+        </div>
+
+        <!-- <div class="btnBox">
+            <button class="btn submit">发送</button>
+        </div> -->
+    </div>
+
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script>
+        // 页面携带参数toUserId 送给谁礼物
+        var Gift = {
+            minfo:{},
+
+            
+            //获取mUserInfo
+            getmuserinfo(){
+                if(Global.getMyInfo()){
+                    Gift.minfo=Global.getMyInfo()
+                }
+            },
+            //获取礼物列表
+            getGift(){
+                let postData={
+                    user_id:Number(Gift.minfo.user_id)
+                    // user_id:2 //测试用
+                }
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/mygiftlist",
+                    data: postData,
+                    success: function (res) {
+                        console.log(res)
+                        if(Number(res.code)==200){
+                            //礼物列表
+                            let arr=res.data
+                            Gift.updateDomGift(arr)
+                        }
+                    }
+                })
+            },
+            updateDomGift(arr){
+                // arr=[] //测试用
+                if(arr.length>0){
+                    let giftUl=document.getElementsByClassName("giftUl")[0]
+                    arr.forEach(function(obj){
+                        let li=document.createElement("li")
+                        let head_pic=Global.filterHttpImg(obj.head_pic)
+                        li.innerHTML=`
+                            <div class="headnage">
+                                <div class="img-box">
+                                    <img src="${head_pic}">    
+                                </div>
+                                <div class="nameAge">
+                                    <div class="nickname">${obj.nickname}</div>
+                                    <div class="sexAgeWrap">
+                                        <span class="sexAge male">
+                                            <i class="sex"></i>
+                                            <span class="age">23</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="spendCoin">花费${obj.goldcoin}金币送您</div>
+
+                            <div class="giftImg">
+                                <div class="giftImg-box">
+                                    <img src="${Global.host+obj.image}">
+                                </div>
+                            </div>
+                        `
+                        li.className="gift-item"
+                        giftUl.appendChild(li)
+                    })
+                }else{
+                    $(".noGiftTip").show()
+                }
+            },
+            eventsBind(){
+                document.getElementsByClassName("back")[0].onclick=function(){
+                    console.log("返回")
+                    window.history.back(-1)
+                }
+            },
+            init(){
+                Gift.getmuserinfo()
+                Gift.getGift()
+
+                Gift.eventsBind()
+            }
+        };
+        $(function () {
+            Gift.init();
+        });
+    </script>
+</body>
+
+</html>

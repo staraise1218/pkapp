@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发动态</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/dynamics-add.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/dongtai-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="edit">
+    <header>
+        <div class="cancel">取消</div>
+        <div class="title">发动态</div>
+        <div class="save">确定</div>
+    </header>
+
+    <div class="edit-page">
+        <form id="dynamicForm" action="http://app.yujianhaoshiguang.cn/index.php/Api/Dynamics/add" method="post" enctype="multipart/form-data">
+            <!-- 隐藏域 -->
+            <input type="text" value="" name="user_id" style="display: none;">
+            <input type="text" value="" name="type" style="display: none;">
+            <input type="text" value="" name="content" style="display: none;">
+
+            <input type="text" value="" name="image" style="display: none;">
+
+            <input type="text" value="" name="video" style="display: none;">
+            <input type="text" value="" name="video_thumb" style="display: none;">
+            <!-- 隐藏域 end -->
+            <div class="edit-content">
+                <!-- <textarea name="" id="edit-text" placeholder="此刻你在想什么......"></textarea> -->
+                <div id="edit-text" contenteditable="true"></div>
+                <div class="edit-expression">
+                    <!-- <span class="face"></span> -->
+                    <span class="textCount">
+                        <span id="textCount">0</span>/1000</span>
+                </div>
+            </div>
+
+            <div class="edit-pic" style="display: none;">
+                <ul class="showPicUl">
+                    <a href="javascript:void(0)" class="addPic">
+                        <img src="__STATIC__/images/icon/add.png">
+                    </a>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <!-- ------------------------------------ -->
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <!-- jquery-weui-js -->
+    <script src="__STATIC__/js/js-plugins/jquery-weui-build/jquery-weui.min.js"></script>
+    <script src="__STATIC__/js/js-plugins/jquery-weui-build/swiper.min.js"></script>
+    <!-- 表情插件-js -->
+    <script src="__STATIC__/js/js-plugins/jQuery-emoji-master20160321/lib/script/jquery.mCustomScrollbar.min.js"></script>
+    <script src="__STATIC__/js/js-plugins/jQuery-emoji-master20160321/dist/js/jquery.emoji.min.js"></script>
+    <!-- jquery.form-js -->
+    <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
+    <script>
+        var Edit = {
+            _user_id: "",
+            _type: "",
+
+            //生成表情插件
+            generateFace: function () {
+                $("#edit-text").emoji({
+                    showTab: false,
+                    animation: 'fade',
+                    icons: [{
+                        name: "贴吧表情",
+                        path: "__STATIC__/js/js-plugins/jQuery-emoji-master20160321/dist/img/tieba/",
+                        maxNum: 50,
+                        file: ".jpg",
+                        placeholder: ":{alias}:",
+                        alias: {
+                            1: "hehe",
+                            2: "haha",
+                            3: "tushe",
+                            4: "a",
+                            5: "ku",
+                            6: "lu",
+                            7: "kaixin",
+                            8: "han",
+                            9: "lei",
+                            10: "heixian",
+                            11: "bishi",
+                            12: "bugaoxing",
+                            13: "zhenbang",
+                            14: "qian",
+                            15: "yiwen",
+                            16: "yinxian",
+                            17: "tu",
+                            18: "yi",
+                            19: "weiqu",
+                            20: "huaxin",
+                            21: "hu",
+                            22: "xiaonian",
+                            23: "neng",
+                            24: "taikaixin",
+                            25: "huaji",
+                            26: "mianqiang",
+                            27: "kuanghan",
+                            28: "guai",
+                            29: "shuijiao",
+                            30: "jinku",
+                            31: "shengqi",
+                            32: "jinya",
+                            33: "pen",
+                            34: "aixin",
+                            35: "xinsui",
+                            36: "meigui",
+                            37: "liwu",
+                            38: "caihong",
+                            39: "xxyl",
+                            40: "taiyang",
+                            41: "qianbi",
+                            42: "dnegpao",
+                            43: "chabei",
+                            44: "dangao",
+                            45: "yinyue",
+                            46: "haha2",
+                            47: "shenli",
+                            48: "damuzhi",
+                            49: "ruo",
+                            50: "OK"
+                        },
+                        title: {
+                            1: "呵呵",
+                            2: "哈哈",
+                            3: "吐舌",
+                            4: "啊",
+                            5: "酷",
+                            6: "怒",
+                            7: "开心",
+                            8: "汗",
+                            9: "泪",
+                            10: "黑线",
+                            11: "鄙视",
+                            12: "不高兴",
+                            13: "真棒",
+                            14: "钱",
+                            15: "疑问",
+                            16: "阴脸",
+                            17: "吐",
+                            18: "咦",
+                            19: "委屈",
+                            20: "花心",
+                            21: "呼~",
+                            22: "笑脸",
+                            23: "冷",
+                            24: "太开心",
+                            25: "滑稽",
+                            26: "勉强",
+                            27: "狂汗",
+                            28: "乖",
+                            29: "睡觉",
+                            30: "惊哭",
+                            31: "生气",
+                            32: "惊讶",
+                            33: "喷",
+                            34: "爱心",
+                            35: "心碎",
+                            36: "玫瑰",
+                            37: "礼物",
+                            38: "彩虹",
+                            39: "星星月亮",
+                            40: "太阳",
+                            41: "钱币",
+                            42: "灯泡",
+                            43: "茶杯",
+                            44: "蛋糕",
+                            45: "音乐",
+                            46: "haha",
+                            47: "胜利",
+                            48: "大拇指",
+                            49: "弱",
+                            50: "OK"
+                        }
+                    }]
+                });
+            },
+            //发动态
+            sendDynamic: function () {
+                var contentStr = document.getElementById("edit-text").innerHTML.trim();
+
+                //jquery.form.js方法
+                $(":input[name='user_id']").val(Edit._user_id);
+                $(":input[name='type']").val(Edit._type);
+                $(":input[name='content']").val(contentStr);
+
+                if (Edit._type == 2) { //图片
+                    let srcArr = [];
+                    $("img.showPic").each(function () {
+                        let srcTemp = "/public/" + $(this).attr("src").split("/public/")[1];
+                        srcArr.push(srcTemp);
+                    });
+                    console.log(srcArr)
+                    let imageJson = JSON.stringify(srcArr)
+                    console.log(imageJson)
+                    $(":input[name='image']").val(imageJson);
+                } else if (Edit._type == 3) { //视频
+                    if($("img.showPicVideo").length==0){
+                        Global.messageWin("请上传视频");
+                        return;
+                    }
+                    let videoStr = "/public/" + $("img.showPicVideo").attr("data-src").split("/public/")[1];
+                    let thumbStr="/public/" + $("img.showPicVideo").attr("src").split("/public/")[1];
+                    $(":input[name='video']").val(videoStr);
+                    $(":input[name='video_thumb']").val(thumbStr);
+                }
+
+                Global.openLoading();
+
+                $("#dynamicForm").ajaxSubmit(function (result) {  
+                    console.log(result)                  
+                    if (result.code == 200) {
+                        Global.closeLoading("发布成功", function () {
+                            //关闭 返回
+                            if(Global.isIOS()){
+                                localStorage.setItem("isFromAdd",1)
+                                window.history.back(-1);
+                            }else{
+                                window.Android.goback("reloadIndex")
+                                // localStorage.setItem("isFromAdd",1)
+                                // window.history.back(-1);
+                                // uploadImgApp(type,callback) //参数1 type：1 单图片 2多张图片 ，类型 string
+                                //                             //参数2 callback：上传完图片后，调用的h5 js方法的名称 ，类型string
+
+                                // {
+                                //       "filepath":[
+                                //         "/public/upload/dynamics/video/20180820/3e0cf14b5c8aafd2bc94d6c769041f07.jpg",
+                                //         "/public/upload/dynamics/video/20180820/3e0cf14b5c8aafd2bc94d6c769041f07.jpg"
+                                //       ]
+                                // }                                                          
+                            }
+                        });
+                    }  
+                });
+
+            },
+            showFullPic: function (el) {
+                let srcArr = [];
+                $(".showPicUl .showPic").each(function (index,element) {
+                    $(this).attr("data-index",index);
+                    srcArr.push($(this).attr("src"));
+                });
+                console.log(srcArr)
+                let swiper = $.photoBrowser({
+                    items: srcArr,
+                    initIndex:Number($(el).attr("data-index"))
+                });
+                swiper.open();
+            },
+            //限制字数
+            bindLimitCount: function () {
+                var textarea = document.getElementById('edit-text')
+                textarea.onchange = function () {
+                    limitCount(this)
+                }
+                textarea.onkeydown = function () {
+                    limitCount(this)
+                }
+                textarea.onkeyup = function () {
+                    limitCount(this)
+                }
+
+                function limitCount(el) {
+                    let vInnerHtml = el.innerHTML.replace(/<img[^>]*>/g, "图").trim()
+                    console.log(vInnerHtml)
+                    let count = vInnerHtml.length
+                    document.getElementById('textCount').innerHTML = count
+                    if (count >= 1000) {
+                        Global.messageWin("最多输入1000个字符");
+                    }
+                }
+            },
+            getPageInfo: function () {
+                //_user_id
+                // Edit._user_id={$info['user_id']};
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null && localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Edit._user_id = Number(mUserInfo.user_id);
+                } else {
+                    // Edit._user_id = 1; //测试用
+                    alert("请求失败")
+                    return
+                }
+
+                //_type
+                let url = window.location.href;
+                console.log(url)
+                // alert(url)
+                // console.log(!(url.indexOf(".html")>-1))
+                if (!(url.indexOf(".html") > -1)) { //后面不带.html
+                    console.log("没有")
+                    url = url + ".html";
+                }
+                if (url.indexOf("file://") > -1) {
+                    // url = "http://app.yujianhaoshiguang.cn/index.php/mobile/dynamics/add/type/2.html"; //测试用
+                    alert("请求失败")
+                    return
+                }
+                // alert(url)
+                let strTemp = url.split("/add/type/")[1];
+                let type = strTemp.substr(0, strTemp.length - 5);
+                Edit._type = Number(type);
+                // alert(Edit._type)
+
+                //updateDom
+                Edit.updateDom();
+            },
+            updateDom: function () {
+                if (Edit._type !== 1) {
+                    $(".edit-pic").show();
+                }
+            },
+            eventsBind: function () {
+                //限制字数
+                Edit.bindLimitCount()
+                //发动态
+                $(".save").click(function () {
+                    Edit.sendDynamic()
+                })
+                //返回
+                $(".cancel").click(function () {
+                    window.history.back(-1)
+                })
+                //添加图片
+                $(".addPic").click(function () {
+                    //视频
+                    let type
+                    if(Edit._type==3){
+                        type=2
+                        if ($("img.showPicVideo").length >= 1) {
+                            Global.messageWin("视频最多上传一个");
+                            return;
+                        }
+                    }
+                    //图片
+                    else{
+                        type=1
+                        if ($("img.showPic").length >= 9) {
+                            Global.messageWin("最多上传9张图片");
+                            return;
+                        }
+                    }
+
+                    if(Global.isIOS()){
+                        jumpIOS(type,"uploadOne")
+                    }else{
+                        window.Android.gotoJavaCamera(type,"uploadOne")
+                    }
+                });
+                //点击图片显示大图
+                $(".showPicUl").delegate("img.showPic", "click", function () {
+                    console.log($(this).attr("src"))
+                    Edit.showFullPic(this);
+                });
+                //点击video显示全屏预览
+                $(".showPicUl").delegate("img.showPicVideo", "click", function () {
+                    let src=$(this).attr("data-src");
+                    let thumb=$(this).attr("src");
+                    Global.fullScreen(src,thumb);
+                });
+            },
+            init: function () {
+                //得到userid 和 type
+                Edit.getPageInfo();
+
+                //表情插件
+                Edit.generateFace()
+
+                Edit.eventsBind()
+            }
+        }
+        $(function () {
+            Edit.init()
+        });
+    </script>
+</body>
+
+</html>

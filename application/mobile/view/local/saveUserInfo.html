@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script>
+        var userinfo = {$userinfo};
+        console.log(userinfo)
+
+        localStorage["mUserInfo"] = JSON.stringify(userinfo);
+        localStorage.setItem("mUserInfo", JSON.stringify(userinfo));
+
+        // window.onbeforeunload = function () {
+        //     if (sessionStorage["mUserInfo"]) {
+        //         sessionStorage["mUserInfo"] = null;
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

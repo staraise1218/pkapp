@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>添加好友</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/wode-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="addfriends-page">
+    <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">添加好友</div>
+    </header>
+
+    <div class="addfriends-content">
+
+        <div class="searchWrap">
+            <div class="addFriendBtn">
+                <span class="clearInput" style="display: none;"></span>
+                <input id="addFInput" type="text" placeholder="通过ID搜索好友">
+            </div>
+            <button class="searchBtn">搜索</button>
+        </div>
+
+
+        <div class="tabs attention-tab">
+            <div class="friends-list">
+                <ul class="attentionUl">
+                </ul>
+
+                <div class="no-attention" style="display: none;">
+                    <img src="__STATIC__/images/icon/暂无要找内容.png" alt="">
+                    <p>没有你要找的信息</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="recommends">
+            <p class="recommends-title">推荐</p>
+            <ul>
+                <li class="comments-item">
+                    <div class="comments-avatar">
+                        <div class="comments-avatar-wrap">
+                            <img src="__STATIC__/images/icon/tx.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="recommends-content">
+                        <div>
+                            <span class="listName">浪漫王子</span>
+                            <span class="sexAge male">
+                                <i class="sex"></i>
+                                <span class="age">23</span>
+                            </span>
+                        </div>
+                        <span class="addFriend"></span>
+                        <p class="signature">看看电影</p>
+                    </div>
+                </li>
+                <li class="comments-item">
+                    <div class="comments-avatar">
+                        <div class="comments-avatar-wrap">
+                            <img src="__STATIC__/images/icon/tx.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="recommends-content">
+                        <div>
+                            <span class="listName">浪漫王子</span>
+                            <span class="sexAge male">
+                                <i class="sex"></i>
+                                <span class="age">23</span>
+                            </span>
+                        </div>
+                        <span class="addFriend"></span>
+                        <p class="signature">看看电影</p>
+                    </div>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script>
+        let AddFriend = {
+            user_id: "",
+            uuid: "",
+
+
+            //初始时，获取页面基本信息
+            getPageInfo() {
+                //user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null&& localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    AddFriend.user_id = Number(mUserInfo.user_id);
+                    AddFriend.uuid = Number(mUserInfo.uuid);
+                } else {
+                    // AddFriend.user_id = 1; //测试用
+                    // AddFriend.uuid = 83886073; //测试用
+                    alert("请求失败")
+                    return
+                }
+            },
+            //验证
+            isValid(value) {
+                let idReg = /^\d{8}$/;
+                if (!idReg.test(value)) {
+                    Global.messageWin("请输入正确格式的ID（8位数字）");
+                    return false;
+                }
+                return true;
+            },
+            //取消关注
+            cancelAttention: function (friend_id, callback) {
+                let postData = {
+                    user_id: AddFriend.user_id,
+                    friend_id: friend_id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/cancelAttention",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        if (result.code == 200) {
+                            callback();
+                        }
+                    }
+                })
+            },
+            //加关注
+            addAttend(friend_id, callback) {
+                let postData = {
+                    user_id: AddFriend.user_id,
+                    friend_id: friend_id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/attention",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        if (result.code == 200) {
+                            callback();
+                        }
+                    }
+                });
+            },
+            updataDom(data) {
+                if (data && data !== "") { //有数据
+                    $(".attentionUl").html("");
+                    let head_pic=Global.filterHttpImg(data.head_pic);
+                    let $li = $(
+                        `
+                        <li class="friendItem" data-userId=${data.user_id} 
+                                               data-oldStatus=${data.attention}
+                                               style="justify-content: space-between;">
+                            <div class="friendItem-avatar">
+                                <div class="friendHeadWrap">
+                                    <img src=${head_pic} onload="Global.resizeHeadpic(this)">
+                                </div>
+                                <span class="videoStatus" style="display:none;"></span>
+                            </div>
+
+                            <div class="comments-text" style="max-width:calc(100% - 2.1rem);overflow:hidden;margin-left:0;margin-right:auto;">
+                                <div>
+                                    <span class="listName">${data.nickname}</span>
+                                    <span class="sexAge">
+                                        <i class="sex"></i>
+                                        <span class="age">${data.age}</span>
+                                    </span>
+                                </div>
+                                
+                                <div style="display:flex;justify-content: space-between;align-items:center;">
+                                    <p class="signature" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">
+                                        ${data.signature}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <span class="haveAttend">
+                                <span class="attend" style="display:none;">加关注</span>
+                                <span class="attended" style="display:none;">已关注</span>
+                                <span class="attendAll" style="display:none;">相互关注</span>
+                            </span>
+                        </li>
+                    `
+                    );
+
+                    //视频认证状态
+                    if (Number(data.auth_video_status) === 2) {
+                        $li.find(".videoStatus").show();
+
+                        // $li.find(".videoStatus").click(function(){
+                        //     let user_id=$li.attr("data-userId");
+                        //     Global.getAuthVideoUrl(user_id,function(url){
+                        //         let src=Global.host+url;
+                        //         Global.fullScreen(src);
+                        //     });
+                        // });
+                    }
+                    //sex
+                    if (Number(data.sex) == 1) {
+                        $li.find(".sexAge").addClass("male");
+                    } else {
+                        $li.find(".sexAge").addClass("female");
+                    }
+                    //关注状态
+                    switch (Number(data.attention)) {
+                        case 0: //未关注
+                            $li.find(".haveAttend .attend").show();
+                            break;
+                        case 1: //已关注
+                            $li.find(".haveAttend .attended").show();
+                            break;
+                        case 2: //被关注
+                            $li.find(".haveAttend .attend").show();
+                            break;
+                        case 3: //相互关注
+                            $li.find(".haveAttend .attendAll").show();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    $(".attentionUl").append($li);
+
+                    $(".no-attention").hide();
+                } else { //没数据
+                    $(".no-attention").show();
+                }
+            },
+            searchFriend() {
+                let result = AddFriend.isValid($("#addFInput").val().trim());
+                if (result) { //验证通过
+                    if (AddFriend.uuid == Number($("#addFInput").val().trim())) { //如果搜索的是自己
+                        Global.messageWin("请搜索除自己以外的用户");
+                        return;
+                    }
+                    let postData = {
+                        user_id: AddFriend.user_id,
+                        uuid: $("#addFInput").val().trim()
+                        // uuid: 88888888 //测试用
+                    };
+                    Global.openLoading();
+                    $.ajax({
+                        type: "POST",
+                        url: Global.host + "/index.php/Api/user/searchFriend",
+                        data: postData,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result)
+                            Global.closeLoading("处理中...", function () {
+                                AddFriend.updataDom(result.data);
+                            },300);
+                        }
+                    });
+                }
+            },
+            eventsBind() {
+                //back
+                $(".addfriends-page .back").click(function () {
+                    window.history.back(-1);
+                });
+                //clearInput
+                $(".clearInput").click(function () {
+                    $("#addFInput").val("");
+                    $(this).hide();
+                });
+                //显示clearInput
+                let addFInput = document.getElementById("addFInput");
+                addFInput.onchange = function () {
+                    isShowClearInput(this)
+                }
+                addFInput.onkeydown = function () {
+                    isShowClearInput(this)
+                }
+                addFInput.onkeyup = function () {
+                    isShowClearInput(this)
+                }
+
+                function isShowClearInput(el) {
+                    if (el.value.trim() === "") {
+                        $(".clearInput").hide();
+                    } else {
+                        $(".clearInput").show();
+                    }
+                }
+                //searchBtn
+                $(".searchBtn").click(function () {
+                    AddFriend.searchFriend();
+                });
+                // 关注系列
+                //点击 加关注
+                $(".attentionUl").delegate(".attend", "click", function () {
+                    let $li = $(this).closest(".friendItem");
+                    let friend_id = Number($li.attr("data-userId"));
+                    let oldStatus = Number($li.attr("data-oldStatus"));
+                    Global.openLoading();
+                    AddFriend.addAttend(friend_id, function () {
+                        Global.closeLoading("关注成功", function () {
+                            // debugger
+                            switch (Number(oldStatus)) {
+                                case 0: //原来是未关注
+                                    $li.find(".haveAttend span").hide();
+                                    $li.find(".haveAttend .attended").show();
+
+                                    $li.attr("data-oldStatus", 1);
+                                    break;
+                                case 2: //原来是被关注
+                                    $li.find(".haveAttend span").hide();
+                                    $li.find(".haveAttend .attendAll").show();
+
+                                    $li.attr("data-oldStatus", 3);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                    });
+                });
+                //点击 已关注
+                $(".attentionUl").delegate(".attended", "click", function () {
+                    // let $li = $(this).closest(".friendItem");
+                    // let friend_id = Number($li.attr("data-userId"));
+                    // AddFriend.cancelAttention(friend_id, function () {
+                    //     $li.find(".attended").hide();
+                    //     $li.find(".attend").show();
+
+                    //     $li.attr("data-oldStatus", 0);
+                    // });
+                    Global.messageWin("您已关注该用户");
+                });
+                //点击 相互关注
+                $(".attentionUl").delegate(".attendAll", "click", function () {
+                    // let $li = $(this).closest(".friendItem");
+                    // let friend_id = Number($li.attr("data-userId"));
+                    // AddFriend.cancelAttention(friend_id, function () {
+                    //     $li.find(".attended").hide();
+                    //     $li.find(".attend").show();
+
+                    //     $li.attr("data-oldStatus", 2);
+                    // });
+                    Global.messageWin("您已关注该用户");
+                });
+                // 关注系列 end
+            },
+            init() {
+                AddFriend.getPageInfo();
+
+                AddFriend.eventsBind();
+            }
+        };
+        $(function () {
+            AddFriend.init();
+        });
+    </script>
+</body>
+
+</html>

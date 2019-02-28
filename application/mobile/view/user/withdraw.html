@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>魅力兑换</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/withdraw.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="withdraw-page">
+    <!-- <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">收到的礼物</div>
+    </header>
+    
+    <div class="contentWrap">
+        <div class="board">
+            <div class="board-title">我的魅力</div>
+            <div class="board-content">0</div>
+        </div>
+
+        <div class="control clearfix">
+            <div class="control-content">
+                <div class="control-title">申请提现</div>
+                <div class="canWithdraw">可提取现金：<span class="canWithdraw-count">0</span>元</div>
+            </div>
+            <div class="control-btn">
+                <a href="javascript:void(0)" id="withdrawBtn">提现</a>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 提现页面 -->
+    <div class="info-page">
+        <header>
+            <a href="javascript:void(0)" class="back"></a>
+            <div class="title">魅力兑换</div>
+        </header>
+    
+    
+        <div class="contentWrap" style="font-size:15px;">
+            <div style="padding:0.1rem;">
+                <div>我的魅力：<span class="infoGlamour" style="color:#000;">0</span></div>
+                <div>共可兑换：<span class="infoMoney" style="color:#f76496;">0</span>元&nbsp;<span class="moneymintip" style="font-size:12px;">（最低提现金额<span class="moneymintipCount"></span>元）</span></div>
+            </div>
+
+            <div style="padding:0 0.1rem;background-color:#fff;">
+                <div class="inputItem">
+                    <label>兑换金额</label>
+                    <input id="inputMoney" type='number' pattern="[0-9]*" placeholder="请选择">
+                </div>
+                <div class="inputItem">
+                    <label>支付宝账号</label>
+                    <input id="inputZhifubao" type="text" placeholder="请输入账号">
+                </div>
+                <div class="inputItem">
+                    <label>支付宝姓名</label>
+                    <input id="inputName" type="text" placeholder="请输入姓名">
+                </div>
+            </div>
+
+            <div class="infoBtn">
+                兑换至支付宝账号
+            </div>
+
+            <p class="tip">1-3个工作日，收取<span id="poundageCount">0</span>%手续费</p>
+        </div>
+    </div>
+
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script>
+        let Withdraw={
+            userInfo:{},
+            money_min:0,
+            
+            //userInfo
+            getPageInfo(){
+                if (localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!== null&&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Withdraw.userInfo = mUserInfo;
+                } else {
+                    // Withdraw.userInfo = JSON.parse("{\"user_id\":1,\"uuid\":97875266,\"account_mobile\":\"13051832424\",\"email\":\"\",\"sex\":1,\"birthday\":\"1991-09-24\",\"age\":26,\"height\":127,\"weight\":37,\"reg_time\":1536025186,\"last_login\":1536025186,\"last_ip\":\"\",\"qq\":\"437753880\",\"head_pic\":\"/public/upload/head_pic//20180904/65d288e656d9d0b192bec982d76d99e8.png\",\"province\":0,\"city\":0,\"district\":0,\"nickname\":\"tong\",\"level\":1,\"discount\":\"1.00\",\"total_amount\":\"0.00\",\"is_lock\":0,\"token\":\"4b14230c1c1956d4cedd9e49c0d2c145\",\"message_mask\":63,\"satisfactory_parts\":null,\"longitude\":\"0.0000000\",\"latitude\":\"0.0000000\",\"auth_video_status\":2,\"auth_identity_status\":0,\"auth_car_status\":0,\"active_time\":1536282087,\"is_line\":1,\"income\":null,\"rockets\":0,\"signInDays\":null,\"flower_num\":0,\"signature\":\"个性\",\"permanent_province\":null,\"permanent_city\":null,\"profession\":\"航空公司\",\"phoneOwechat\":\"13051832424\",\"emotion_status\":null,\"rongyun_token\":\"2Mxv2N0Kg2WPNFftBKjLsjoJzC1b/p237t784hHIriRLkvc548Y7iX2boQyN2n7kj6RpzxE4XchLf2hz0SZhgg==\",\"sort\":0,\"vip_expire_date\":\"2020-12-04\",\"fansNum\":0}")
+                    alert("请求失败")
+                    return
+                }
+            },
+            getData(){
+                let postData={
+                    user_id:Number(Withdraw.userInfo.user_id)
+                }
+                console.log(postData)
+                $("#infoBtn").addClass("eventsDisabled")
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/withdraw",
+                    data: postData,
+                    success: function (res) {
+                        console.log(res)
+                        if(Number(res.code)==200){
+                            //更新我的魅力
+                            Withdraw.updateGlamour(res.data.glamour)
+                            //更新可提取现金
+                            Withdraw.updateMoney(res.data.money)
+                            //更新手续费
+                            Withdraw.updatePoundage(res.data.poundage)
+
+                            //最低提现金额
+                            Withdraw.money_min=Number(res.data.money_min)
+                            Withdraw.updateMoneymin(res.data.money_min)
+
+                            $("#infoBtn").removeClass("eventsDisabled")
+                        }
+                    }
+                })
+            },
+            //验证
+            validWithdraw(){
+                //余额不到可提取金额
+                if(Number($(".infoMoney").html())<Withdraw.money_min){
+                    Global.messageWin("对不起，您的可提现金额少于最低提现金额("+Withdraw.money_min+"元)")
+                    return false
+                }
+                //提现金额不得少于X元
+                if(Number($("#inputMoney").val())<Withdraw.money_min){
+                    Global.messageWin("对不起，提现金额不得少于"+Withdraw.money_min+"元")
+                    return false
+                }
+                //支付宝账号 支付宝姓名
+                if($("#inputZhifubao").val().trim()==""||$("#inputName").val().trim()==""){
+                    Global.messageWin("支付宝信息请填写完整")
+                    return false
+                }
+                return true
+            },
+            //提现
+            withdraw(){
+                if(!Withdraw.validWithdraw()){
+                    return
+                }
+                
+                //提现
+                let postData={
+                    user_id:Number(Withdraw.userInfo.user_id),
+                    money:$("#inputMoney").val(), //提现金额
+                    account:$("#inputZhifubao").val(), //支付宝账号
+                    name:$("#inputName").val(), //支付宝姓名
+                }
+                console.log(postData)
+                $(".infoBtn").addClass("eventsDisabled")
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/User/doWithdraw",
+                    data: postData,
+                    success: function (res) {
+                        console.log(res)
+                        if(Number(res.code)==200){
+                            // //更新我的魅力
+                            // Withdraw.updateGlamour(res.data.glamour)
+                            // //更新可提取现金
+                            // Withdraw.updateMoney(res.data.money)
+
+                            $(".infoBtn").removeClass("eventsDisabled")
+
+                            Global.messageWin("申请提现成功，请注意查收",function(){
+                                document.getElementsByClassName("back")[0].click()
+                            })
+                        }
+                    }
+                })
+            },  
+            //更新魅力
+            updateGlamour(num){
+                // document.getElementsByClassName("board-content")[0].innerHTML=num
+                document.getElementsByClassName("infoGlamour")[0].innerHTML=num
+            },
+            //更新可提现金额
+            updateMoney(num){
+                // document.getElementsByClassName("canWithdraw-count")[0].innerHTML=num
+                document.getElementsByClassName("infoMoney")[0].innerHTML=num
+            },  
+            //更新手续费
+            updatePoundage(num){
+                document.getElementById("poundageCount").innerHTML=num
+            },
+            //更新最低提取金额
+            updateMoneymin(num){
+                document.getElementsByClassName("moneymintipCount")[0].innerHTML=num
+            },
+            eventsBind(){
+                //back
+                $("header .back").click(function(){
+                    window.history.back(-1)
+                })
+                // //点击提现
+                // document.getElementById("withdrawBtn").onclick=function(){
+                //     if(!Withdraw.validWithdraw()){
+                //         return
+                //     }
+                //     $(".info-page").show()
+                // }
+                // document.getElementsByClassName("info-back")[0].onclick=function(){
+                //     $(".info-page").hide()
+                // }
+                //点击兑换至支付宝账号
+                document.getElementsByClassName("infoBtn")[0].onclick=function(){
+                    Withdraw.withdraw()
+                }
+            },
+            init(){
+                Withdraw.getPageInfo()
+                Withdraw.getData()
+                Withdraw.eventsBind()
+            }
+        }
+        $(function(){
+            Withdraw.init(); 
+        })
+    </script>
+</body>
+
+</html>

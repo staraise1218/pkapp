@@ -1,0 +1,115 @@
+<include file="public/layout" />
+<style>
+    td{height:40px;line-height:40px; padding-left:20px;}
+    .span_1{
+        float:left;
+        margin-left:0px;
+        height:130px;
+        line-height:130px;
+    }
+    .span_1 ul{list-style:none;padding:0px;}
+    .span_1 ul li{
+        border:1px solid #CCC;
+        height:40px;
+        padding:0px 10px;
+        margin-left:-1px;
+        margin-top:-1px;
+        line-height:40px;
+    }
+    .imageList {overflow:hidden;}
+    .imageList li {float: left; margin-right: 30px;}
+</style>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>详情</h3>
+                <h5></h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="form" method="post">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label>会员昵称</label>
+                </dt>
+                <dd class="opt">
+                    {$info.nickname}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">uuid</label>
+                </dt>
+                <dd class="opt">
+                    {$info.uuid}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">支付宝账号</label>
+                </dt>
+                <dd class="opt">
+                    {$info.account}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">姓名</label>
+                </dt>
+                <dd class="opt">
+                    {$info.name}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">提现金额</label>
+                </dt>
+                <dd class="opt">
+                    {$info.money}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">状态</label>
+                </dt>
+                <dd class="opt">
+                    <input type="radio" name="status" value="0" <if condition="$info.status==0">checked=checked</if>> 待处理
+                    <input type="radio" name="status" value="1" <if condition="$info.status==1">checked=checked</if>> 已处理
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="password">操作备注</label>
+                </dt>
+                <dd class="opt">
+                    <textarea name="mark" style="width: 300px; height: 50px; ">{$info.mark}</textarea>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label>申请日期</label>
+                </dt>
+                <dd class="opt">{$info.createtime|date='Y-m-d H:i',###}</dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkUserUpdate();" class="ncap-btn-big ncap-btn-green">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function checkUserUpdate(){
+
+        // if(error){
+        //     layer.alert(error, {icon: 2});  //alert(error);
+        //     return false;
+        // }
+        $('#form').submit();
+    }
+</script>
+</body>
+</html>

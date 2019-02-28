@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的关注</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/user-attention.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/wode-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="friends-page">
+    <!-- <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">我的关注</div>
+    </header> -->
+
+    <div class="friends-content">
+        <!-- tabs -->
+        <!-- 关注 -->
+        <div class="tabs attention-tab">
+            <div class="weui-pull-to-refresh__layer">
+                <div class='weui-pull-to-refresh__arrow'></div>
+                <div class='weui-pull-to-refresh__preloader'></div>
+                <div class="down">下拉刷新</div>
+                <div class="up">释放刷新</div>
+                <div class="refresh">正在刷新</div>
+            </div>
+
+            <div class="friends-list">
+                <ul class="attentionUl">
+                </ul>
+
+                <div class="no-attention" style="display: none;">
+                    <img src="__STATIC__/images/icon/暂无要找内容.png" alt="">
+                    <p>你现在没有关注任何人</p>
+                </div>
+
+                <div class="weui-loadmore" style="display: none;">
+                    <i class="weui-loading"></i>
+                    <span class="weui-loadmore__tips">正在加载</span>
+                </div>
+            </div>
+        </div>
+        <!-- tabs end -->
+    </div>
+
+
+    <script src="__STATIC__/js-min/user-attention.min.js"></script>
+    <script>
+        var Attend = {
+            user_id: "",
+
+            isScroll: false,
+            loading: false,
+
+            attentionList: {
+                list: [],
+                haveLoad: false,
+                page: 1,
+            },
+
+            savePageData: function () {
+                //key : myAttentionPage
+                let pageData = {
+                    attentionList: {
+                        list: Attend.attentionList.list,
+                        haveLoad: Attend.attentionList.haveLoad,
+                        page: Attend.attentionList.page
+                    },
+
+                    scrollTop: document.getElementsByClassName('tabs')[0].scrollTop
+                };
+
+                sessionStorage.setItem('myAttentionPage', JSON.stringify(pageData))
+            },
+            updateDomAttend: function (data) {
+                console.log(data)
+                let $curUl = $(".attentionUl");
+                if (data && data.length !== 0) { //有数据
+                    if (!Attend.isScroll) {
+                        $curUl.html("");
+                    }
+                    data.forEach(function (item, index) {
+                        let headUrl;
+                        if (item.head_pic && item.head_pic !== "") {
+                            headUrl = Global.filterHttpImg(item.head_pic);
+                        } else {
+                            headUrl = "/application/mobile/view/static/images/icon/tx.png";
+                        }
+                        let $li = $(
+                            `
+                            <li class="friendItem" data-userId=${item.user_id}>
+                                <div class="friendItem-avatar">
+                                    <div class="friendHeadWrap">
+                                        <img src=${headUrl} onload="Global.resizeHeadpic(this)">
+                                    </div>
+                                    <span class="videoStatus" style="width:0.18rem;height:0.18rem;right:-0.02rem;bottom:-0.02rem;display:none;"></span>
+                                </div>
+
+                                <div class="comments-text">
+                                    <div>
+                                        <span class="listName">${item.nickname}</span>
+                                        <span class="sexAge" style="display:none;">
+                                            <i class="sex"></i>
+                                            <span class="age"></span>
+                                        </span>
+                                    </div>
+                                    <span class="attentionOperate" style="display:none;"></span>
+                                    <span class="addFriend" style="display:none;"></span>
+                                    <p class="signature" style="display:none;">我最帅</p>
+                                </div>
+                            </li>
+                        `
+                        );
+                        //视频认证
+                        if (Number(item.auth_video_status) == 2) {
+                            $li.find(".videoStatus").show();
+
+                            // $li.find(".videoStatus").click(function(){
+                            //     let user_id=$li.attr("data-userId");
+                            //     Global.getAuthVideoUrl(user_id,function(url){
+                            //         let src=Global.host+url;
+                            //         Global.fullScreen(src);
+                            //     });
+                            // });
+                        }
+                        //sex
+                        if (Number(item.sex) == 1) {
+                            $li.find(".sexAge").addClass("male");
+                        } else {
+                            $li.find(".sexAge").addClass("female");
+                        }
+                        //是否为好友(相互关注)
+                        if (Number(item.twoway) == 1) {
+                            $li.find(".attentionOperate").show();
+                        }
+
+                        $curUl.append($li);
+
+                    });
+                } else {
+                    if ($(".friendItem").length == 0) {
+                        $(".no-attention").show();
+                    }
+                }
+
+                //滚动加载的"正在加载"是否显示
+                if ($curUl[0].scrollHeight > ($(".tabs").height() - 50)) {
+                    // $(".weui-loadmore").show();
+
+                    // $curUl.siblings(".weui-loadmore").show();
+                }
+
+            },
+            getAttendList: function () {
+                let getPage;
+                if (Attend.isScroll) {
+                    getPage = Attend.attentionList.page + 1;
+                } else {
+                    getPage = 1;
+                }
+
+                let postData = {
+                    user_id: Attend.user_id,
+                    type: 1, //关注
+                    page: getPage,
+                };
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/user/attentionFans",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result.data)
+
+                        // result.data=result.data.concat(result.data).concat(result.data).concat(result.data).concat(result.data)//测试用
+                        // result.data=[];//测试用
+
+                        if (Attend.isScroll) {
+                            if (result.data.length !== 0) {
+                                Attend.attentionList.page++;
+                                Attend.attentionList.list = Attend.attentionList.list.concat(result
+                                    .data); //保存数据
+                            }
+                            Attend.isScroll = false;
+                        } else {
+                            Attend.attentionList.list = result.data; //保存数据
+                        }
+
+                        Attend.updateDomAttend(result.data);
+
+                        Attend.attentionList.haveLoad = true;
+
+                        //下拉刷新done 滚动加载done
+                        $(".tabs").pullToRefreshDone();
+                        Attend.loading = false;
+                    }
+                });
+            },
+            initPullToRefresh: function () {
+                //下拉刷新
+                $(".tabs").pullToRefresh(function () {
+                    Attend.getAttendList();
+                });
+                //滚动加载
+                $(".tabs").infinite().on("infinite", function () {
+                    Attend.isScroll = true;
+                    //
+                    if (Attend.loading) return;
+                    Attend.loading = true;
+                    Attend.getAttendList();
+                });
+            },
+            seesionToDom: function () {
+                console.log(334)
+                let pageData = JSON.parse(sessionStorage.getItem("myAttentionPage"))
+                console.log(pageData)
+
+                Attend.attentionList = {
+                    list: pageData.attentionList.list,
+                    haveLoad: pageData.attentionList.haveLoad,
+                    page: pageData.attentionList.page,
+                };
+
+                Attend.updateDomAttend(Attend.attentionList.list);
+
+                //滚动位置
+                setTimeout(function () {
+                    document.getElementsByClassName('tabs')[0].scrollTop = pageData.scrollTop;
+                }, 0);
+            },
+            eventsBind: function () {
+                //点击 头像 进入他人的个人主页
+                $(".attentionUl").delegate("li.friendItem", "click", function () {
+                    event.stopPropagation();
+                    Attend.savePageData();
+
+                    let user_id = Attend.user_id;
+                    let toUserId = $(this).attr("data-userId");
+
+                    let url=Global.host + "/index.php/mobile/user/homePage/user_id/" +user_id + "/toUserId/" + toUserId + ".html"
+                    if(Global.isIOS()){
+                        window.location.href = url
+                    }else{
+                        window.Android.gotoNewWebView(url)
+                    }
+                });
+            },
+            init: function () {
+                //user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    // alert(JSON.stringify(mUserInfo))
+                    Attend.user_id = Number(mUserInfo.user_id);
+                } else {
+                    // alert("无local")
+                    // Attend.user_id = 1; //测试用
+                    alert("请求失败")
+                    return
+                }
+
+                Attend.initPullToRefresh();
+
+                //从session获取之前的页面数据
+                if (sessionStorage.getItem("myAttentionPage") && sessionStorage.getItem("myAttentionPage") !== null && sessionStorage.getItem("myAttentionPage") !== "null") {
+                    // alert("有session")
+                    Attend.seesionToDom();
+                } else {
+                    // alert("无session")
+                    Attend.getAttendList();
+                }
+
+
+                Attend.eventsBind();
+            }
+        };
+        $(function () {
+            Attend.init();
+        });
+    </script>
+</body>
+
+</html>

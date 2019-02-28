@@ -1,0 +1,117 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>金币商品管理 - 编辑金币商品</h3>
+                <h5>网站系统金币商品管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" method="post">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="num"><em>*</em>金币数量</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="num" value="{$info.num}" id="num" class="input-txt" onkeyup="this.value=/^\d+$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_num"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="give_num"><em>*</em>赠送金币数量</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="give_num" value="{$info.give_num}" id="give_num" class="input-txt" onkeyup="this.value=/^\d+$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_give_num"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="price"><em>*</em>价格</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="price" value="{$info.price}" id="price" class="input-txt" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_price"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label>缩略图</label>
+                </dt>
+                <dd class="opt">
+                    <div class="input-file-show">
+                        <span class="show">
+                            <a id="img_a" target="_blank" class="nyroModal" rel="gal" href="{$info.thumb}">
+                              <i id="img_i" class="fa fa-picture-o" onmouseover="layer.tips('<img src={$info.thumb}>',this,{tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
+                            </a>
+                        </span>
+                        <span class="type-file-box">
+                            <input type="text" id="thumb" name="thumb" value="{$info.thumb}" class="type-file-text">
+                            <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                            <input class="type-file-file" onClick="GetUploadify(1,'','goldcoin','img_call_back')" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                        </span>
+                  </div>
+                  <span class="err"></span>
+                  <p class="notic">请上传图片格式文件, 尺寸：80*80</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sort"><em>*</em>排序</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sort" value="{$info.sort}" id="sort" class="input-txt" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_sort"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            
+            <div class="bot"><a href="JavaScript:void(0);" onclick="verifyForm()" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function verifyForm(){
+        $('span.err').show();
+        $.ajax({
+            type: "POST",
+            url: "{:U('Admin/Goldcoin/edit')}",
+            data: $('#handleposition').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 1});
+                    location.href = "{:U('Admin/Goldcoin/index')}";
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                    $.each(data.result, function (index, item) {
+                        $('#err_' + index).text(item).show();
+                    });
+                }
+            }
+        });
+    }
+
+    function img_call_back(fileurl_tmp)
+     {
+       $("#thumb").val(fileurl_tmp);
+       $("#img_a").attr('href', fileurl_tmp);
+       $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+     }
+</script>
+</body>
+</html>

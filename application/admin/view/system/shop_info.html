@@ -1,0 +1,161 @@
+<include file="public/layout" />
+<style>
+    .system_img_location{text-align: center; width: 120px;position:absolute;top:15px; margin-left:265px;}
+</style>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>平台设置</h3>
+                <h5>平台全局内容基本选项设置</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <foreach name="group_list" item="v" key="k">
+                    <li><a href="{:U('System/index',['inc_type'=> $k])}" <if condition="$k==$inc_type">class="current"</if>><span>{$v}</span></a></li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div class="explanation" id="explanation">
+        <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span id="explanationZoom" title="收起提示"></span> </div>
+        <ul>
+            
+        </ul>
+    </div>
+    <form method="post" id="handlepost" action="{:U('System/handle')}" enctype="multipart/form-data" name="form1">
+        <input type="hidden" name="form_submit" value="ok" />
+        <div class="ncap-form-default">
+
+            <dl class="row">
+                <dt class="tit">
+                    <label for="store_name">网站名称</label>
+                </dt>
+                <dd class="opt">
+                    <input id="store_name" name="store_name" value="{$config.store_name}" class="input-txt" type="text" />
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="examine_invite">邀约审核</label>
+                </dt>
+                <dd class="opt">
+                    <input name="examine_invite" type="radio" value="1" <if condition="$config.examine_invite eq 1"> checked="checked" </if> /> 是
+                    <input name="examine_invite" type="radio" value="0" <if condition="$config.examine_invite eq 0"> checked="checked" </if> /> 否
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="examine_dynamic">动态审核</label>
+                </dt>
+                <dd class="opt">
+                    <input name="examine_dynamic" type="radio" value="1" <if condition="$config.examine_dynamic eq 1"> checked="checked" </if> /> 是
+                    <input name="examine_dynamic" type="radio" value="0" <if condition="$config.examine_dynamic eq 0"> checked="checked" </if> /> 否
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="min_money">最低提现金额(元)</label>
+                </dt>
+                <dd class="opt">
+                    <input name="min_money" type="text" value="{$config.min_money}">
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="poundage">提现手续费(%)</label>
+                </dt>
+                <dd class="opt">
+                    <input name="poundage" type="text" value="{$config.poundage}">
+                </dd>
+            </dl>
+
+            <!-- <dl class="row">
+                <dt class="tit">
+                    <label for="store_logo">网站Logo</label>
+                </dt>
+                <dd class="opt">
+                    <div class="input-file-show">
+                        <span class="show">
+                            <a id="store_logo_a" target="_blank" class="nyroModal" rel="gal" href="{$config.store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}">
+                                <i id="store_logo_i" class="fa fa-picture-o" onmouseover="layer.tips('<img src={$config.store_logo|default=\'/public/static/images/logo/pc_home_logo_default.png\'}>',this,{tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
+                            </a>
+                        </span>
+                                       <span class="type-file-box">
+                            <input type="text" id="store_logo" name="store_logo" value="{$config.store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" class="type-file-text">
+                            <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                            <input class="type-file-file" onClick="GetUploadify(1,'store_logo','logo','img_call_back')" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                        </span>
+                    </div>
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl> -->
+
+            <!-- <dl class="row">
+                <dt class="tit">
+                    <label for="store_title">网站标题</label>
+                </dt>
+                <dd class="opt">
+                    <input id="store_title" name="store_title" value="{$config.store_title}" class="input-txt" type="text" />
+                    <p class="notic">网站标题</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="store_desc">网站描述</label>
+                </dt>
+                <dd class="opt">
+                    <input id="store_desc" name="store_desc" value="{$config.store_desc}" class="input-txt" type="text" />
+                    <p class="notic">网站描述</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="store_keyword">网站关键字</label>
+                </dt>
+                <dd class="opt">
+                    <input id="store_keyword" name="store_keyword" value="{$config.store_keyword}" class="input-txt" type="text" />
+                    <p class="notic">网站关键字，便于SEO</p>
+                </dd>
+            </dl> -->
+            <div class="bot">
+                <input type="hidden" name="inc_type" value="{$inc_type}">
+                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="document.form1.submit()">确认提交</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="goTop"> <a href="JavaScript:void(0);" id="btntop"><i class="fa fa-angle-up"></i></a><a href="JavaScript:void(0);" id="btnbottom"><i class="fa fa-angle-down"></i></a></div>
+</body>
+<script type="text/javascript">
+    //网站图标
+    function img_call_back(fileurl_tmp , elementid)
+    {
+        $("#"+elementid).val(fileurl_tmp);
+        $("#"+elementid+'_a').attr('href', fileurl_tmp);
+        $("#"+elementid+'_i').attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+    //网站用户中心logo
+    function user_img_call_back(fileurl_tmp)
+    {
+        $("#store_user_logo").val(fileurl_tmp);
+        $("#userimg_a").attr('href', fileurl_tmp);
+        $("#userimg_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+    //网站图标
+    function store_ico_call_back(fileurl_tmp)
+    {
+        $("#store_ico").val(fileurl_tmp);
+        $("#storeico_a").attr('href', fileurl_tmp);
+        $("#storeico_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+   
+</script>
+</html>

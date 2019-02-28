@@ -1,0 +1,217 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="__PUBLIC__/static/css/index.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/css/purebox.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/js/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.cookie.js"></script>
+</head>
+<body class="iframe_body">
+	<div class="warpper">
+    	<div class="title">管理中心ss</div>
+        <div class="content start_content">
+            <div class="contentWarp">
+                <div class="section system_section w190">
+                	<div class="system_section_con">
+                        <div class="sc_title">
+                            <i class="sc_icon"></i>
+                            <h3>系统信息</h3>
+                            <span class="stop stop_jia" title="展开详情"></span>
+                        </div>
+                        <div class="sc_warp">
+                            <table cellpadding="0" cellspacing="0" class="system_table">
+                                <tbody><tr>
+                                    <td class="gray_bg">服务器操作系统:</td>
+                                    <td>Linux (114.55.34.251)</td>
+                                    <td class="gray_bg">Web 服务器:</td>
+                                    <td>nginx/1.10.2</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">PHP 版本:</td>
+                                    <td>5.3.29</td>
+                                    <td class="gray_bg">MySQL 版本:</td>
+                                    <td>5.1.73</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">安全模式:</td>
+                                    <td>否</td>
+                                    <td class="gray_bg">安全模式GID:</td>
+                                    <td>否</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">Socket 支持:</td>
+                                    <td>是</td>
+                                    <td class="gray_bg">时区设置:</td>
+                                    <td>Asia/Shanghai</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">GD 版本:</td>
+                                    <td>GD2 ( JPEG GIF PNG)</td>
+                                    <td class="gray_bg">Zlib 支持:</td>
+                                    <td>是</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">IP 库版本:</td>
+                                    <td>20071024</td>
+                                    <td class="gray_bg">文件上传的最大大小:</td>
+                                    <td>40M</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">程序版本:</td>
+                                    <td>v1.9.4 RELEASE 20161222</td>
+                                    <td class="gray_bg">安装日期:</td>
+                                    <td>2016-06-07</td>
+                                </tr>
+                                <tr>
+                                    <td class="gray_bg">编码:</td>
+                                    <td>UTF-8</td>
+                                    <td class="gray_bg"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 	<div id="footer" style="position: static; bottom: 0px;">
+    <p>版权所有 © 2012-2017 {$tpshop_config.shop_info_store_name|default='TPshop商城'}，并保留所有权利。</p>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("*[data-toggle='tooltip']").tooltip({
+		position: {
+			my: "left top+5",
+			at: "left bottom"
+		}
+	});
+});
+</script>    
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.purebox.js"></script>    
+<script type="text/javascript" src="__PUBLIC__/static/js/echart/echarts.min.js"></script>
+    <script type="text/javascript">
+		set_statistical_chart(".section_order_count .filter_date a:first", "order", "week"); //初始设置
+		set_statistical_chart(".section_total_count .filter_date a:first", "sale", "week"); //初始设置
+		function set_statistical_chart(obj, type, date)
+		{
+			var obj = $(obj);
+			obj.addClass("active");
+			obj.siblings().removeClass("active");
+			
+			$.ajax({
+				type:'get',
+				url:'index.php',
+				data:'act=set_statistical_chart&type='+type+'&date='+date,
+				dataType:'json',
+				success:function(data){
+					if(type == 'order'){
+						var div_id = "order_main";
+					}
+					if(type == 'sale'){
+						var div_id = "total_main";
+					}	
+					var myChart = echarts.init(document.getElementById(div_id));
+					myChart.setOption(data);
+				}
+			})
+		}
+		
+		var option = {
+			title : {
+				text: ''
+			},
+			tooltip : {
+				trigger: 'axis',
+				backgroundColor:"#f5fdff",
+				borderColor:"#8cdbf6",
+				borderRadius:"4",
+				borderWidth:"1",
+				padding:"10",
+				textStyle:{
+					color:"#272727",
+				},
+				axisPointer:{
+					lineStyle:{
+						color:"#6cbd40",
+					}
+				}
+			},
+			toolbox: {
+				show : true,
+				orient:"vertical",
+				x:"right",
+				y:"60",
+				feature : {
+					magicType : {show: true, type: ['line', 'bar']},
+					saveAsImage : {show: true}
+				},
+			},
+			calculable : true,
+			xAxis : [
+				{
+					type : 'category',
+					boundaryGap : false,
+					axisLine:{
+						lineStyle:{
+							color:"#ccc",
+							width:"0",
+						}
+					},
+					data : ['07-01','07-02','07-03','07-04','07-05','07-06','07-07']
+				}
+			],
+			yAxis : [
+				{
+					type : 'value',
+					axisLine:{
+						lineStyle:{
+							color:"#ccc",
+							width:"0",
+						}
+					},
+					axisLabel : {
+						formatter: '{value}个',
+					}
+				}
+			],
+			series : [
+				{
+					name:'订单个数',
+					type:'line',
+					itemStyle:{
+						normal:{
+							color:"#6cbd40",
+							lineStyle:{
+								color:"#6cbd40",
+							}
+						}
+					},
+					data:[0, 5, 8, 3, 10, 15, 2],
+					markPoint : {
+						itemStyle:{
+							normal:{
+								color:"#6cbd40"
+							}
+						},
+						data : [
+							{type : 'max', name: '最大值'},
+							{type : 'min', name: '最小值'}
+						]
+					}
+				}
+				
+			]
+		}
+		
+		
+		//展开收起系统信息
+		$.upDown(".stop",".sc_title",".system_section",73);
+    </script>
+</body>
+
+</html>

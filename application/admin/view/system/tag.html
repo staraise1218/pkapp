@@ -1,0 +1,76 @@
+<include file="public/layout"/>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>商城设置</h3>
+                <h5>网站全局内容基本选项设置</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <foreach name="group_list" item="v" key="k">
+                    <li><a href="{:U('System/index',['inc_type'=> $k])}" <if condition="$k==$inc_type">class="current"</if>><span>{$v}</span></a></li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div class="explanation" id="explanation">
+        <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span id="explanationZoom" title="收起提示"></span></div>
+        <ul>
+        </ul>
+    </div>
+    <form method="post" enctype="multipart/form-data" name="form1" action="{:U('System/handle')}">
+        <input type="hidden" name="inc_type" value="{$inc_type}">
+        <div class="ncap-form-default">
+            
+           
+          
+            <dl class="row">
+                <dt class="tit">
+                    <label for="satisfactory_parts">最满意部位</label>
+                </dt>
+                <dd class="opt">
+                    <textarea name="satisfactory_parts" id="satisfactory_parts" cols="100" rows="100">{$config.satisfactory_parts}</textarea>
+                    <span class="err"></span>
+                    <p class="notic">多个用 | 隔开，例如:鼻子|眼镜|锁骨</p>
+                </dd>
+            </dl>          
+            <dl class="row">
+                <dt class="tit">
+                    <label for="skill">擅长的技能</label>
+                </dt>
+                <dd class="opt">
+                    <textarea name="skill" id="skill" cols="100" rows="100">{$config.skill}</textarea>
+                    <span class="err"></span>
+                    <p class="notic">多个用 | 隔开，例如:摄影|游泳|羽毛球</p>
+                </dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="fromsubmit();">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function fromsubmit(){
+        var vip_price=$("#rechargevip_price").val();
+        if(vip_price<=0){
+            layer.msg('VIP价格必须大于0！', {icon: 2,time: 1000});
+            return false;
+        }
+        document.form1.submit();
+    }
+</script>
+<div id="goTop">
+    <a href="JavaScript:void(0);" id="btntop">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <a href="JavaScript:void(0);" id="btnbottom">
+        <i class="fa fa-angle-down"></i>
+    </a>
+</div>
+</body>
+</html>

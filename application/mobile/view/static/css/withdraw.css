@@ -1,0 +1,126 @@
+.withdraw-page header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: #302e40;
+    color: #fff;
+    font-size: 16px;
+}
+.info-back,
+.back {
+    width: 0.2rem;
+    height: 0.16rem;
+    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0.1rem;
+    transform: translate(0, -50%);
+}
+
+.title {
+    line-height: 50px;
+    text-align: center;
+}
+
+.contentWrap {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+/* 黑板 */
+.board{
+    width: 94%;
+    height: 1.84rem;
+    margin: 0.1rem auto;
+    background: linear-gradient(to bottom right, #be93fe , #69bcff); 
+    border-radius: 0.1rem;
+    overflow: hidden;
+    color: #fff;
+    transform: translate3d(0,0,0);
+}
+.board-title{
+    margin-top: 0.1rem;
+    text-indent: 2em;
+}
+.board-content{
+    text-align: center;
+    font-size: 45px;
+    margin-top: 0.35rem;
+}
+/* 申请提现 */
+.control{
+    width: 94%;
+    margin: 0.15rem auto;
+    border: 1px solid #dedede;
+    border-radius: 0.05rem;
+    padding: 0.15rem 0.15rem;
+}
+.control-content{
+    float: left;
+}
+.control-title{
+    font-weight: bold;
+    font-size: 15px;
+}
+.control-btn{
+    float: right;
+}
+.control-btn a{
+    display: inline-block;
+    width: 0.78rem;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: #ffe455;
+    line-height: 0.4rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 提现填写信息页面 */
+.info-page{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f0f3f8;
+}
+.inputItem{
+    height: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+}
+.inputItem:last-of-type{
+    border-bottom: none;
+}
+.inputItem label{
+    width: 1.1rem;
+}
+.inputItem input{
+    flex: 1 0 0;
+    border: none;
+    outline: none;
+}
+.infoBtn{
+    width: 92%;
+    margin: 0.2rem auto;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: #ffe455;
+    line-height: 0.4rem;
+    text-align: center;
+    font-size: 16px;
+}
+.tip{
+    text-align: center;
+    font-size: 14px;
+}

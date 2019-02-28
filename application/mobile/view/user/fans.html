@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的粉丝</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/user-fans.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/wode-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="friends-page">
+    <!-- <header>
+        <a href="javascript:void(0)" class="back"></a>
+        <div class="title">我的粉丝</div>
+    </header> -->
+
+    <div class="friends-content">
+        <!-- tabs -->
+        <!-- 粉丝 -->
+        <div class="tabs fans-tab">
+            <div class="weui-pull-to-refresh__layer">
+                <div class='weui-pull-to-refresh__arrow'></div>
+                <div class='weui-pull-to-refresh__preloader'></div>
+                <div class="down">下拉刷新</div>
+                <div class="up">释放刷新</div>
+                <div class="refresh">正在刷新</div>
+            </div>
+
+            <ul class="fansUl">
+            </ul>
+
+            <div class="no-fans" style="display: none;">
+                <img src="__STATIC__/images/icon/暂无要找内容.png">
+                <p>还没有人关注你，多关注别人积攒下人气</p>
+            </div>
+
+            <div class="weui-loadmore" style="display: none;">
+                <i class="weui-loading"></i>
+                <span class="weui-loadmore__tips">正在加载</span>
+            </div>
+        </div>
+        <!-- tabs end -->
+    </div>
+
+
+    <script src="__STATIC__/js-min/user-fans.min.js"></script>
+    <script>
+        var Fans = {
+            user_id: "",
+
+            isScroll: false,
+            loading: false,
+
+            fansList: {
+                list: [],
+                haveLoad: false,
+                page: 1,
+            },
+
+
+            savePageData: function () {
+                //key : friendPage
+                let pageData = {
+                    curList: Fans.curList,
+                    attentionList: {
+                        haveLoad: Fans.attentionList.haveLoad,
+                        type: Fans.attentionList.type,
+                        page: Fans.attentionList.page
+                    },
+                    fansList: {
+                        haveLoad: Fans.fansList.haveLoad,
+                        type: Fans.fansList.type,
+                        page: Fans.fansList.page
+                    },
+
+                    //scrollTop: document.getElementsByClassName('pageWrap')[0].scrollTop
+                };
+                console.log(pageData)
+
+                sessionStorage.setItem('friendPage', JSON.stringify(pageData))
+            },
+            updateDom: function (data) {
+                console.log(data)
+                let $curUl = $(".fansUl");
+                if (data && data.length !== 0) {
+                    if (!Fans.isScroll) {
+                        $curUl.html("");
+                    }
+                    data.forEach(function (item, index) {
+                        let headUrl;
+                        if(item.head_pic&&item.head_pic!==""){
+                            headUrl=Global.filterHttpImg(item.head_pic);
+                        }else{
+                            headUrl="__STATIC__/images/icon/tx.png";
+                        }
+                        let $li = $(
+                            `
+                            <li class="friendItem" data-userId=${item.user_id}>
+                                <div class="friendItem-avatar">
+                                    <div class="friendHeadWrap">
+                                        <img src=${headUrl} onload="Global.resizeHeadpic(this)">
+                                    </div>
+                                    <span class="videoStatus" style="display:none;"></span>
+                                </div>
+
+                                <div class="comments-text">
+                                    <div>
+                                        <span class="listName">${item.nickname}</span>
+                                        <span class="sexAge" style="display:none;">
+                                            <i class="sex"></i>
+                                            <span class="age"></span>
+                                        </span>
+                                    </div>
+                                    <span class="attentionOperate" style="display:none;"></span>
+                                    <span class="addFriend" style="display:none;"></span>
+                                    <p class="signature" style="display:none;">我最帅</p>
+                                </div>
+                            </li>
+                        `
+                        );
+                        //视频认证
+                        if (Number(item.auth_video_status) == 2) {
+                            $li.find(".videoStatus").show();
+
+                            // $li.find(".videoStatus").click(function(){
+                            //     let user_id=$li.attr("data-userId");
+                            //     Global.getAuthVideoUrl(user_id,function(url){
+                            //         let src=Global.host+url;
+                            //         Global.fullScreen(src);
+                            //     });
+                            // });
+                        }
+                        //sex
+                        if (Number(item.sex) == 1) {
+                            $li.find(".sexAge").addClass("male");
+                        } else {
+                            $li.find(".sexAge").addClass("female");
+                        }
+                        //是否为好友(相互关注)
+                        if (Number(item.twoway) == 1) { //我也关注他了
+                            $li.find(".attentionOperate").show();
+                        } else { //我没关注他
+                            $li.find(".addFriend").show();
+                        }
+
+                        $curUl.append($li);
+
+                    });
+                } else {
+                    if ($(".friendItem").length==0) {
+                        $(".no-fans").show();
+                    }
+                }
+
+                // //滚动加载的"正在加载"是否显示
+                // if ($curUl[0].scrollHeight > ($(".tabs").height() - 50)) {
+                //     $(".weui-loadmore").show();
+
+                //     $curUl.siblings(".weui-loadmore").show();
+                // }
+
+                //绑定dom update后才能绑定的事件？
+                Fans.eventsBindAfter();
+
+            },
+            getFansList: function () {
+                let getPage;
+                if (Fans.isScroll) {
+                    getPage = Fans.fansList.page + 1;
+                } else {
+                    getPage = 1;
+                }
+
+                let postData = {
+                    user_id: Fans.user_id,
+                    type: 2, //粉丝
+                    page: getPage,
+                };
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/user/attentionFans",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result.data)
+
+                        // result.data=result.data.concat(result.data).concat(result.data).concat(result.data).concat(result.data)//测试用
+                        // result.data=[];//测试用
+
+                        if (Fans.isScroll) {
+                            if (result.data.length !== 0) {
+                                Fans.fansList.page++;
+                                Fans.fansList.list = Fans.fansList.list.concat(result
+                                    .data); //保存数据
+                            }
+                            Fans.isScroll = false;
+                        } else {
+                            Fans.fansList.list = result.data; //保存数据
+                        }
+
+                        Fans.updateDom(result.data);
+
+                        Fans.fansList.haveLoad = true;
+
+                        //下拉刷新done 滚动加载done
+                        $(".tabs").pullToRefreshDone();
+                        Fans.loading = false;
+                    }
+                });
+            },
+            initPullToRefresh: function () {
+                //下拉刷新
+                $(".tabs").pullToRefresh(function () {
+                    Fans.getFansList();
+                });
+                //滚动加载
+                $(".tabs").infinite().on("infinite", function () {
+                    Fans.isScroll = true;
+                    //
+                    if (Fans.loading) return;
+                    Fans.loading = true;
+                    Fans.getFansList();
+                });
+            },
+            eventsBindAfter: function () {
+                //对粉丝 加关注
+                $(".addFriend").click(function (event) {
+                    event.stopPropagation();
+                    let $li = $(this).closest("li");
+                    let toUserId = $li.attr("data-userId");
+                    let postData = {
+                        user_id: Fans.user_id,
+                        friend_id: Number(toUserId),
+                    };
+                    console.log(postData)
+                    Global.openLoading();
+                    $.ajax({
+                        type: "POST",
+                        url: Global.host + "/index.php/Api/User/attention",
+                        data: postData,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result)
+
+                            Global.closeLoading("关注成功");
+
+                            $li.find(".attentionOperate").show();
+                            $li.find(".addFriend").hide();
+                        }
+                    });
+                });
+                //取消关注
+                //
+            },
+            eventsBind: function () {
+                //点击 头像 进入他人的个人主页
+                $(".fansUl").delegate(".friendItem", "click", function () {
+                    //savePageData()
+
+                    let user_id = Fans.user_id;
+                    let toUserId = $(this).attr("data-userId");
+
+                    let url=Global.host + "/index.php/mobile/user/homePage/user_id/" +user_id + "/toUserId/" + toUserId + ".html"
+                    if(Global.isIOS()){
+                        window.location.href = url
+                    }else{
+                        // alert(2)
+                        window.Android.gotoNewWebView(url)
+                    }
+                });
+            },
+            init: function () {
+                //user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Fans.user_id = Number(mUserInfo.user_id);
+                } else {
+                    // Fans.user_id = 1; //测试用
+                    alert("请求失败")
+                    return
+                }
+
+                Fans.initPullToRefresh();
+
+                //从session获取之前的页面数据
+                if (sessionStorage.getItem("friendPage") && sessionStorage.getItem("friendPage") !== null && sessionStorage.getItem("friendPage") !== "null") {
+                    let pageData = JSON.parse(sessionStorage.getItem("friendPage"))
+                    console.log(pageData)
+
+                    Fans.curList = pageData.curList;
+                    Fans.attentionList = {
+                        haveLoad: false,
+                        page: 1
+                    };
+                    Fans.fansList = {
+                        haveLoad: false,
+                        page: 1
+                    };
+
+                    //tab页
+                    $(".friends-tabcut li").removeClass("actived");
+                    $(".tabs").hide();
+                    switch (Fans.curList) {
+                        case "":
+                            $(".friends-tabcut .friends").addClass("actived");
+                            $(".friends-tab").show();
+                            break;
+                        case "attentionList":
+                            $(".friends-tabcut .attention").addClass("actived");
+                            $(".attention-tab").show();
+                        case "fansList":
+                            $(".friends-tabcut .fans").addClass("actived");
+                            $(".fans-tab").show();
+                        default:
+                            break;
+                    }
+                    // $("[data-list='" + Visitors.curList + "']").addClass("actived").
+
+                    //滚动位置
+                    // setTimeout(function () {
+                    //     document.getElementsByClassName('comments-content')[0].scrollTop = pageData.scrollTop;
+                    // }, 0);
+                } else {
+                    Fans.getFansList();
+                }
+
+                Fans.eventsBind();
+            }
+        };
+        $(function () {
+            Fans.init();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/dynamics-detail.min.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/dongtai-common.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <script src="__STATIC__/js/Global.js"></script>
+</head>
+
+<body class="details">
+
+    <div class="vueWrap" id="vueApp">
+        <header>
+            <a href="javascript:window.history.back(-1)" class="back"></a>
+            <div class="title">动态详情</div>
+            <!-- operate class -->
+            <a href="javascript:void(0)" class="isOperate"></a>
+        </header>
+
+        <div class="details-page">
+            <div class="details-content">
+                <div class="details-content-head">
+                    <div class="details-headImgWrap">
+                        <img src="{$info.head_pic}" onload="Global.resizeHeadpic(this)">
+                    </div>
+                    <div class="details-content-head-text">
+                        <div>
+                            <span>{$info.nickname}</span>
+                            <span class='sexAge <if condition="$info.sex eq 1">male<else />female</if>'>
+                                <i class="sex"></i>
+                                <span class="age">{$info.age}</span>
+                            </span>
+                            <span class="topping" style="display: none;">置顶</span>
+                        </div>
+                        <span>{$info.time}</span>
+                    </div>
+                </div>
+                <div class="details-content-text">
+                    <p class="dynamic-text details-comments-text" @click="startComment(0)">
+                        <if condition="$info.origin eq 1">
+                        {$info.content}
+                        <else />
+                        {$info.description}
+                        </if>
+                    </p>
+                    <if condition="$info['type'] == 2 && !empty($info['image'])">
+                        <foreach name="$info.image" item="image">
+                            <div class="detailImgBox">
+                                <img class="detailImg" src="{$image}" onload="Global.resizeHeadpic(this)">
+                            </div>
+                        </foreach>
+                    </if>
+                    <if condition="$info['video_url'] && !empty($info['video_url'])">
+                        <div class="detailImgBox detailImgVideoWrap">
+                            <img class="detailImgVideo" src="{$info['video_thumb']}" data-src="{$info['video_url']}">
+                        </div>
+                    </if>
+                </div>
+                <div class="details-flower">
+                    <div class="giveFlower">
+                        <if condition="$info.flower_num gt 0">
+                            <img class="haveFlower" src="__STATIC__/images/icon/花2.png">
+                        </if>
+
+                        <if condition="$info.flower_num == 0">
+                            <img class="noFlower" src="__STATIC__/images/icon/花1.png">
+                        </if>
+                    </div>
+                    <span class="flowerCount">{$info.flower_num}</span>
+                </div>
+            </div>
+
+            <div class="flowerPool">
+                <if condition="$info.flower_num gt 0">
+                    <for start="0" end="$info.flower_num">
+                        <div class="flowerItem">
+                            <img src="__STATIC__/images/icon/花3.png">
+                        </div>
+                    </for>
+                </if>
+                <if condition="$info.flower_num gt 99">
+                    <span class="flowerPool-count">99+</span>
+                </if>
+            </div>
+
+            <div class="audience">
+                <ul>
+                    <if condition="is_array($viewers) && !empty($viewers)">
+                        <foreach name="$viewers" item="viewer">
+                            <li>
+                                <div class="audience-box">
+                                    <img src="{$viewer.head_pic}">
+                                </div>
+                            </li>
+                        </foreach>
+                    </if>
+                </ul>
+            </div>
+
+            <!-- 评论列表---------------------------------- -->
+
+            <div class="details-comments">
+                <div class="details-comments-head" style="display: none;">
+                    <img src="__STATIC__/images/icon/消息.png">评论&nbsp;（为保护隐私，评论头像和昵称都是随机生成）
+                </div>
+                <ul>
+                    <li class="details-comments-item" v-cloak v-for="(item,index) in commentsList" :key="index">
+                        <div style="position: relative;" v-cloak>
+                            <div class="comment-headWrap" v-cloak @click="applyHomepage(item)">
+                                <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
+                                <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
+                            </div>
+                            <!-- <span class="videoStatus"></span> -->
+                        </div>
+
+
+                        <div class="details-comments-content">
+                            <div class="details-item-head">
+                                <span class="nickname" v-cloak>{{item.nickname}}</span>
+                                <span class="detailsTime" v-cloak>{{item.add_time | stampToStr}}</span>
+                            </div>
+                            <div class="details-comments-text" v-cloak @click="startComment(1,item)">{{item.content}}</div>
+
+                            <!-- 二级评论 -->
+                            <div class="details-comments-content-second" v-cloak v-if="item.sub&&item.sub.length!==0">
+                                <ul class="comments-second-ul">
+                                    <li v-cloak v-for="(subItem,subIndex) in item.sub" :key="subIndex">
+                                        <div class="details-item-head">
+                                            <span class="nickname" v-cloak>{{subItem.nickname}}</span>
+                                            <span class="detailsTime" v-cloak>{{subItem.add_time | stampToStr}}</span>
+                                        </div>
+                                        <div class="details-comments-text">
+                                            <span class="replyWrap">回复
+                                                <span class="replyPerson" v-cloak>{{subItem.reply_nickname}}</span>：</span>
+                                            <span class="details-second-text" v-cloak @click="startComment(1,subItem)">{{subItem.content}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 评论列表 end -->
+
+            <!-- <div class="details-tip">
+                <img src="__STATIC__/images/icon/tx.png">评论所有人可见，悄悄话仅对方和你可见
+            </div> -->
+        </div>
+
+        <div class="details-input">
+            <!-- <a href="javascript:void(0)" :class={actived:isWhisper} @click="isWhisper=!isWhisper">悄悄话</a> -->
+            <input class="details-realInput" type="text" v-model="inputComment" :placeholder="placeHolder">
+            <span class="details-face" style="display: none;"></span>
+            <span class="sendComment" @click="sendComment">发送</span>
+        </div>
+
+
+        <!-- 模态框 -->
+
+        <!-- 送小花提示窗 -->
+        <div class="flowerDialog" style="display: none;">
+            <p>
+                您已成功送给对方
+                <span class="sendSuccessCount">1</span>朵小花，剩余小花
+                <span class="dialogLeftFlowers">99</span>朵
+            </p>
+            <span class="littleFlower"></span>
+        </div>
+        <!-- 申请查看主页提示窗 -->
+        <div class="avatarOperating" style="display: none;">
+            <ul>
+                <li class="">申请查看TA的主页</li>
+                <li class="home-cancel">取消</li>
+            </ul>
+        </div>
+        <!-- 更多操作提示窗 -->
+        <div class="avatarOperating-jubao" style="display: none;">
+            <ul>
+                <!-- <li class="">分享给好友</li> -->
+                <li class="deleteDetail">删除</li>
+                <li class="jubao-cancel">取消</li>
+            </ul>
+        </div>
+        <!-- 确认删除评论？ -->
+        <div class="confirmDelete" style="display: none;">
+            <p>
+                确认删除评论？
+            </p>
+            <div class="confirmDelete-btngroup">
+                <a href="javascript:void(0)" class="cancelDelete">点错了</a>
+                <a href="javascript:void(0)" class="delete">确认删除</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="__STATIC__/js-min/dynamics-detail.min.js"></script>
+    <script>
+        var dynamic_origin_id = '{$info["user_id"]}';
+        
+        //送小花
+        var longtime=99999999999999;
+        var clickIndex=0 //几秒之内点击的次数
+        var lastClickTime=longtime
+        var nowTime=""
+        var isGivingFlower=false
+        
+
+        var Details = {
+            user_id: "",
+            dynamic_origin_id: "",
+
+            dynamic_id: "",
+
+            _flowerTimer: null,
+            replyDiv: null,
+            commentType: 1, //1给动态评论  2二级评论
+
+
+            getPageInfo: function () {
+                //user_id
+                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null &&localStorage.getItem("mUserInfo") !== "null") {
+                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
+                    console.log(mUserInfo)
+                    Details.user_id = Number(mUserInfo.user_id);
+                } else {
+                    // Details.user_id = 1; //测试用
+                    alert("请求失败")
+                    return
+                }
+                // alert("user_id:"+Details.user_id)
+                //dynamic_id
+                var ulrStr = window.location.href;
+                if (!(ulrStr.indexOf(".html") > -1)) { //后面不带.html
+                    ulrStr = ulrStr + ".html";
+                }
+                if (ulrStr.indexOf("file://") > -1) {
+                    // ulrStr = "http://http://app.yujianhaoshiguang.cn/index.php/mobile/dynamics/detail/id/18.html" //测试用
+                    alert("请求失败")
+                    return
+                }
+                var strTemp = ulrStr.split("/detail/id/")[1];
+                Details.dynamic_id = Number(strTemp.substr(0, strTemp.length - 5));
+                console.log(Details.dynamic_id)
+
+                //这条动态的发布者的id
+                Details.dynamic_origin_id = Number(dynamic_origin_id);
+                // Details.dynamic_origin_id = 1; //测试用
+                console.log("动态发布者：" + Details.dynamic_origin_id)
+                
+                //是否是自己的动态 updateDom
+                if(Number(Details.user_id)==Number(Details.dynamic_origin_id)){
+                    $("header a.isOperate").addClass("operate")
+                }
+            },
+            //送花
+            giveFlower: function () {
+                //用户id  动态id
+                var postData = {
+                    user_id: Details.user_id,
+                    dynamic_id: Details.dynamic_id,
+                    num:clickIndex,
+                }
+                console.log(postData)
+                isGivingFlower=true
+                $.ajax({
+                    type: "POST",
+                    url: Global.host + "/index.php/Api/Dynamics/giveFlower",
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+
+                        //重置上次点击时间为无穷,重置赠送小花数量
+                        lastClickTime=longtime
+                        clickIndex=0
+                        isGivingFlower=false //送花结束
+
+                        if (Number(result.code) == 200) {
+                            // //已有小花数量加一
+                            // $(".flowerCount").html(Number($(".flowerCount").html()) + clickIndex)
+
+                            //小花池里增加一朵小花
+                            for(let i=0;i<clickIndex;i++){
+                                $(".flowerPool").prepend($(
+                                    '<div class="flowerItem"><img src="__STATIC__/images/icon/花3.png"></div>'
+                                ))
+                            }
+                            //小花池数量加一
+                            $(".flowerPool-count").html(Number($(".flowerPool-count").html()) + clickIndex)
+                            
+                            //修改session小花数量
+                            Details.plusSesstionFlower()
+                            //修改localstorage小花数量
+                            Details.updateLocalFlower(result.data.flower_num)
+                        } else {
+                            Global.messageWin("请求失败");
+                            return
+                        }
+                    }
+                })
+            },
+            initVue: function () {
+                var commentsVm = new Vue({
+                    el: "#vueApp",
+                    data: {
+                        GlobalHost: Global.host,
+
+                        commentsList: [],
+                        isWhisper: false,
+                        placeHolder: "输入评论",
+                        inputComment: "",
+                        replyItem: null, //replyItem存在的话，说明是给下面的评论评论，而不是给这个动态评论
+                    },
+                    mounted: function () {
+                        this.getCommentsList()
+                    },
+                    filters: {
+                        //时间戳 转 文字
+                        stampToStr: function (stamp) { //传来的stamp十位数
+                            return Global.stampToStr(stamp);
+                        },
+                        ifHttpImg(src){
+                            console.log(src)
+                            if(src.indexOf("http:")>-1){
+                                return src;
+                            }else{
+                                console.log(Global.host)
+                                return Global.host+src;
+                            }
+                        }
+                    },
+                    methods: {
+                        //获取评论列表数据
+                        getCommentsList: function () {
+                            var self = this
+                            var postData = {
+                                dynamic_id: Details.dynamic_id
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: this.GlobalHost + "/index.php/Api/Dynamics/getComment",
+                                data: postData,
+                                dataType: "json",
+                                success: function (result) {
+                                    console.log(result.data)
+                                    self.commentsList = result.data
+                                }
+                            })
+                        },
+                        //触发评论 让input focus
+                        startComment: function (type, item) { //0点击动态 1点击评论/回复谁
+                            // console.log(event)
+                            console.log(item)
+                            var el = event.target; //点击那条评论dom
+                            if (item && item.commentator_id && Number(item.commentator_id) == Number(Details.user_id)) { //点击的是自己评论的，提问是否删除 //需要和自己的nickname对比？
+                                // this.toggleDelete(el);
+                                return
+                            } else {
+                                if (type == 0) {
+                                    this.placeHolder = "输入评论"
+                                    this.replyItem = null
+                                    console.log(1)
+                                    $(".details-realInput").focus()
+
+                                    //记录点击的评论
+                                    Details.commentType = 1
+                                } else if (type == 1) {
+                                    this.placeHolder = "回复" + item.nickname
+                                    this.replyItem = item
+                                    console.log(2)
+                                    $(".details-realInput").focus()
+
+                                    //记录点击的评论
+                                    Details.commentType = 2
+                                }
+
+                                Details.replyDiv = el;
+                            }
+                            console.log(this.replyItem)
+                        },
+                        //发送评论
+                        sendComment: function () {
+                            console.log(this.replyItem)
+
+                            var self = this;
+                            var itemIndex //父评论的index
+
+                            if (this.inputComment.trim() == "") {
+                                return;
+                            }
+
+                            var postData = {
+                                dynamic_id: Details.dynamic_id, //动态id
+                                commentator_id: Details.user_id, //评论者id，我的id
+                                content: this.inputComment.trim(), //内容
+                                private: this.isWhisper ? 1 : null, //悄悄话
+
+                                //reply_user_id: "",  //回复谁, 顶级评论填写这条动态的发布者id
+                            };
+
+                            if (this.replyItem) { //评论的是评论
+
+                                //获取父评论的index
+                                if (self.replyItem.parent_id == 0) {
+                                    itemIndex = self.commentsList.indexOf(self.replyItem)
+                                } else { //点的是二级评论
+                                    self.commentsList.forEach(function (item, index) {
+                                        if (item.sub) {
+                                            if (item.sub.indexOf(self.replyItem) > -1) {
+                                                itemIndex = index
+                                                return
+                                            }
+                                        }
+                                    })
+                                }
+
+                                postData.parent_id = this.commentsList[itemIndex].comment_id;
+                                postData.reply_user_id = this.replyItem.commentator_id;
+                            } else { //给这条动态评论
+                                postData.parent_id = "0";
+                                postData.reply_user_id = Details.dynamic_origin_id;
+                            }
+
+                            console.log(postData)
+                            $(".sendComment").addClass("eventsDisabled")
+                            $.ajax({
+                                type: "POST",
+                                url: this.GlobalHost + "/index.php/Api/dynamics/addComment",
+                                data: postData,
+                                dataType: "json",
+                                success: function (result) {
+                                    $(".sendComment").removeClass("eventsDisabled")
+                                    console.log(result)
+                                    //放数据
+                                    if (result.code == 200) {
+
+                                        self.getCommentsList();
+
+                                        //send完评论，重置data
+                                        self.inputComment = "";
+                                        self.placeHolder = "输入评论";
+                                        self.replyItem = null;
+                                        self.isWhisper = false;
+                                        
+                                        //更新session里的评论数量
+                                        Details.plusCommentCount()
+                                    }
+                                }
+                            })
+                        },
+                        //头像加载失败，默认图片
+                        defaultImg: function (event) {
+                            event.target.src = "__STATIC__/images/icon/tx.png"
+                        },
+                        applyHomepage: function (item) {
+                            //申请去个人主页
+                            // if ($(".mask").length == 0) {
+                            //     $('body').append($('<div class="mask"></div>'))
+                            // }
+                            // $('.avatarOperating').show()
+                            // // $('.avatarOperating').show().animate({'bottom':'0'},300)
+                            // $('body').css('overflow', 'hidden')
+
+                            //去个人主页
+                            let user_id = Details.user_id;
+                            let toUserId = item.commentator_id;
+                            let url = "";
+                            if (Number(user_id) === Number(toUserId)) {
+                                url = this.GlobalHost + "/index.php/mobile/user/myHomePage.html";
+                            } else {
+                                url = this.GlobalHost + "/index.php/mobile/user/homePage/user_id/" +
+                                    user_id + "/toUserId/" + toUserId + ".html";
+                            }
+                            window.location.href = url;
+                        },
+                        //点自己的评论了，提问是否删除
+                        toggleDelete: function (el) {
+                            if ($(".mask").length == 0) {
+                                $('body').append($('<div class="mask"></div>'))
+                            }
+                            $('.confirmDelete').show();
+
+                            //删除评论事件
+                            //关闭
+                            $(".cancelDelete").click(function () {
+                                $(".mask").remove();
+                                $('.confirmDelete').hide();
+                            });
+                            //删除
+                            $(".delete").click(function () {
+                                console.log("删除自己的评论")
+                            });
+                        }
+                    }
+                })
+            },
+            //修改动态index session的评论数量
+            plusCommentCount:function(){
+                //动态index
+                if(sessionStorage.getItem("dongtaiPage")&&sessionStorage.getItem("dongtaiPage")!==null&&sessionStorage.getItem("dongtaiPage")!=="null"){
+                    let data=JSON.parse(sessionStorage.getItem("dongtaiPage"))
+                    // console.log(data)
+                    data.areaDataList.list.forEach(function(obj){
+                        if(Number(obj.dynamic_id)==Number(Details.dynamic_id)){
+                            obj.comment_count=Number(obj.comment_count)+1
+                        }
+                    })
+                    data.attendedDataList.list.forEach(function(obj){
+                        if(Number(obj.dynamic_id)==Number(Details.dynamic_id)){
+                            obj.comment_count=Number(obj.comment_count)+1
+                        }
+                    })
+                    sessionStorage.setItem("dongtaiPage",JSON.stringify(data))
+                }
+            },
+            //修改session的小花数量
+            plusSesstionFlower:function(){
+                if(sessionStorage.getItem("dongtaiPage")&&sessionStorage.getItem("dongtaiPage")!==null&&sessionStorage.getItem("dongtaiPage")!=="null"){
+                    let data=JSON.parse(sessionStorage.getItem("dongtaiPage"))
+                    // console.log(data)
+                    let newNum=Number($(".flowerCount").html())
+                    data.areaDataList.list.forEach(function(obj){
+                        if(Number(obj.dynamic_id)==Number(Details.dynamic_id)){
+                            obj.flower_num=newNum
+                        }
+                    })
+                    data.attendedDataList.list.forEach(function(obj){
+                        if(Number(obj.dynamic_id)==Number(Details.dynamic_id)){
+                            obj.flower_num=newNum
+                        }
+                    })
+                    sessionStorage.setItem("dongtaiPage",JSON.stringify(data))
+                }
+            },
+            //修改localstorage的小花数量
+            updateLocalFlower:function(num){
+                if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
+                    let mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
+                    mUserInfo.flower_num=num
+                    localStorage.setItem("mUserInfo",JSON.stringify(mUserInfo))
+                }
+            },
+            showFullPic: function (el) {
+                let srcArr = [];
+                $("img.detailImg").each(function (index,element) {
+                    $(this).attr("data-index",index);
+                    srcArr.push($(this).attr("src"));
+                });
+                console.log(srcArr)
+                let swiper = $.photoBrowser({
+                    items: srcArr,
+                    initIndex:Number($(el).attr("data-index"))
+                });
+                // swiper.open(index);
+                swiper.open();
+            },
+            //删除动态
+            deleteDetail(){
+                let postData = {
+                    user_id: Details.user_id,
+                    dynamic_id:Details.dynamic_id
+                }
+                let url = Global.host + "/index.php/Api/Dynamics/del";
+                console.log(postData)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: postData,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        if(result.msg=="删除成功"){
+                            //删除动态成功 后 
+                            //删除动态index session
+                            if (sessionStorage.getItem("dongtaiPage") && sessionStorage.getItem("dongtaiPage") !== null&&sessionStorage.getItem("dongtaiPage") !== "null") {
+                                sessionStorage.setItem('dongtaiPage', null);
+                            }
+                            //删除我的动态列表 session
+                            if (sessionStorage.getItem("myDongtaiPage") && sessionStorage.getItem("myDongtaiPage") !== null&&sessionStorage.getItem("myDongtaiPage") !== "null") {
+                                sessionStorage.setItem('myDongtaiPage', null);
+                            }
+                            window.history.back(-1);
+                        }
+                    }
+                });
+            },
+            eventsBind: function () {
+                //点击送花
+                $(".giveFlower").click(function () {
+                    // Details.giveFlower()
+                    if(isGivingFlower){
+                        return
+                    }
+                    if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
+                        var mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
+                        var myFlower_num=Number(mUserInfo.flower_num)
+                        if(myFlower_num>0){
+                            clickIndex++
+                            lastClickTime=new Date().getTime()
+
+                            //已有小花数量加一
+                            $(".flowerCount").html(Number($(".flowerCount").html()) + 1)
+                            let src=$(".giveFlower img").attr("src")
+                            if(src.indexOf("花1")){
+                                $(".giveFlower img").attr("src",src.replace("花1","花2"))
+                            }
+
+                            if(clickIndex==myFlower_num){
+                                Global.messageWin("您的小花数量不足")
+                                return
+                            }
+                        }else{
+                            Global.messageWin("您的小花数量不足")
+                            return
+                        }
+                    }
+                })
+                //申请查看主页-取消
+                $(".home-cancel").click(function () {
+                    $('.mask').remove()
+                    // $('.avatarOperating').animate({'bottom':'-2rem'},300,function(){
+                    $('.avatarOperating').hide()
+                    // })
+                    $('body').css('overflow', 'auto')
+                })
+                //更多操作 删除
+                $(".operate").click(function () {
+                    if ($(".mask").length == 0) {
+                        $('body').append($('<div class="mask"></div>'))
+                    }
+                    $('.avatarOperating-jubao').show()
+                    $('body').css('overflow', 'hidden')
+                })
+                //更多操作 删除-取消
+                $(".jubao-cancel").click(function () {
+                    $('.mask').remove()
+                    $('.avatarOperating-jubao').hide()
+                    $('body').css('overflow', 'auto')
+                });
+                //点击这条动态的头像去个人主页
+                $(".details-headImgWrap").click(function (event) {
+                    event.stopPropagation();
+                    let user_id = Details.user_id;
+                    let toUserId = Details.dynamic_origin_id;
+                    let url = "";
+                    if (Number(user_id) === Number(toUserId)) {
+                        url = Global.host + "/index.php/mobile/user/myHomePage.html";
+                    } else {
+                        url = Global.host + "/index.php/mobile/user/homePage/user_id/" + user_id +"/toUserId/" + toUserId + ".html";
+                    }
+                    window.location.href = url;
+                });
+                //点击图片显示大图
+                $(".details-content-text").delegate("img.detailImg", "click", function () {
+                    console.log($(this).attr("src"))
+                    Details.showFullPic(this);
+                });
+                //点击视频显示全屏视频
+                $(".detailImgVideoWrap").click(function () {
+                    let src=$(this).find("img").attr("data-src");
+                    let posterSrc=$(this).find("img").attr("src");
+                    Global.fullScreen(src,posterSrc);
+                });
+                //点击删除
+                $(".deleteDetail").click(function(){
+                    $(".jubao-cancel")[0].click();
+                    Global.messageConfirWin("确认删除这条动态？",function(){
+                        Details.deleteDetail();
+                    });
+                });
+
+                //是否送小花 （新增）
+                setInterval(function(){
+                    nowTime=new Date().getTime()
+                    if(nowTime-lastClickTime>1000){
+                        if(!isGivingFlower){
+                            Details.giveFlower()
+                        }
+                        
+                        // console.log(clickIndex)
+                        // lastClickTime=longtime
+                        // clickIndex=0
+                    }
+                },90)
+            },
+            init: function () {
+                //获取页面基本信息
+                Details.getPageInfo();
+
+                Details.initVue();
+
+                Details.eventsBind();
+            }
+        }
+        
+        $(function () {
+            Details.init()
+        });
+    </script>
+</body>
+
+</html>

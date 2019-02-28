@@ -1,0 +1,231 @@
+.pkb-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url(../image/PK-7.png);
+    /* background-image: url(../image/PK-6.jpg); */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.pk-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url(../image/PK-6.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top: 1px solid #222;
+}
+.search-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.2rem;
+    box-sizing: border-box;
+    padding-top: 0.3rem;
+}
+.search-wrapper .user-btn {
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    background-position: -4rem -2.8rem;
+}
+.search-wrapper .input-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-left: 0.2rem;
+}
+.search-wrapper .input-wrapper .search-icon {
+    position: absolute;
+    left: 0.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    background-position: -5.2rem -2.8rem;
+}
+.search-wrapper .input-wrapper #search {
+    flex: 1;
+    margin-right: 0.2rem;
+    padding: 0.15rem 0.7rem;
+    border-radius: 0.4rem;
+    border: 0;
+    color: #8b8b8b;
+}
+.search-wrapper .input-wrapper .search-btn {
+    border: 0;
+    background: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.3rem;
+}
+
+
+
+
+ul {
+    width: 100%;
+    padding: 0 0.3rem;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+    margin-top: 0.7rem;
+}
+ul .item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(rgb(91, 219, 254),rgb(77, 174, 251));
+    border-radius: 0.1rem;
+    height: 1.6rem;
+    color: #fff;
+    margin-top: .3em;
+}
+ul .item .left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+ul .item .left .number {
+    height: 100%;
+    color: #fff;
+    font-size: 0.3rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+ul .item .left .poster {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 0.05rem solid #fff;
+    overflow: hidden;
+}
+ul .item .left .poster img {
+    width: 100%;
+    height: 100%;
+}
+ul .item .right {
+    flex: 1;
+}
+ul .item .right > div {
+    padding-left: 0.3rem;
+    line-height: 0.6rem;
+    margin-right: 0.2rem;
+}
+ul .item .right > div:first-child {
+    display: flex;
+    border-bottom: 0.04rem solid #fff;
+}
+ul .item .right > div:first-child span {
+    font-size: 0.02rem;
+    margin-left: 0.2rem;
+}
+
+ul .item .pk {
+    position: absolute;
+    right: 0.2rem;
+    background: rgb(76, 131, 231);
+    padding: 0.02rem 0.35rem;
+    border-radius: 0.5rem;
+}
+
+
+.dangqian {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 1rem;
+    width: 100%;
+    font-size: 0.32rem;
+    background-image: url(../image/bg123.png);
+    background-size: contain;
+    color: #fff;
+}
+.dangqian .poster {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.2rem;
+    border: 0.03rem solid #fff;
+}
+.dangqian .poster img {
+    width: 100%;
+    height: 100%;
+}
+/* .pk-bg{
+    padding-bottom: 3.4em;
+} */
+
+/* 弹窗 */
+.tanchutn-wrapper {
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+top: 0;
+background: rgba(0,0,0,0.5);
+z-index: inherit;
+display: none;
+}
+.tanchuang {
+position: absolute;
+top: 50%;
+left: 50%;
+background: #fff;
+border-radius: 0.2rem;
+overflow: hidden;
+padding: 0.4rem;
+box-sizing: border-box;
+transform: translate(-50%, -50%);
+text-align: center;
+background-image: url('../image/background.png');
+background-repeat: no-repeat;
+background-size: contain;
+}
+.tanchuang .poster {
+display: inline-block;
+text-align: center;
+width: 1.5rem;
+height: 1.5rem;
+border: 0.08rem solid #fff;
+overflow: hidden;
+border-radius: 50%;
+}
+.tanchuang .poster img {
+width: 100%;
+height: 100%;
+}
+.user2-name {
+font-size: 0.35rem;
+line-height: 0.5rem;
+}
+.icon-jinbi {
+display: inline-block;
+width: 0.8rem;
+height: 0.9rem;
+background-position: -1.65rem -1.1rem;
+}
+.icon-jingyan {
+display: inline-block;
+width: 0.8rem;
+height: 0.9rem;
+background-position: -2.55rem -1.1rem;
+}
+.btn {
+display: flex;
+justify-content: space-around;
+}
+
+
+
+
+
+

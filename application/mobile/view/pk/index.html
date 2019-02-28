@@ -1,0 +1,200 @@
+<!-- PK -->
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PK</title>
+    <script src="__STATIC__/js/rem.js"></script>
+    <link rel="stylesheet" href="__STATIC__/css/global.css">
+    <link rel="stylesheet" href="__STATIC__/css/pk-pk.css">
+    <link rel="stylesheet" href="__STATIC__/css/pk.css">
+</head>
+<body>
+
+<!-- 加载页面 -->
+<div id="load-wrapper">
+<!-- 接受者 -->
+    <div class="user1-wrapper">
+        <div class="user1-info">
+            <p>雨天还是晴天</p>
+            <p>来自: <span class="user1_location">北京</span> </p>
+            <p class="user1_school">北京小学</p>
+        </div>
+        <div class="user1-poster-wrapper icon3">
+            <span class="title_tag">5连胜</span>
+            <div class="poster">
+                <img src="__STATIC__/image/poster1.png" alt="">
+            </div>
+            <div class="user1_name">雨天还是晴天</div>
+        </div>
+    </div>
+
+<!-- 中间状态显示 -->
+    <div class="zhuangtai-wrapper">
+        <!-- vs -->
+        <div class="vs-poster" style="display:none">
+            <img src="__STATIC__/image/img_0742.jpg" alt="">
+        </div>
+        <!-- abandon -->
+        <div class="abandon-wrapper" style="display:none">
+            <div class="abandon">
+                <i class="icon5 abandon-icon"></i>
+                <span>放弃</span>
+            </div>
+        </div>
+        <!-- begin -->
+        <div class="begin-wrapper">
+            <div class="abandon-b">
+                <i class="icon1 abandon-b-icon"></i>
+                <span>放弃</span>
+            </div>
+            <div class="begin">
+                <i class="icon5 begin-icon"></i>
+                <span>开始</span>
+            </div>
+        </div>
+    </div>
+<!-- 发起者 -->
+    <div class="user2-wrapper">
+        <div class="user2-poster-wrapper icon3">
+            <span class="title_tag">5连胜</span>
+            <div class="poster">
+                <img src="__STATIC__/image/poster1.png" alt="">
+            </div>
+            <div class="user2_name">晴天还是雨天</div>
+        </div>
+        <div class="user2-info">
+            <p>晴天还是雨天</p>
+            <p>来自: <span class="user2_location">上海</span> </p>
+            <p class="user2_school">上海小学</p>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- ****************** -->
+
+<div id="pk-display" style="display:none">
+    <div class="pk-wrapper">
+        <div class="user1-title-wrapper icon3">
+            <div class="poster-wrapper">
+                <img class="user1_poster" src="__STATIC__/image/poster1.png" alt="">
+            </div>
+            <div class="user1-name">晴天还是雨天</div>
+        </div>
+
+        <div class="daojishi-wrapper">
+            <i class="icon2 daojishi-icon"></i>
+            <span>剩余 <span class="daojishi-content"></span> </span>
+        </div>
+        <div class="user2-title-wrapper icon3">
+            <div class="poster-wrapper">
+                <img class="user2_poster" src="__STATIC__/image/poster1.png" alt="">
+            </div>
+            <div class="user2-name">晴天还是雨天</div>
+        </div>
+    </div>
+
+    <div class="pk-pk-choose">
+        <ul>
+            <li>
+                <form class="questions-wrapper" action=""></form>
+            </li>
+        </ul>
+        <!-- date : 1 正确， 2 错误， 3 未选择 -->
+        <div class="jindu1-wrapper jindu-wrapper">
+            <em id="user1-number">0</em>
+            <span class="user1_jindu jindu">
+                <span class="user1_jindu-con jindu-con"></span>
+            </span>
+        </div>
+        <div class="jindu2-wrapper jindu-wrapper">
+            <em id="user2-number">0</em>
+            <span class="user2_jindu jindu">
+                <span class="user2_jindu-con jindu-con"></span>                    
+            </span>
+        </div>
+    </div>
+    <div class="fenye" style="position:absolute;bottom:0.5rem;width:100%;text-align: center;color:rgba(255,255,255,0.3);">
+        <span>1/1</span>
+    </div>
+    <!-- <button id="begin" style="width:80%;margin:0 auto;display:block;margin-top: 100px;">开始</button> -->
+</div>
+
+
+    <script src="__STATIC__/js/jquery.js"></script>   
+    <!-- <script src="__STATIC__/js/pk.js"></script> -->
+    <script src="__STATIC__/js/pk-control-choose.js"></script>
+    <script >
+        function getPageParams() {
+            var url = window.location.href
+            var option = {}
+            if (url.indexOf("?") > -1) {
+              var arr = url.split("?")[1].split("&")
+              arr.forEach(function (str) {
+                var arrTemp = str.split("=")
+                option[arrTemp[0]] = arrTemp[1]
+                option[arrTemp[1]] = arrTemp[2]
+              })
+            }
+            return option
+        }
+        
+        let data=getPageParams()
+        console.log(data)
+        var room_id=data.roomId
+        var to_user_id = data.touserId
+        console.log("369")
+        console.log(room_id,to_user_id)
+        var user_id = JSON.parse(localStorage.getItem("mUserInfo")).user_id
+
+        if(localStorage.getItem(data.action) == 'intoroom') {
+            $.ajax({
+                type: 'POST',
+                url: "http://tounao.staraise.com.cn/Api/pk/intoroom",
+                data: {
+                    room_id:room_id,
+                    to_user_id:to_user_id
+                },
+                dataType: "json",
+                success:function(data){
+                    console.log(data)
+                }
+            })
+        }
+
+        if(localStorage.getItem(data.action) == 'invite') {
+            $.ajax({
+                type: 'POST',
+                url: "http://tounao.staraise.com.cn/Api/pk/invite",
+                data: {
+                    user_id:id,
+                    to_user_id:to_user_id
+                },
+                dataType: "json",
+                success:function(data){
+                    console.log(data)
+                }
+            })
+        }
+
+
+    </script>
+    <script>
+        $(".begin").on('click', function () {
+            $("#load-wrapper").get(0).style.display = 'none';
+            $("#pk-display").get(0).style.display = 'block';
+            setTimeout(function () {
+                init();
+            }, 1000)
+        })
+    
+    
+    
+    </script>
+</body>
+</html>
