@@ -208,6 +208,7 @@ class Dynamics extends Base {
         Db::name('users')->where('user_id', $user_id)->setDec('flower_num', $num);
         Db::name('dynamics')->where('id', $dynamic_id)->setInc('flower_num', $num);
 
+
         $dynamics = Db::name('dynamics')->where('id', $dynamic_id)->field('user_id')->find();
         // 动态评论记录
         $commentdata = array(
@@ -219,8 +220,9 @@ class Dynamics extends Base {
             'type' => 2,
         );
         Db::name('dynamics_comment')->insert($commentdata);
+        // 给发布动态的用户增加魅力值
+        Db::name('users')->where('user_id', $dynamics['user_id'])->setInc('charm', $num);
         
-
         $flower_num  = $user['flower_num']-$num;
         response_success(array('flower_num'=>$flower_num), '操作成功');
     }

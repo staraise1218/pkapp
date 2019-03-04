@@ -798,7 +798,7 @@ class User extends Base {
         if(file_exists($filepath)){
             $users = include $filepath;
         } else {
-            $users = Db::name('users')->where(array('is_lock'=>0, 'sex'=>2))->order('fansNum desc')->field('user_id, head_pic, nickname, sex, birthday, age, auth_video_status')->limit(50)->select();
+            $users = Db::name('users')->where(array('is_lock'=>0))->order('fansNum desc')->field('user_id, head_pic, nickname, sex, birthday, age, auth_video_status')->limit(50)->select();
 
             if(is_array($users) && is_array($users)){
                 foreach ($users as &$item) {
