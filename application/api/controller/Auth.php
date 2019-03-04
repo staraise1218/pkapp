@@ -76,15 +76,8 @@ class Auth extends Base {
     	$mobile = I('mobile');
     	$code = I('code');
     	$password = trim(I('password'));
-    	$nickname = I('nickname');
-    	$sex = I('sex');
-    	$birthday = I('birthday');
-    	$local_country = I('local_country');
-        $local_province = I('local_province');
-        $city = I('city');
-        $permanent_province = I('province');
-        $permanent_city = I('city');
-        $qq = I('qq');
+    	$province_code = I('province_code');
+        $city_code = I('city_code');
         $longitude = I('longitude');
         $latitude = I('latitude');
 
@@ -109,25 +102,17 @@ class Auth extends Base {
     	$uuid = generateUuid();
     	$map = array(
     		'account_mobile' => $mobile,
-    		'nickname' => $nickname,
     		'password' => encrypt($password),
     		'uuid' => $uuid,
     		'reg_time' => time(),
     		'last_login' => time(),
     		'token' => md5(time().mt_rand(1,999999999)),
-   			'sex' => $sex,
-			'birthday' => $birthday,
-            'country' => $country,
-            'province' => $local_province,
-            'country' => $local_country,
-            'permanent_province' => $permanent_province,
-			'permanent_city' => $permanent_city,
-            'qq' => $qq,
+            'province_code' => $province_code,
+            'city_code' => $city_code,
             'longitude' => $longitude,
             'latitude' => $latitude,
             'active_time' => time(),
             'is_line' => '1',
-            'phoneOwechat' => $mobile,
     	);
 
     	$user_id = M('users')->insertGetId($map);
@@ -179,14 +164,8 @@ class Auth extends Base {
         $account_id = I('account_id');
         $nickname = I('nickname');
         $head_pic = I('head_pic');
-        $sex = I('sex/d');
-        $birthday = I('birthday');
-        $local_country = I('local_country');
-        $local_province = I('local_province');
-        $permanent_province = I('province');
-        $permanent_city = I('city');
-        $city = I('city');
-        $qq = I('qq');
+        $province_code = I('province_code');
+        $city_code = I('city_code');
         $longitude = I('longitude');
         $latitude = I('latitude');
 
@@ -213,15 +192,9 @@ class Auth extends Base {
                 'reg_time' => time(),
                 'last_login' => time(),
                 'token' => md5(time().mt_rand(1,999999999)),
-                'sex' => $sex,
                 'head_pic' => $head_pic,
-                'birthday' => $birthday,
-                'country' => $country,
-                'province' => $local_province,
-                'city' => $local_city,
-                'permanent_province' => $permanent_province,
-                'permanent_city' => $permanent_city,
-                'qq' => $qq,
+                'province_code' => $province_code,
+                'city_code' => $city_code,
                 'longitude' => $longitude,
                 'latitude' => $latitude,
                 'active_time' => time(),
