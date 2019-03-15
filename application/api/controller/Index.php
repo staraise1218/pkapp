@@ -34,7 +34,7 @@ class Index extends Base {
             ->where($where)
             ->field('u.user_id, head_pic, nickname, u.sex, u.birthday, u.age, d.id dynamic_id, d.type, d.description, d.content, d.location, d.add_time, d.flower_num')
             ->order('d.id desc')
-            ->limit($limit_start, 10)
+            ->limit($limit_start, 2)
             ->select();
 
         if(is_array($dynamiclist) && !empty($dynamiclist)){
