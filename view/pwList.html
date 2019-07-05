@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/plugin/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./src/css/global.css">
+</head>
+<style>
+    body {
+        padding-top: 50px
+    }
+    .pws_bg {
+        width: 100%;
+        height: 100vh;
+        background-image: url(./src/img/1/asdf.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: -1
+    }
+    .topBar {
+        background-image: url(./src/img/1/asdf.png);
+        background-size: contain;
+        background-repeat: no-repeat
+    }
+    .poster {
+        margin-top: 20px;
+        width: 94%;
+        margin-left: 3%;
+        height: 165px;
+        background-image: url('./src/img/1/10726365.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        text-align: center;
+        color: #fff;
+    }
+    .poster p:nth-child(1) {
+        padding-top: 24px;
+        font-size: 20px
+    }
+    .poster p:nth-child(1) {
+        padding-top: 16px
+    }
+    .poster .con {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10px;
+    } 
+    .poster .con .left {
+        display: flex;
+        justify-content :center;
+        align-items: center;
+        background: #4C53F9;
+        border-radius :20px;
+        padding-right :10px;
+        color: #FCB722;
+    } 
+    .poster .con .left img {
+        width: 25px;
+        height: 25px
+    }
+    .list_wrap {
+        margin-top: -30px
+    }
+    .list_wrap .bg1 {
+        background-image: url('./src/img/1/asgg.png')
+    }
+    .list_wrap .bg2 {
+        background-image: url('./src/img/1/awhassw.png')
+    }
+    .list_wrap .bg3 {
+        background-image: url('./src/img/1/awt3bh.png')
+    }
+    .list_wrap .clock {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: rgba(0,0,0,.5);
+        z-index :1;
+        width :100%;
+        height: 122px;
+        border-radius: 16px;
+    } 
+    .list_wrap .clock img {
+        position: absolute;
+        left: 50% ;
+        top :50% ;
+        transform: translate(-50%, -50%);
+        width :60px
+    } 
+    .list_wrap .list_item {
+        height: 100px;
+        width: 90%;
+        margin-left: 5%;
+        height: 120px;
+        margin-bottom: 6px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: relative;
+        display: flex;
+        justify-content :space-between;
+        padding :20px;
+        box-sizing: border-box
+    }
+    .list_wrap .list_item .left {
+        width: 60px;
+        height :60px;
+        border-radius: 6px;
+        overflow :hidden
+    } 
+    .list_wrap .list_item .left img {
+        width: 100%;
+        height: 100%
+    } 
+    .list_wrap .list_item .center {
+        position: absolute;
+        left: 50%;
+        top :40%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align :center
+    } 
+    .list_wrap .list_item .center p:first-child {
+        font-size: 20px
+    }
+    .list_wrap .list_item .center p:last-child {
+        display: flex;
+        align-items: center;
+        margin-top :6px;
+    } 
+    .list_wrap .list_item .center img {
+        width: 20px;
+        margin-right: 4px
+    } 
+    .list_wrap .list_item .right {
+        align-self :flex-end;
+        width: 30px;
+        height: 30px;
+        overflow :hidden;
+        border-radius: 50%
+    } 
+    .list_wrap .list_item .right img {
+        width: 100%;
+        height: 100%
+    } 
+
+</style>
+
+<body>
+
+
+    <div class="pws_bg"></div>
+    <div class="topBar">
+        <div class="left back">
+            <img src="./src/img/1/left.png" alt="">
+        </div>
+        <div class="center">
+            排位赛
+        </div>
+    </div>
+
+    <div class="poster">
+        <p>第一赛季</p>
+        <p>2018年07月15日-2018年9月15日</p>
+        <div class="con">
+            <div class="left"><img src="./src/img/1/j1.png" alt="">
+                <p>100</p>
+            </div>
+            <div class="right">等级：青铜</div>
+        </div>
+    </div>
+    <div class="list_wrap">
+        <div class="list_item bg1">
+            <div class="left">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+            <div class="center">
+                <p>一级</p>
+                <p>奖励金币：<img src="./src/img/1/j1.png" alt=""> 20 </p>
+            </div>
+            <div class="right">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+        </div>
+        <div class="list_item bg2">
+            <div class="left">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+            <div class="center">
+                <p>一级</p>
+                <p>奖励金币：<img src="./src/img/1/j1.png" alt=""> 20 </p>
+            </div>
+            <div class="right">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+            <div class="clock">
+                <img src="./src/img/1/suo.png" alt="">
+            </div>
+        </div>
+        <div class="list_item bg3">
+            <div class="left">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+            <div class="center">
+                <p>一级</p>
+                <p>奖励金币：<img src="./src/img/1/j1.png" alt=""> 20 </p>
+            </div>
+            <div class="right">
+                <img src="./src/img/1/te1.png" alt="">
+            </div>
+            <div class="clock">
+                <img src="./src/img/1/suo.png" alt="">
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+</body>
+
+</html>
