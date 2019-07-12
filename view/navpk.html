@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/plugin/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./src/css/global.css">
+    <style>
+    body {
+        padding-top: 270px;
+    }
+    .pws_bg {
+        width: 100%;
+        height: 100vh;
+        background-image: url(./src/img/1/asdf.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+    .top {
+        position: absolute;
+        top: 100px;
+        left: 4%;
+        width: 92%;
+    }
+    .top img {
+        width: 100%;
+    }
+    .topBar {
+        background-image: url(./src/img/1/bg2.png);
+        background-size: contain;
+        background-repeat :no-repeat;
+    }
+    .phb_title {
+        display: flex;
+        color: #fff;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        padding-top: 20px;
+    }
+    .phb_title img {
+        width: 36px;
+        margin-right: 6px；
+    }
+    .pk_list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 30px;
+        font-size: 16px;
+    }
+    .pk_list .item {
+        display: flex;
+    }
+    .pk_list img {
+        height: 20px;
+        margin-right: 6px;
+    }
+    .zsk_list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 25px 30px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .zsk_list div {
+        flex: 1;
+    }
+    .zsk_list div img {
+        width: 100%;
+    }
+    .zsk_list div:nth-child(2) {
+        margin: 0 10px;
+    }
+    .title2 {
+        position: relative;
+    }
+    .title2 .right {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(0,0,0,.5);
+    }
+    .title2 .right p {
+        background: #fff;
+    }
+    .title2 .right ul {
+        display: none;
+        position: absolute;
+        right: 0px;
+        width: 150px;
+        text-align: center;
+        font-size: 12px;
+    }
+    .title2 .right ul li {
+        padding: 4px 0;
+        background: #eee;
+        border-radius: 2px;
+        border-bottom: 1px solid rgba(0,0,0,.1)
+
+    }
+    </style>
+</head>
+<body>
+    <div class="pws_bg"></div>
+    <div class="top">
+        <img src="./src/img/1/zzz.png" alt="">
+    </div>
+
+
+    <div class="title title2">
+        <img style="height: 40px;" src="./src/img/1/pkhl.png" alt="">
+        <div class="right">
+            <p>最近七天</p>
+            <ul>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pk_list">
+        <div class="item">
+            <img src="./src/img/1/PK.png" alt="">
+            <p>30场</p>
+        </div>
+        <div class="item">
+            <img src="./src/img/1/shenglishoushi.png" alt="">
+            <p>30场</p>
+        </div>
+        <div class="item">
+            <img src="./src/img/1/shibai.png" alt="">
+            <p>30场</p>
+        </div>
+    </div>
+
+
+
+    <div class="title">
+        <img style="height: 40px;" src="./src/img/1/zzzzzss.png" alt="">
+    </div>
+
+    <div class="zsk_list">
+        <div>
+            <img src="./src/img/1/zzzyew.png" alt="">
+        </div>
+        <div>
+            <img src="./src/img/1/zzzsa.png" alt="">
+        </div>
+        <div>
+            <img src="./src/img/1/zzzs.png" alt="">
+        </div>
+    </div>
+    <script src="./src/js/jquery.js"></script>
+    <script>
+        $('.title2 .right p').click(function () {
+            $('.title2 .right ul').slideToggle();
+        })
+        $('.title2 .right li').click(function () {
+            console.log($(this).text())
+            $('.title2 .right p').text($(this).text());
+            $('.title2 .right ul').slideToggle();
+        })
+    </script>
+</body>
+</html>
