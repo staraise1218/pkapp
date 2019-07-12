@@ -11,7 +11,7 @@
 |知识库--答题|zsk2.html|
 |排行榜--排位赛|phb.html|
 |排位赛--列表|pwList.html|
-
+|PK首页|navpk.html|
 
 
 

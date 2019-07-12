@@ -21,21 +21,46 @@
             background-image: url('./src/img/1/cc8.png');
             background-size: contain;
             background-repeat: no-repeat;
-            width: 80%;
+            /* width: 80%; */
             height: 450px;
             margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .qd_wrap ul {
-            margin-top: 140px;
             padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .qd_wrap ul:last-child {
+            justify-content: flex-start;
+        }
+        .qd_wrap ul:first-child {
+            margin-top: 140px;
         }
         .qd_wrap ul li {
             display: inline-block;
-            margin: 0 10px 20px 0;
+            /* margin: 0 10px 20px 0; */
+            position: relative;
         }
-        .qd_wrap ul li:nth-child(3), 
-        .qd_wrap ul li:nth-child(6){
-            margin-right: 0;
+        .qd_wrap ul li.active::before {
+            width: 30px;
+            height: 30px;
+            content: '';
+            display: block;
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            background-image: url('./src/img/1/asfa.png');
+            background-repeat: no-repeat;
+            background-size: contain
+        }
+        .qd_wrap ul li:nth-child(2) {
+            margin: 0 10px;
         }
         .qd_wrap ul li img {
             width: 70px;
@@ -59,7 +84,7 @@
     <div class="wrap">
         <div class="qd_wrap">
             <ul>
-                <li>
+                <li class="active">
                     <img src="./src/img/1/asfaa.png" alt="">
                 </li>
                 <li>
@@ -68,9 +93,8 @@
                 <li>
                     <img src="./src/img/1/asfaa.png" alt="">
                 </li>
-                <li>
-                    <img src="./src/img/1/asfaa.png" alt="">
-                </li>
+            </ul>
+            <ul>
                 <li>
                     <img src="./src/img/1/asfaa.png" alt="">
                 </li>
@@ -81,28 +105,28 @@
                     <img src="./src/img/1/asfaa.png" alt="">
                 </li>
             </ul>
+            <ul>
+                <li>
+                    <img src="./src/img/1/asfaa.png" alt="">
+                </li>
+            </ul>
         </div>
     </div>
 
     <img style="width: 70%; margin-left: 15%; margin-top: 30px;" src="./src/img/1/bb3.png" alt="">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script src="./src/js/jquery.js"></script>
+    <script>
+        $('.qd_wrap ul li').click(function () {
+            console.log($(this).hasClass('active'))
+            if($(this).hasClass('active')) {
+                alert('已经签到过了')
+            } else {
+                $(this).addClass('active')
+                alert('签到成功')
+            }
+        })
+    </script>
 </body>
-
 </html>
