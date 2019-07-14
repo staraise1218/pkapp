@@ -66,9 +66,19 @@ class Index extends Base {
                 $item['comment_count'] = M('dynamics_comment')->where('dynamic_id', $item['dynamic_id'])->where('type', 1)->count();
             }
         }
+
+        // 获取知识点
+        $articleList = Db::name('article')
+            ->where('cat_id', 2)
+            ->where('is_open', 1)
+            ->order('article_id desc')
+            ->limit(2)
+            ->field('article_id, title,description, thumb')
+            ->select();
         
         $result['bannerList'] = $bannerList;
         $result['dynamiclist'] = $dynamiclist;
+        $result['articleList'] = $articleList;
         response_success($result);
     }
 }

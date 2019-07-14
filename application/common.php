@@ -1142,3 +1142,17 @@ function getPayBody($order_id){
     $payBody = getSubstr($gns, 0, 18);
     return $payBody;
 }
+
+/**
+ * 获取本周所有日期
+ */
+function get_week($time = '', $format='Y-m-d'){
+    $time = $time != '' ? $time : time();
+    //获取当前周几
+    $week = date('w', $time);
+    $date = [];
+    for ($i=1; $i<=7; $i++){
+    $date[$i] = date($format ,strtotime( '+' . $i-$week .' days', $time));
+    }
+    return $date;
+}

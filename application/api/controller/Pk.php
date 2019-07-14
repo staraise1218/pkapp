@@ -18,6 +18,16 @@ class Pk extends Base {
 
 	public function index(){
 		$user_id = I('user_id');
+
+		$result['total_num'] = 0;
+		$result['win_num'] = 0;
+		$result['fail_num'] = 0;
+
+		response_success($result);
+	}
+
+	public function pklist(){
+		$user_id = I('user_id');
 		$page = I('page', 1);
 		$searchNickname = I('searchNickname');
 

@@ -19,6 +19,7 @@ class Base extends Controller {
     protected function checkMethod(){
         // 允许的请求方式
         $allow_method = strtoupper($this->method);
+        if($allow_method == '*') return true;
 
         // 当前请求方式
         $method = $this->request->method();

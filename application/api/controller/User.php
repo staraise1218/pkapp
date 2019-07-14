@@ -954,4 +954,100 @@ class User extends Base {
 
         response_success(array('count'=>$count));
     }
+
+    // 我收藏的知识点
+    public function collectList(){
+        $user_id = I('user_id');
+        $page = I('page', 1);
+
+        $list = Db::name('article_collect')->alias('c')
+            ->join('article a', 'c.article_id=a.article_id')
+            ->where('user_id', $user_id)
+            ->page($page)
+            ->limit(10)
+            ->order('id desc')
+            ->field('c.article_id, title, thumb, description')
+            ->select();
+
+        response_success($list);
+    }
+
+    // 签到
+    public function sign(){
+        $user_id = I('user_id');
+
+        $data = array(
+            'user_id' => $user_id,
+            'sign_date' => date('Y-m-d'),
+        );
+
+        $count = Db::name('sign_log')->where($data)->count();
+        if($count) response_success('', '已签到');
+
+        $result = Db::name('sign_log')->insert($data);
+        if($result){
+            // 签到得金币
+            Db::name('users')->where('user_id', $user_id)->setInc('goldcoin', 10);
+            response_success('', '签到成功');
+        }
+    }
+
+    // 获取签到页面需要的数据
+    public function signPage(){
+        $user_id = I('user_id');
+
+        $weeks = get_week();
+
+        $weekdaynum = date('w');
+        $signedDays = Db::name('sign_log')
+            ->where('sign_date', '>', date('Y-m-d', strtotime("-{$weekdaynum} day")))
+            ->column('sign_date');
+
+        $week_result = [];
+        foreach ($weeks as &$item) {
+            $week_result[] = array(
+                'date' => $item,
+                'is_sign' => in_array($item, $signedDays) ? 1 : 0,
+            );
+
+        }
+
+        response_success($week_result);
+    }
+
+    // 许愿页面数据
+    public function planPage(){
+        $user_id = I('user_id');
+        $page = I('page', 1);
+
+        $list = Db::name('plan')
+            ->where('user_id', $user_id)
+            ->field('content, complete_date, is_complete')
+            ->order('id desc')
+            ->page($page)
+            ->limit(10)
+            ->select();
+
+        response_success($list);
+    }
+
+    // 许愿
+    public function plan(){
+        $user_id = I('user_id');
+        $num = I('num');
+        $complete_date = I('complete_date');
+
+        $data = array(
+            'user_id' => $user_id,
+            'num' => $num,
+            'content' => '完成'.$num.'道题',
+            'complete_date' => $complete_date,
+        );
+
+        if(Db::name('plan')->insert($data)){
+            response_success('', '许愿成功');
+        } else {
+            response_error('', '许愿失败');
+        }
+    }
 }
