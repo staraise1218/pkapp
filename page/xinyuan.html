@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>心愿墙</title>
+    <link rel="stylesheet" href="./src/plugin/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./src/css/global.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .xyq_title {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .xyq_title .right>div {
+            padding-right: 10px;
+            position: relative;
+        }
+
+        .xyq_title .right>div p {
+            opacity: .5
+        }
+
+        .xyq_title .right>div p img {
+            width: 16px;
+            margin-left: 6px;
+        }
+
+        .xyq_title .right>div p img.active {
+            /* transform: rotate(-90deg); */
+        }
+
+        .xyq_title .right>div ul {
+            position: absolute;
+            display: none;
+        }
+
+        .xyq_content {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .xyq_content .left {
+            flex: 2;
+            height: 206px;
+            background-image: url('./src/img/1/cc23.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            color: #fff;
+            padding: 30px 20px;
+            font-size: 16px;
+        }
+
+        .xyq_content .left div {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            padding-top: 26px;
+        }
+
+        .xyq_content .left h1 {
+            font-size: 56px;
+            margin-right: 4px;
+        }
+
+        .xyq_content .right {
+            flex: 1;
+            height: 206px;
+            background-image: url('./src/img/1/tt234.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            align-self: flex-end;
+            background-position: 0% 80%;
+            margin-left: 10px;
+        }
+
+        .xyq_list_wrap {
+            padding: 0 20px;
+        }
+        .xyq_list_wrap .xyq_list_item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 4px 4px 4px rgba(0,0,0,.06), -4px -4px 4px rgba(0,0,0,.04);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 16px;
+        }
+        .xyq_list_wrap .xyq_list_item .left {
+            display: flex;
+        }
+        .xyq_list_wrap .xyq_list_item .left .cc {
+            margin-left: 10px;
+            width: 200px;
+        }
+        .xyq_list_wrap .xyq_list_item .left .cc p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .xyq_list_wrap .xyq_list_item .left .cc p:first-child {
+            font-size: 16px;
+        }
+        .xyq_list_wrap .xyq_list_item .left .cc p:last-child {
+            margin-top: 6px;
+            opacity: .5;
+        }
+        .xyq_list_wrap .xyq_list_item .left img{
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .xyq_list_wrap .xyq_list_item .right img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topBar" style="background: #656CFB">
+        <div class="left back">
+            <img src="./src/img/1/left.png" alt="">
+        </div>
+        <div class="center">
+            心愿墙
+        </div>
+    </div>
+
+    <div class="xyq_title" style="padding-top: 10px;">
+        <div class="left">
+            <img src="./src/img/1/bb1.png" alt="" style="height: 45px;">
+        </div>
+        <div class="right">
+            <div>
+                <p>2018年12月27 <img src="./src/img/1/down.png" alt="" class="active"> </p>
+                <ul>
+                    <li>2018-12-22</li>
+                    <li>2018-12-22</li>
+                    <li>2018-12-22</li>
+                    <li>2018-12-22</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="xyq_content" style="padding: 10px 20px;">
+        <div class="left">
+            <p>每日答对</p>
+            <div>
+                <h1>10</h1>
+                <p>道题</p>
+            </div>
+        </div>
+        <div class="right"></div>
+    </div>
+
+    <div style="padding: 20px 0;">
+        <img style="width: 100%;" src="./src/img/1/bb4.png" alt="">
+    </div>
+
+    <ul class="xyq_list_wrap">
+        
+    </ul>
+
+    <script src="./src/js/jquery.js"></script>
+    <script src="./src/js/global.js"></script>
+    <script src="./src/plugin/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./src/js/xinyuan.js"></script>
+
+</body>
+
+</html>
