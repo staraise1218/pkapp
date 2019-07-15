@@ -20,20 +20,20 @@
                 <div class="tabCut" :class="{actived:nowPage=='area'}" @click="cutTab('area')">
                     <div style="width:100%;text-align: center;" v-cloak>{{nowArea}}</div>
                     <ul class="mSelect" v-cloak v-show="isShowArea">
-                        <li v-cloak @click.stop="cutArea('同城')">
+                        <!-- <li v-cloak @click.stop="cutArea('同城')">
                             同城
-                        </li>
+                        </li> -->
                         <li v-cloak @click.stop="cutArea('全网')">
                             全网
                         </li>
                     </ul>
                 </div>
-                <div class="tabCut" :class="{actived:nowPage=='attended'}" @click="cutTab('attended')">
+                <!-- <div class="tabCut" :class="{actived:nowPage=='attended'}" @click="cutTab('attended')">
                     关注
                 </div>
                 <div class="tabCut" :class="{actived:nowPage=='video'}" @click="cutTab('video')">
                     叽喳
-                </div>
+                </div> -->
             </header>
 
 
@@ -349,13 +349,13 @@
                 }
 
                 //获取user_id
-                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null && localStorage.getItem("mUserInfo") !== "null") {
-                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
-                    console.log(mUserInfo)
-                    this.user_id = Number(mUserInfo.user_id);
+                if (localStorage.getItem("USERINFO") && localStorage.getItem("USERINFO") !== null && localStorage.getItem("USERINFO") !== "null") {
+                    let USERINFO = JSON.parse(localStorage.getItem("USERINFO"))
+                    console.log(USERINFO)
+                    this.user_id = Number(USERINFO.user_id);
                 } else {
                     // this.user_id = 21; //测试用
-                    alert("请求失败")
+                    alert("请求失败");
                     return
                 }
 
@@ -698,9 +698,9 @@
                         return
                     }
                     //判断一下
-                    if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
-                        var mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
-                        var myFlower_num=Number(mUserInfo.flower_num)
+                    if(localStorage.getItem("USERINFO")&&localStorage.getItem("USERINFO")!==null&&localStorage.getItem("USERINFO")!=="null"){
+                        var USERINFO=JSON.parse(localStorage.getItem("USERINFO"))
+                        var myFlower_num=Number(USERINFO.flower_num)
                         if(myFlower_num>0){
                             clickIndex++
                             lastClickTime=new Date().getTime()
@@ -720,10 +720,10 @@
                 },
                 //修改localstorage的小花数量
                 updateLocalFlower:function(num){
-                    if(localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!==null&&localStorage.getItem("mUserInfo")!=="null"){
-                        let mUserInfo=JSON.parse(localStorage.getItem("mUserInfo"))
-                        mUserInfo.flower_num=num
-                        localStorage.setItem("mUserInfo",JSON.stringify(mUserInfo))
+                    if(localStorage.getItem("USERINFO")&&localStorage.getItem("USERINFO")!==null&&localStorage.getItem("USERINFO")!=="null"){
+                        let USERINFO=JSON.parse(localStorage.getItem("USERINFO"))
+                        USERINFO.flower_num=num
+                        localStorage.setItem("USERINFO",JSON.stringify(USERINFO))
                     }
                 },
                 closeReleasing: function () {

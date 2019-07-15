@@ -40,8 +40,12 @@ class Base extends Controller {
 
         $data = "\r\n".date('Y-m-d H:i:s')." ".$pathinfo." method: {$method} \r\n param: ".var_export($param, true);
 
-        // $logPath = ROOT_PATH.'/runtime/log/'.date('Ymd').'/requestlog.txt';
+        $filepath = 'runtime/log/'.date('Y/m/');
+        if(!is_dir($filepath)){
+            mkdir($filepath, 0777, true);
+        }
+        $filename = $filepath.date('d').'.log';
 
-        file_put_contents('runtime/log/request.log', $data, FILE_APPEND);
+        file_put_contents($filename, $data, FILE_APPEND);
     }
 }
