@@ -324,7 +324,7 @@
                 //先查session,把session的值放到data里
                 if (sessionStorage.getItem("dongtaiPage") && sessionStorage.getItem("dongtaiPage") !== null && sessionStorage.getItem("dongtaiPage") !== "null") {
                     let dongtaiPageData = JSON.parse(sessionStorage.getItem("dongtaiPage"))
-console.log(dongtaiPageData);
+
                     this.user_id = dongtaiPageData.user_id
                     this.nowPage = dongtaiPageData.nowPage
                     this.nowArea = dongtaiPageData.nowArea
