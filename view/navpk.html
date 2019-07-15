@@ -108,6 +108,23 @@
         border-bottom: 1px solid rgba(0,0,0,.1)
 
     }
+    #date1 {
+        position: relative;
+        padding-right: 20px;
+    }
+    #date1::before {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-image: url('./src/img/1/downf.png');
+        background-repeat:  no-repeat;
+        background-size:  100% 100%;
+    }
     </style>
 </head>
 <body>
@@ -120,14 +137,7 @@
     <div class="title title2">
         <img style="height: 40px;" src="./src/img/1/pkhl.png" alt="">
         <div class="right">
-            <p>最近七天</p>
-            <ul>
-                <li>时间</li>
-                <li>时间</li>
-                <li>时间</li>
-                <li>时间</li>
-                <li>时间</li>
-            </ul>
+            <p id="date1"></p>
         </div>
     </div>
 
@@ -164,15 +174,41 @@
         </div>
     </div>
     <script src="./src/js/jquery.js"></script>
+    <script src="./src/js/laydate.js"></script>
     <script>
-        $('.title2 .right p').click(function () {
-            $('.title2 .right ul').slideToggle();
-        })
-        $('.title2 .right li').click(function () {
-            console.log($(this).text())
-            $('.title2 .right p').text($(this).text());
-            $('.title2 .right ul').slideToggle();
-        })
+        //日历
+        laydate.render({
+            elem: '#date1',
+            done: function(value, date, endDate){
+                console.log(value); //得到日期生成的值，如：2017-08-18
+                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                console.log('函数执行')
+            }
+        });
+        window.onload = function () {
+            $('#date1').text(nowDate)
+        }
+
+        var nowDate = new Date();
+        nowDate = nowDate.getTime();
+        nowDate = formatDate(nowDate)
+
+        // 时间戳转换
+        function formatDate(date) {
+            if (date.length == 10) {
+                date = date * 1000
+            }
+            date = Number(date)
+            date = new Date(date);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? '0' + m : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            console.log(y + '-' + m + '-' + d)
+            return y + '-' + m + '-' + d;
+        }
     </script>
 </body>
 </html>
