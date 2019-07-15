@@ -283,10 +283,10 @@
             getPageInfo: function () {
                 //_user_id
                 // Edit._user_id={$info['user_id']};
-                if (localStorage.getItem("mUserInfo") && localStorage.getItem("mUserInfo") !== null && localStorage.getItem("mUserInfo") !== "null") {
-                    let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
-                    console.log(mUserInfo)
-                    Edit._user_id = Number(mUserInfo.user_id);
+                if (localStorage.getItem("USERINFO") && localStorage.getItem("USERINFO") !== null && localStorage.getItem("USERINFO") !== "null") {
+                    let USERINFO = JSON.parse(localStorage.getItem("USERINFO"))
+                    console.log(USERINFO)
+                    Edit._user_id = Number(USERINFO.user_id);
                 } else {
                     // Edit._user_id = 1; //测试用
                     alert("请求失败")

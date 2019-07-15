@@ -1,6 +1,6 @@
 let Global = (function () {
-    let GlobalHost="http://pkapp.staraise.com.cn"; //2018.12.29切换域名
-    // let GlobalHost="http://app.yujianhaoshiguang.cn";
+    let GlobalHost="http://pkapp.staraise.com.cn"; 
+    // let GlobalHost="pkapp.localhost.com";
 
 
     function openLoading(msg = "处理中") {
