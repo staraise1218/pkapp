@@ -29,13 +29,13 @@ class Dynamics extends Base {
 
 
         /************** 登录用户信息 ***************/
-        $user = M('users')->where('user_id', $user_id)->field('city')->find();
+        $user = M('users')->where('user_id', $user_id)->field('city_code')->find();
 
         /************* 筛选条件 *************/
         $where = array(
             'd.status' => '2',
         );
-        if($range == 1) $where['u.city'] = $user['city']; // 同城
+        if($range == 1) $where['u.city_code'] = $user['city_code']; // 同城
        /**************** 关注 ***********/
         if($attention){
             $attention_users = M('friend')->where('user_id', $user_id)->field('friend_id')->select();

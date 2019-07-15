@@ -270,7 +270,7 @@
                 user_id: "",
                 isShowArea: false,
                 nowPage: "area", //area attended video
-                nowArea: "同城", //同城 全网
+                nowArea: "全网", //同城 全网
                 areaDataList: {
                     list: [],
                     isLoad: false,
@@ -324,8 +324,7 @@
                 //先查session,把session的值放到data里
                 if (sessionStorage.getItem("dongtaiPage") && sessionStorage.getItem("dongtaiPage") !== null && sessionStorage.getItem("dongtaiPage") !== "null") {
                     let dongtaiPageData = JSON.parse(sessionStorage.getItem("dongtaiPage"))
-                    console.log(dongtaiPageData)
-
+console.log(dongtaiPageData);
                     this.user_id = dongtaiPageData.user_id
                     this.nowPage = dongtaiPageData.nowPage
                     this.nowArea = dongtaiPageData.nowArea
@@ -351,7 +350,7 @@
                 //获取user_id
                 if (localStorage.getItem("USERINFO") && localStorage.getItem("USERINFO") !== null && localStorage.getItem("USERINFO") !== "null") {
                     let USERINFO = JSON.parse(localStorage.getItem("USERINFO"))
-                    console.log(USERINFO)
+                    // console.log(USERINFO)
                     this.user_id = Number(USERINFO.user_id);
                 } else {
                     // this.user_id = 21; //测试用
@@ -445,7 +444,7 @@
                 } = {}) { //更新的list str ,是否为滚动 boolean,区域str
                     // debugger
                     let self = this
-                    console.log("ajax")
+                    // console.log("ajax")
                     let postData = {
                         user_id: user_id,
                         range: range, //1同城2全网
@@ -453,14 +452,14 @@
                         jizha: jizha, //1叽喳
                         page: page,
                     }
-                    console.log(postData)
+                    // console.log(postData)
                     $.ajax({
                         type: "POST",
                         url: self.GlobalHost + "/index.php/Api/dynamics/index",
                         data: postData,
                         dataType: "json",
                         success: function (result) {
-                            console.log(result.data)
+                            // console.log(result.data)
                             if (isScroll) { //是滚动
                                 self[dataList].list = self[dataList].list.concat(result.data)
 
@@ -489,13 +488,13 @@
                 },
                 handleScroll() {
                     let scrollTop = document.getElementsByClassName('pageWrap')[0].scrollTop
-                    console.log(scrollTop)
+                    // console.log(scrollTop)
                     let wrapHeight = document.getElementsByClassName('pageWrap')[0].clientHeight
                     let ulHeight = document.getElementsByClassName(this.nowPage + "-page")[0].clientHeight
                     // console.log(ulHeight)
                     if (scrollTop > 0 && scrollTop + wrapHeight > ulHeight) {
                         if (!this.isLoading) {
-                            console.log(this.nowDataList)
+                            // console.log(this.nowDataList)
                             let postData = {}
                             switch (this.nowDataList) {
                                 case "areaDataList":
@@ -552,13 +551,13 @@
                         videoDataList: this.videoDataList,
                         pageScrollTop: document.getElementsByClassName('pageWrap')[0].scrollTop
                     }
-                    console.log(pageData)
+                    // console.log(pageData)
 
                     sessionStorage.setItem('dongtaiPage', JSON.stringify(pageData))
                 },
                 gotoDongtaiDetail(item) {
-                    console.log(nowTime,lastClickTime)
-                    console.log(nowTime-lastClickTime)
+                    // console.log(nowTime,lastClickTime)
+                    // console.log(nowTime-lastClickTime)
 
                     if(isGivingFlower||nowTime-lastClickTime>0){ //如果正在送花或者点击间隔还没到1秒
                         return
@@ -576,7 +575,7 @@
                 },
                 //打开全屏小视频
                 videoFullScreen(item) {
-                    console.log(item)
+                    // console.log(item)
                     let options={
                         user_id:item.user_id,
                         // head_pic:
@@ -616,7 +615,7 @@
                     let _self = this;
                     //下拉刷新
                     $(".pageWrap").pullToRefresh(function () {
-                        console.log("刷新")
+                        // console.log("刷新")
                         let postData = {}
                         switch (_self.nowDataList) {
                             case "areaDataList":
@@ -662,7 +661,7 @@
                         dynamic_id: Number(item.dynamic_id),
                         num:clickIndex
                     }
-                    console.log(postData)
+                    // console.log(postData)
                     isGivingFlower=true
                     $.ajax({
                         type: "POST",
@@ -670,7 +669,7 @@
                         data: postData,
                         dataType: "json",
                         success: function (result) {
-                            console.log(result)
+                            // console.log(result)
 
                             //重置上次点击时间为无穷,重置赠送小花数量
                             lastClickTime=longtime
@@ -728,14 +727,14 @@
                 },
                 closeReleasing: function () {
                     if (this.isReleasing) {
-                        console.log(event)
+                        // console.log(event)
                         if ($(event.target).closest(".release-start").length == 0) {
                             this.isReleasing = false;
                         }
                     }
                 },
                 openDetailVideo(item){
-                    console.log(item)
+                    // console.log(item)
                     let src=Global.host+item.video_url;
                     let postSrc=Global.host+item.video_thumb;
                     Global.fullScreen(src);
