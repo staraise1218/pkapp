@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的收藏</title>
+    <link rel="stylesheet" href="./src/plugin/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./src/css/global.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .list-wrap {
+            padding: 10px 13px;;
+        }
+        .list-wrap .list-item {
+            position: relative;
+            box-shadow: 4px 4px 4px rgba(0,0,0,.1), -4px -4px 10px rgba(0,0,0,.05);
+            border-radius: 6px;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        .list-wrap .list-item .left {
+            position: absolute;
+            left: -20px;
+            top: -10px;
+        }
+        .list-wrap .list-item .left img {
+            width: 120px;
+            height: 120px;
+        }
+        .list-wrap .list-item .right {
+            padding: 10px 10px 0 110px;
+        }
+        .list-wrap .list-item .right p:first-child {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 16px;
+        }
+        .list-wrap .list-item .right p:nth-child(2) {
+            color: rgba(0,0,0,.4);
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .list-wrap .list-item .right div {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+        .list-wrap .list-item .right img {
+            width: 18px;
+            height: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topBar" style="background: #656CFB">
+        <div class="left back">
+            <img src="./src/img/1/left.png" alt="">
+        </div>
+        <div class="center">
+            我的收藏
+        </div>
+    </div>
+
+    <div class="list-wrap">
+               
+    </div>
+
+
+<script type="text/javascript" src="./src/js/jquery.js"></script>
+<script type="text/javascript" src="./src/js/global.js"></script>
+<script type="text/javascript" src="./src/js/myCollect.js"></script>
+
+</body>
+
+</html>
