@@ -1156,3 +1156,13 @@ function get_week($time = '', $format='Y-m-d'){
     }
     return $date;
 }
+
+
+function headPic($head_pic){
+    if($head_pic == '') return '';
+
+    if( FALSE === strpos($head_pic, 'http')){
+        return 'http://tounao.staraise.com.cn'.$head_pic;
+    }
+    return $head_pic;
+}

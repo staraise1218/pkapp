@@ -40,7 +40,7 @@ function createList (user_id, page, status){
 				                <p>${item.title}</p>
 				                <p>${item.description}</p>
 				                <div>
-				                    <img src="./src/img/1/123321.png" alt="">
+				                    <img src="./src/img/1/123321.png" alt="" class="collectBtn">
 				                </div>
 				            </div>
 				        </div>`
@@ -54,4 +54,26 @@ function createList (user_id, page, status){
 $('.list-wrap').delegate('.list-item', 'click', function () {
 	var article_id = $(this).attr('article_id');
 	window.location.href=GlobalHost+"/page/zhishidianDetail.html?article_id="+article_id;
+})
+
+$('.list-wrap').delegate('.collectBtn', 'click', function(){
+    var article_id = $(this).parents('.list-item').attr('article_id');
+
+     $.ajax({
+        type: 'post',
+        url: GlobalHost+ '/Api/article/collect',
+        data: {
+            user_id: user_id,
+            article_id: article_id,
+        },
+        success: function(res) {
+
+            if (res.code == 200) {
+                alert(res.msg);
+            } else {
+                alert(res.msg);
+            }
+        }
+    })
+    return false;
 })
