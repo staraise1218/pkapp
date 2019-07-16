@@ -7,6 +7,8 @@ use app\api\logic\FileLogic;
 use think\Log;
 use GatewayClient\Gateway;
 
+require_once './GatewayClient/Gateway.php';
+
 class Common extends Base {
 
 	public function __construct(){
