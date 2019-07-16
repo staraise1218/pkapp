@@ -5,6 +5,7 @@ namespace app\api\controller;
 use think\Db;
 use app\api\logic\FileLogic;
 use think\Log;
+use GatewayClient\Gateway;
 
 class Common extends Base {
 
