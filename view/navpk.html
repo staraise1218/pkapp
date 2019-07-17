@@ -9,124 +9,144 @@
     <link rel="stylesheet" href="./src/plugin/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./src/css/global.css">
     <style>
-    body {
-        padding-top: 270px;
-    }
-    .pws_bg {
-        width: 100%;
-        height: 100vh;
-        background-image: url(./src/img/1/asdf.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: -1;
-    }
-    .top {
-        position: absolute;
-        top: 100px;
-        left: 4%;
-        width: 92%;
-    }
-    .top img {
-        width: 100%;
-    }
-    .topBar {
-        background-image: url(./src/img/1/bg2.png);
-        background-size: contain;
-        background-repeat :no-repeat;
-    }
-    .phb_title {
-        display: flex;
-        color: #fff;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        padding-top: 20px;
-    }
-    .phb_title img {
-        width: 36px;
-        margin-right: 6px；
-    }
-    .pk_list {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 40px 30px;
-        font-size: 16px;
-    }
-    .pk_list .item {
-        display: flex;
-    }
-    .pk_list img {
-        height: 20px;
-        margin-right: 6px;
-    }
-    .zsk_list {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 25px 30px;
-        width: 100%;
-        overflow: hidden;
-    }
-    .zsk_list div {
-        flex: 1;
-    }
-    .zsk_list div img {
-        width: 100%;
-    }
-    .zsk_list div:nth-child(2) {
-        margin: 0 10px;
-    }
-    .title2 {
-        position: relative;
-    }
-    .title2 .right {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: rgba(0,0,0,.5);
-    }
-    .title2 .right p {
-        background: #fff;
-    }
-    .title2 .right ul {
-        display: none;
-        position: absolute;
-        right: 0px;
-        width: 150px;
-        text-align: center;
-        font-size: 12px;
-    }
-    .title2 .right ul li {
-        padding: 4px 0;
-        background: #eee;
-        border-radius: 2px;
-        border-bottom: 1px solid rgba(0,0,0,.1)
+        body {
+            padding-top: 270px;
+        }
 
-    }
-    #date1 {
-        position: relative;
-        padding-right: 20px;
-    }
-    #date1::before {
-        content: '';
-        display: block;
-        width: 14px;
-        height: 14px;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        background-image: url('./src/img/1/downf.png');
-        background-repeat:  no-repeat;
-        background-size:  100% 100%;
-    }
+        .pws_bg {
+            width: 100%;
+            height: 100vh;
+            background-image: url(./src/img/1/asdf.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+
+        .top {
+            position: absolute;
+            top: 100px;
+            left: 4%;
+            width: 92%;
+        }
+
+        .top img {
+            width: 100%;
+        }
+
+        .topBar {
+            background-image: url(./src/img/1/bg2.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .phb_title {
+            display: flex;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            padding-top: 20px;
+        }
+
+        .phb_title img {
+            width: 36px;
+            margin-right: 6px；
+        }
+
+        .pk_list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 30px;
+            font-size: 16px;
+        }
+
+        .pk_list .item {
+            display: flex;
+        }
+
+        .pk_list img {
+            height: 20px;
+            margin-right: 6px;
+        }
+
+        .zsk_list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 30px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .zsk_list div {
+            flex: 1;
+        }
+
+        .zsk_list div img {
+            width: 100%;
+        }
+
+        .zsk_list div:nth-child(2) {
+            margin: 0 10px;
+        }
+
+        .title2 {
+            position: relative;
+        }
+
+        .title2 .right {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .title2 .right p {
+            background: #fff;
+        }
+
+        .title2 .right ul {
+            display: none;
+            position: absolute;
+            right: 0px;
+            width: 150px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .title2 .right ul li {
+            padding: 4px 0;
+            background: #eee;
+            border-radius: 2px;
+            border-bottom: 1px solid rgba(0, 0, 0, .1)
+        }
+
+        #date1 {
+            position: relative;
+            padding-right: 20px;
+        }
+
+        #date1::before {
+            content: '';
+            display: block;
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-image: url('./src/img/1/downf.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
     </style>
 </head>
+
 <body>
     <div class="pws_bg"></div>
     <div class="top">
@@ -137,7 +157,14 @@
     <div class="title title2">
         <img style="height: 40px;" src="./src/img/1/pkhl.png" alt="">
         <div class="right">
-            <p id="date1"></p>
+            <p id="date1">最近七天</p>
+            <ul>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+                <li>时间</li>
+            </ul>
         </div>
     </div>
 
@@ -174,41 +201,17 @@
         </div>
     </div>
     <script src="./src/js/jquery.js"></script>
-    <script src="./src/js/laydate.js"></script>
+    <script src="./src/js/global.js"></script>
     <script>
-        //日历
-        laydate.render({
-            elem: '#date1',
-            done: function(value, date, endDate){
-                console.log(value); //得到日期生成的值，如：2017-08-18
-                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
-                console.log('函数执行')
-            }
-        });
-        window.onload = function () {
-            $('#date1').text(nowDate)
-        }
-
-        var nowDate = new Date();
-        nowDate = nowDate.getTime();
-        nowDate = formatDate(nowDate)
-
-        // 时间戳转换
-        function formatDate(date) {
-            if (date.length == 10) {
-                date = date * 1000
-            }
-            date = Number(date)
-            date = new Date(date);
-            var y = date.getFullYear();
-            var m = date.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            var d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            console.log(y + '-' + m + '-' + d)
-            return y + '-' + m + '-' + d;
-        }
+        $('.title2 .right p').click(function () {
+            $('.title2 .right ul').slideToggle();
+        })
+        $('.title2 .right li').click(function () {
+            console.log($(this).text())
+            $('.title2 .right p').text($(this).text());
+            $('.title2 .right ul').slideToggle();
+        })
     </script>
 </body>
+
 </html>

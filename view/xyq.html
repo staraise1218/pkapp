@@ -23,6 +23,13 @@
         .xyq_title .right>div {
             padding-right: 10px;
             position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .xyq_title .right>div img {
+            width: 16px;
+            height: 10px;
+            margin-left: 6px;
         }
 
         .xyq_title .right>div p {
@@ -154,13 +161,8 @@
         </div>
         <div class="right">
             <div>
-                <p>2018年12月27 <img src="./src/img/1/down.png" alt="" class="active"> </p>
-                <ul>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                </ul>
+                <p id="date1">2018年12月27</p>
+                <img src="./src/img/1/down.png" alt="" class="active"> 
             </div>
         </div>
     </div>
@@ -220,42 +222,38 @@
     </ul>
 
 
-
-
-
-
     <div class="modal fade Logic" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">每日答对</h4>
                 </div>
                 <div class="modal-body">
                     <input type="text" class="form-control LogicVal" placeholder="请输入" aria-describedby="sizing-addon1">
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary Logicsave">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary Logicsave">确认</button>
                 </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-
-          <div class="modal fade bs-example-modal-sm wran" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-                <div class="modal-dialog modal-sm" role="document">
-                  <div class="modal-content">
-                    ...
-                  </div>
-                </div>
-              </div>
+    <div class="modal fade bs-example-modal-sm wran" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
     <script src="./src/js/jquery.js"></script>
     <script src="./src/plugin/bootstrap/js/bootstrap.js"></script>
+    <script src="./src/js/global.js"></script>
     <script>
-        
         $('.Logicsave').click(function () {
-            if($('.LogicVal').val()) {
+            if ($('.LogicVal').val()) {
                 console.log($('.LogicVal').val())
                 $('.edit').text($('.LogicVal').val())
                 $('.Logic').modal('hide')
@@ -263,17 +261,45 @@
                 alert('清输入正确的数据')
             }
         })
-
-
-
-
-
-
-
-
-
     </script>
 
+    <script src="./src/js/laydate.js"></script>
+    <script>
+        //日历
+        laydate.render({
+            elem: '#date1',
+            done: function (value, date, endDate) {
+                console.log(value); //得到日期生成的值，如：2017-08-18
+                console.log(
+                date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                console.log('函数执行')
+            }
+        });
+        window.onload = function () {
+            $('#date1').text(nowDate)
+        }
+
+        var nowDate = new Date();
+        nowDate = nowDate.getTime();
+        nowDate = formatDate(nowDate)
+
+        // 时间戳转换
+        function formatDate(date) {
+            if (date.length == 10) {
+                date = date * 1000
+            }
+            date = Number(date)
+            date = new Date(date);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? '0' + m : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            console.log(y + '-' + m + '-' + d)
+            return y + '-' + m + '-' + d;
+        }
+    </script>
 </body>
 
 </html>
