@@ -38,7 +38,7 @@ function getContent (user_id){
                                 <img src="./src/img/1/te1.png" alt="">
                                 <div class="cc">
                                     <p>${this.content}</p>
-                                    <p>${this.content}完成</p>
+                                    <p>完成日期：${this.complete_date}</p>
                                 </div>
                             </div>
                             <div class="right">`;
@@ -53,3 +53,29 @@ function getContent (user_id){
         }
     })
 }
+
+
+
+// 心愿
+$('.submit').click(function(){
+    var num = $('.num').html();
+    var complete_date = $('#date').html();
+    // console.log(num, complete_date);
+
+    $.ajax({
+        type: 'post',
+        url: GlobalHost+ '/Api/user/plan',
+        data: {
+            user_id: user_id,
+            num: num,
+            complete_date: complete_date,
+        },
+        success: function(res) {
+           if(res.code == 200) {
+                alert(res.msg)
+           } else {
+                alert(res.msg)
+           }
+        }
+    })  
+})

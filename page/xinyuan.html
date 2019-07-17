@@ -134,6 +134,9 @@
             width: 50px;
             height: 50px;
         }
+
+        .button { text-align: center; font-size: 2rem; }
+        .submit {width: 90%;}
     </style>
 </head>
 
@@ -154,13 +157,7 @@
         </div>
         <div class="right">
             <div>
-                <p>2018年12月27 <img src="./src/img/1/down.png" alt="" class="active"> </p>
-                <ul>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                    <li>2018-12-22</li>
-                </ul>
+                <p><span id="date"></span> <img src="./src/img/1/down.png" alt="" class="active"> </p>
             </div>
         </div>
     </div>
@@ -169,11 +166,14 @@
         <div class="left dati" data-toggle="modal" data-target=".Logic">
             <p>每日答对</p>
             <div>
-                <h1 class="edit">10</h1>
+                <h1 class="edit num">10</h1>
                 <p>道题</p>
             </div>
         </div>
         <div class="right"></div>
+    </div>
+    <div class="button">
+        <button type="button" class="submit">提交</button>
     </div>
 
     <div style="padding: 20px 0;">
@@ -227,10 +227,43 @@
             }
         })
 
-
-
     </script>
+    <script src="./src/js/laydate.js"></script>
+    <script>
+        //日历
+        laydate.render({
+            elem: '#date',
+            done: function(value, date, endDate){
+                console.log(value); //得到日期生成的值，如：2017-08-18
+                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                console.log('函数执行')
+            }
+        });
+        window.onload = function () {
+            $('#date').text(nowDate)
+        }
 
+        var nowDate = new Date();
+        nowDate = nowDate.getTime();
+        nowDate = formatDate(nowDate)
+
+        // 时间戳转换
+        function formatDate(date) {
+            if (date.length == 10) {
+                date = date * 1000
+            }
+            date = Number(date)
+            date = new Date(date);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? '0' + m : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            console.log(y + '-' + m + '-' + d)
+            return y + '-' + m + '-' + d;
+        }
+    </script>
 </body>
 
 </html>
