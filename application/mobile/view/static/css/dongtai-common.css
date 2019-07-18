@@ -30,8 +30,6 @@ header {
     height: 50px;
     line-height: 50px;
     z-index: 3;
-    color: #FFF;
-    font-size: 16px;
 }
 
 .dongtai header {
@@ -41,13 +39,14 @@ header {
 
 .dongtai header>div {
     text-align: center;
-    color: #999;
     display: flex;
     justify-content: center;
     align-items: center;
     /* width: 0.62rem; */
     flex: 0 0 0.62rem;
     position: relative;
+    color: #FFF;
+    font-size: 16px;
 }
 
 .dongtai header>div .mSelect {

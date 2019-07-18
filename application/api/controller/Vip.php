@@ -97,7 +97,7 @@ class Vip extends Base {
 
 		/************** 获取订单签名字符串 **************/
 		if($paymentMethod == 'alipay'){
-			$notify_url = 'http://app.yujianhaoshiguang.cn/index.php/api/vip/alipayCallback';
+			$notify_url = 'http://pkapp.staraise.com.cn/index.php/api/vip/alipayCallback';
 			$AlipayLogic = new AlipayLogic($notify_url);
 			$orderStr = $AlipayLogic->generateOrderStr($order_no, $total_amount, '购买VIP', '购买VIP');
 			return $orderStr;
@@ -105,7 +105,7 @@ class Vip extends Base {
 
 		if($paymentMethod == 'wxpay'){
 			$WxpayLogic = new WxpayLogic();
-			$WxpayLogic->notify_url = 'http://app.yujianhaoshiguang.cn/index.php/api/vip/wxpayCallback';
+			$WxpayLogic->notify_url = 'http://pkapp.staraise.com.cn/index.php/api/vip/wxpayCallback';
 			$param = $WxpayLogic->getPrepayId($order_no, $total_amount, '购买VIP');
 			response_success($param);
 		}

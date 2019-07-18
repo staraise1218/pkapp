@@ -57,7 +57,7 @@ class Goldcoin extends Base {
 
 		/************** 获取订单签名字符串 **************/
 		if($paymentMethod == 'alipay'){
-			$notify_url = 'http://app.yujianhaoshiguang.cn/index.php/api/goldcoin/alipayCallback';
+			$notify_url = 'http://pkapp.staraise.com.cn/index.php/api/goldcoin/alipayCallback';
 			$AlipayLogic = new AlipayLogic($notify_url);
 			$orderStr = $AlipayLogic->generateOrderStr($order_no, $total_amount, '购买金币', '购买金币');
 			return $orderStr;
@@ -65,7 +65,7 @@ class Goldcoin extends Base {
 
 		if($paymentMethod == 'wxpay'){
 			$WxpayLogic = new WxpayLogic();
-			$WxpayLogic->notify_url = 'http://app.yujianhaoshiguang.cn/index.php/api/goldcoin/wxpayCallback';
+			$WxpayLogic->notify_url = 'http://pkapp.staraise.com.cn/index.php/api/goldcoin/wxpayCallback';
 			$param = $WxpayLogic->getPrepayId($order_no, $total_amount, '购买金币');
 			response_success($param);
 		}
