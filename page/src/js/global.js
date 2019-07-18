@@ -2,8 +2,8 @@
 /**
  * API 公共
  */
-// var GlobalHost = 'http://pkapp.staraise.com.cn'
-var GlobalHost = 'http://pkapp.localhost.com'
+var GlobalHost = 'http://pkapp.staraise.com.cn'
+// var GlobalHost = 'http://pkapp.localhost.com'
 
 
 /**

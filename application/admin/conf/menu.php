@@ -74,11 +74,11 @@ return	array(
 	'module' => array('name'=>'模块', 'child'=>array(
 		array('name' => '会员','child'=>array(
 			array('name'=>'会员列表','act'=>'index','op'=>'User'),
-			array('name'=>'视频认证','act'=>'index','op'=>'UserAuthVideo'),
-			array('name'=>'身份认证','act'=>'index','op'=>'IdentityAuth'),
-			array('name'=>'车辆认证','act'=>'index','op'=>'CarAuth'),
-			array('name'=>'VIP购买记录','act'=>'index','op'=>'Vip'),
-			array('name'=>'提现申请','act'=>'index','op'=>'Withdraw'),
+			// array('name'=>'视频认证','act'=>'index','op'=>'UserAuthVideo'),
+			// array('name'=>'身份认证','act'=>'index','op'=>'IdentityAuth'),
+			// array('name'=>'车辆认证','act'=>'index','op'=>'CarAuth'),
+			// array('name'=>'VIP购买记录','act'=>'index','op'=>'Vip'),
+			// array('name'=>'提现申请','act'=>'index','op'=>'Withdraw'),
 			// array('name'=>'会员等级','act'=>'levelList','op'=>'User'),
 			// array('name'=>'充值记录','act'=>'recharge','op'=>'User'),
 			// array('name'=>'提现申请','act'=>'withdrawals','op'=>'User'),
@@ -91,19 +91,19 @@ return	array(
 			array('name' => '年级分类', 'act'=>'index', 'op'=>'grade'),
 			array('name' => '课程分类', 'act'=>'index', 'op'=>'lesson'),
 		)),
-		array('name'=>'金币', 'child'=>array(
+		/*array('name'=>'金币', 'child'=>array(
 			array('name'=>'金币商品','act'=>'index','op'=>'goldcoin'),
 			array('name'=>'购买记录','act'=>'order','op'=>'goldcoin'),
 			
-		)),
-		array('name'=>'礼物', 'child'=>array(
+		)),*/
+		/*array('name'=>'礼物', 'child'=>array(
 			array('name'=>'礼物列表','act'=>'index','op'=>'gift'),
 			
 		)),
 		array('name'=>'邀约', 'child'=>array(
 			array('name'=>'邀约列表','act'=>'index','op'=>'Invite'),
 			
-		)),
+		)),*/
 		array('name'=>'动态', 'child'=>array(
 			array('name'=>'动态列表','act'=>'index','op'=>'Dynamics'),
 			
