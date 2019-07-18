@@ -23,8 +23,8 @@
                         <!-- <li v-cloak @click.stop="cutArea('同城')">
                             同城
                         </li> -->
-                        <li v-cloak @click.stop="cutArea('全网')">
-                            全网
+                        <li v-cloak @click.stop="cutArea('动态列表')">
+                            动态列表
                         </li>
                     </ul>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
 
 
-                <!-- 同城，全网 -->
+                <!-- 同城，动态列表 -->
                 <div class="list-page area-page" v-cloak v-show="nowPage=='area'">
                     <ul>
                         <li class="list-item" v-cloak v-for="(item,index) in areaDataList.list" :key="index" @click="gotoDongtaiDetail(item)">
@@ -270,7 +270,7 @@
                 user_id: "",
                 isShowArea: false,
                 nowPage: "area", //area attended video
-                nowArea: "全网", //同城 全网
+                nowArea: "动态列表", //同城 动态列表
                 areaDataList: {
                     list: [],
                     isLoad: false,
@@ -422,7 +422,7 @@
                         }
                     }
                 },
-                cutArea(areaStr) { //同城 全网
+                cutArea(areaStr) { //同城 动态列表
                     this.isShowArea = false
                     //查数据
                     if (this.nowArea !== areaStr) {
@@ -447,7 +447,7 @@
                     // console.log("ajax")
                     let postData = {
                         user_id: user_id,
-                        range: range, //1同城2全网
+                        range: range, //1同城2动态列表
                         attention: attention, //1关注
                         jizha: jizha, //1叽喳
                         page: page,
