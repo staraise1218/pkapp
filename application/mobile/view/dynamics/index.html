@@ -17,7 +17,7 @@
     <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
         <div class="allWrap" :class="{blur:isReleasing}">
             <header>
-                <div class="tabCut" :class="{actived:nowPage=='area'}" @click="cutTab('area')">
+                <div class="tabCut">
                     <div style="width:100%;text-align: center;" v-cloak>{{nowArea}}</div>
                     <ul class="mSelect" v-cloak v-show="isShowArea">
                         <!-- <li v-cloak @click.stop="cutArea('同城')">
