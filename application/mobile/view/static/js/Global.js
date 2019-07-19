@@ -549,15 +549,8 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
 
 
 
-// body 注入弹窗代码
-// $('body').append(`<div class="logic_alert_bg"></div>
-//                     <div class="logic_alert">
-//                         <p class="title">温馨提示</p>
-//                         <p class="con">提示内容提示内容提示内容提示内容提示内容提示内容提示内容</p>
-//                     </div>`)
-
 // op(1, 0)  
-$('body').delegate('.logic_alert_bg', 'click',function () {
+$('.logic_alert_bg').click(function () {
     op(0, 200)
 })
 
