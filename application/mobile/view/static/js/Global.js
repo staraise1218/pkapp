@@ -549,12 +549,6 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
 
 
 
-// op(1, 0)  
-$('.logic_alert_bg').click(function () {
-    console.log('test')
-    op(0, 200)
-})
-
 /**
  * 控制弹窗显示隐藏
  * @param {*0 隐藏 1 显示} fade 
@@ -583,3 +577,9 @@ function op(fade, time) {
     }
 }
 
+
+// op(1, 0)  
+$('.logic_alert_bg').click(function () {
+    console.log('test')
+    op(0, 200)
+})
