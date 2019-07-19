@@ -587,7 +587,7 @@ a.back {
     display: inline-block;
     width: 0.2rem;
     height: 0.16rem;
-    background: url(../images/icon/back-arrow.png) center center no-repeat;
+    background: url(../images/icon/left1.png) center center no-repeat;
     background-size: 100%;
 }
 
