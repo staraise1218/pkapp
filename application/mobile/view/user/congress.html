@@ -136,12 +136,6 @@
             </div>
         </div>
     </div>
-          
-    <div class="logic_alert_bg"></div>
-    <div class="logic_alert">
-        <p class="title">温馨提示</p>
-        <p class="con">提示内容提示内容提示内容提示内容提示内容提示内容提示内容</p>
-    </div>
 
     <!-- -------------------------------------- -->
     <script src="__STATIC__/js-min/user-congress.min.js"></script>
@@ -280,45 +274,6 @@
                 },
             }
         })
-
-        
-
-
-
-/**
- * 控制弹窗显示隐藏
- * @param {*0 隐藏 1 显示} fade 
- * @param {*速度} time 
- */
-function op(fade, time) {
-    switch (fade) {
-        case 0:
-            if(time == 0) {
-                $('.logic_alert_bg').hide();
-                $('.logic_alert').hide();
-            } else {
-                $('.logic_alert_bg').fadeOut(time);
-                $('.logic_alert').fadeOut(time);
-            }
-            break;
-        case 1:
-            if(time == 0) {
-                $('.logic_alert_bg').show();
-                $('.logic_alert').show();
-            } else {
-                $('.logic_alert_bg').fadeIn(time);
-                $('.logic_alert').fadeIn(time);
-            }
-            break;
-    }
-}
-
-
-// op(1, 0)  
-$('.logic_alert_bg').click(function () {
-    console.log('test')
-    op(0, 200)
-})
 
     </script>
 </body>

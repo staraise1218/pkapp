@@ -289,7 +289,8 @@
                     Edit._user_id = Number(USERINFO.user_id);
                 } else {
                     // Edit._user_id = 1; //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
 
@@ -304,7 +305,8 @@
                 }
                 if (url.indexOf("file://") > -1) {
                     // url = "http://pkapp.staraise.com.cn/index.php/mobile/dynamics/add/type/2.html"; //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 // alert(url)
