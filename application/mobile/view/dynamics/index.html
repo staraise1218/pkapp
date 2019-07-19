@@ -17,23 +17,7 @@
     <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
         <div class="allWrap" :class="{blur:isReleasing}">
             <header>
-                <div class="tabCut">
-                    <div style="width:100%;text-align: center;" v-cloak>{{nowArea}}</div>
-                    <ul class="mSelect" v-cloak v-show="isShowArea">
-                        <!-- <li v-cloak @click.stop="cutArea('同城')">
-                            同城
-                        </li> -->
-                        <li v-cloak @click.stop="cutArea('动态')">
-                            动态
-                        </li>
-                    </ul>
-                </div>
-                <!-- <div class="tabCut" :class="{actived:nowPage=='attended'}" @click="cutTab('attended')">
-                    关注
-                </div>
-                <div class="tabCut" :class="{actived:nowPage=='video'}" @click="cutTab('video')">
-                    叽喳
-                </div> -->
+                <div class="title">动态</div>
             </header>
 
 
@@ -361,7 +345,7 @@
                 //
                 this.getListData("areaDataList", false, {
                     user_id: this.user_id,
-                    range: 1
+                    range: 2
                 });
             },
             filters: {
