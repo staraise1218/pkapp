@@ -37,20 +37,20 @@
                         <li class="list-item" v-cloak v-for="(item,index) in areaDataList.list" :key="index" @click="gotoDongtaiDetail(item)">
                             <div class="item-head">
                                 <div style="position: relative;">
-                                    <div class="item-headWrap" @click.stop="gotoHomePage(item)">
+                                    <div class="item-headWrap">
                                         <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
                                         <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                                     </div>
-                                    <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span>
+                                    <!-- <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span> -->
                                 </div>
 
                                 <div class="item-head-text">
                                     <div>
                                         <span class="listName">{{item.nickname}}</span>
-                                        <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
-                                            <i class="sex"></i>
-                                            <span class="age">{{item.age}}</span>
-                                        </span>
+                                       <!--  <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
+                                           <i class="sex"></i>
+                                           <span class="age">{{item.age}}</span>
+                                       </span> -->
                                     </div>
                                 </div>
                             </div>
