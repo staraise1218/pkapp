@@ -127,16 +127,15 @@ $('body').append(`<div class="logic_alert_bg"></div>
                         <p class="con">提示内容提示内容提示内容提示内容提示内容提示内容提示内容</p>
                     </div>`)
 
-op(1, 0)
+// op(1, 0)  
 $('body').delegate('.logic_alert_bg', 'click',function () {
-    op(0, 0)
-    console.log('yx')
+    op(0, 200)
 })
 
 /**
  * 控制弹窗显示隐藏
  * @param {*0 隐藏 1 显示} fade 
- * @param {*时间} time 
+ * @param {*速度} time 
  */
 function op(fade, time) {
     switch (fade) {
