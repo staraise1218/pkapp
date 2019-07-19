@@ -551,6 +551,7 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
 
 // op(1, 0)  
 $('.logic_alert_bg').click(function () {
+    console.log('test')
     op(0, 200)
 })
 
