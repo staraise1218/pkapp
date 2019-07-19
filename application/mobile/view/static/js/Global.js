@@ -534,3 +534,58 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
 
 //原生上传单张图片
 // window.Android.androidOneUpload(1,"uploadPhotos") //参数1：1图片 2视频  参数2：调用的js方法的名称
+
+
+
+
+/************************************************************************************************
+ * Logic
+ * 以下
+ *************************************************************************************************
+ */
+
+
+
+
+
+
+// body 注入弹窗代码
+$('body').append(`<div class="logic_alert_bg"></div>
+                    <div class="logic_alert">
+                        <p class="title">温馨提示</p>
+                        <p class="con">提示内容提示内容提示内容提示内容提示内容提示内容提示内容</p>
+                    </div>`)
+
+// op(1, 0)  
+$('body').delegate('.logic_alert_bg', 'click',function () {
+    op(0, 200)
+})
+
+/**
+ * 控制弹窗显示隐藏
+ * @param {*0 隐藏 1 显示} fade 
+ * @param {*速度} time 
+ */
+function op(fade, time) {
+    switch (fade) {
+        case 0:
+            if(time == 0) {
+                $('.logic_alert_bg').hide();
+                $('.logic_alert').hide();
+            } else {
+                $('.logic_alert_bg').fadeOut(time);
+                $('.logic_alert').fadeOut(time);
+            }
+            break;
+        case 1:
+            if(time == 0) {
+                $('.logic_alert_bg').show();
+                $('.logic_alert').show();
+            } else {
+                $('.logic_alert_bg').fadeIn(time);
+                $('.logic_alert').fadeIn(time);
+            }
+            break;
+    }
+}
+
