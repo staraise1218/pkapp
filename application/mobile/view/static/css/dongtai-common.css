@@ -585,7 +585,7 @@ footer li a {
 
 a.back {
     display: inline-block;
-    width: 0.2rem;
+    width: 0.1rem;
     height: 0.16rem;
     background: url(../images/icon/left1.png) center center no-repeat;
     background-size: 100%;
