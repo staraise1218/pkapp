@@ -235,7 +235,8 @@
                     Details.user_id = Number(USERINFO.user_id);
                 } else {
                     // Details.user_id = 1; //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 // alert("user_id:"+Details.user_id)
@@ -246,7 +247,8 @@
                 }
                 if (ulrStr.indexOf("file://") > -1) {
                     // ulrStr = "http://http://pkapp.staraise.com.cn/index.php/mobile/dynamics/detail/id/18.html" //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 var strTemp = ulrStr.split("/detail/id/")[1];
