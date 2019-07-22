@@ -34,7 +34,7 @@ class Pk extends Base {
 		$where = '1=1';
 		if($searchNickname) $where .= " and nickname like '%{$searchNickname}%'";
 		
-		$offset = 2;
+		$offset = 15;
 		$limit_start = ($page-1)*$offset;
 		$sql = "SELECT t.*, @ranking := @ranking + 1 AS ranking FROM (SELECT @ranking := $limit_start) r, (SELECT user_id, nickname, head_pic, province, city, school FROM tp_users where $where ORDER BY goldcoin DESC limit $limit_start,$offset) AS t";
 		$list = Db::query($sql);
