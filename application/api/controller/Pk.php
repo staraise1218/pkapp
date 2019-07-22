@@ -66,7 +66,6 @@ class Pk extends Base {
 		$user_id = I('user_id');
 		$to_user_id = I('to_user_id');
 
-
 		if($user_id == $to_user_id) response_error('', '不能邀请自己');
 		if(!Gateway::isUidOnline($user_id)) response_error('', '您不在线');
 		if(!Gateway::isUidOnline($to_user_id)) response_error('', '对方不在线');
