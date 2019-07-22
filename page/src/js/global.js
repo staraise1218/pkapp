@@ -69,23 +69,14 @@ function getRequest(key=null) {
 /**
  * 回退 1
  */
-// $('.back').on('click', function () {
-//     window.history.back(-1);
-// })
-if (isAndroid) {
-    $('.back').on('click', function () {
-        window.android.goBack();
-    //     console.log(window.history.__proto__.constructor)
-    //     if(window.android.goBack() != 'undefined') {
-    //     } else {
-    //         // window.history.back(-1);
-    //     }
-    })
-} else {
-    $('.back').on('click', function () {
-        window.history.back(-1);
-    })
-}
+$('.back').on('click', function () {
+    try {
+        back.back();
+     }
+     catch(err){
+         window.history.back(-1);
+     }
+})
 
 /**
  * 时间戳转时间

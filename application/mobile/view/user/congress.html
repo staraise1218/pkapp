@@ -49,10 +49,10 @@
                             <div class="ersanmingHeadItem">
                                 <div class="head_pic">
                                     <div class="img-box img-box-rank1">
-                                        <img v-cloak v-if="topThreeList[0]&&topThreeList[0].head_pic&&topThreeList[0].head_pic!==''" :src="topThreeList[0].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[0])">
+                                        <img v-cloak v-if="topThreeList[0]&&topThreeList[0].head_pic&&topThreeList[0].head_pic!==''" :src="topThreeList[0].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" >
                                         <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                                     </div>
-                                    <span class="videoStatus" v-cloak v-show="topThreeList[0]&&Number(topThreeList[0].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[0])"></span>
+                                    <!-- <span class="videoStatus" v-cloak v-show="topThreeList[0]&&Number(topThreeList[0].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[0])"></span> -->
                                 </div>
                                 <span class="rankingNum rankingNum1">NO.1</span>
                             </div>
@@ -61,10 +61,10 @@
                             <div class="ersanmingHeadItem">
                                 <div class="head_pic">
                                     <div class="img-box img-box-rank2">
-                                        <img v-cloak v-if="topThreeList[1]&&topThreeList[1].head_pic&&topThreeList[1].head_pic!==''" :src="topThreeList[1].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[1])">
+                                        <img v-cloak v-if="topThreeList[1]&&topThreeList[1].head_pic&&topThreeList[1].head_pic!==''" :src="topThreeList[1].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
                                         <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                                     </div>
-                                    <span class="videoStatus" v-cloak v-show="topThreeList[1]&&Number(topThreeList[1].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[1])"></span>
+                                    <!-- <span class="videoStatus" v-cloak v-show="topThreeList[1]&&Number(topThreeList[1].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[1])"></span> -->
                                 </div>
                                 <span class="rankingNum rankingNum2">NO.2</span>
                             </div>
@@ -72,10 +72,10 @@
                             <div class="ersanmingHeadItem">
                                 <div class="head_pic">
                                     <div class="img-box img-box-rank2">
-                                        <img v-cloak v-if="topThreeList[2]&&topThreeList[2].head_pic&&topThreeList[2].head_pic!==''" :src="topThreeList[2].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)" @click="gotoHomePage(topThreeList[2])">
+                                        <img v-cloak v-if="topThreeList[2]&&topThreeList[2].head_pic&&topThreeList[2].head_pic!==''" :src="topThreeList[2].head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
                                         <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                                     </div>
-                                    <span class="videoStatus" v-cloak v-show="topThreeList[2]&&Number(topThreeList[2].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[2])"></span>
+                                    <!-- <span class="videoStatus" v-cloak v-show="topThreeList[2]&&Number(topThreeList[2].auth_video_status)==2" @click.stop="openVideoScreen(topThreeList[2])"></span> -->
                                 </div>
                                 <span class="rankingNum rankingNum3">NO.3</span>
                             </div>

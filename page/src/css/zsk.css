@@ -18,7 +18,7 @@
 
 .bbb {
     background-image: url('../img/1/jj4.png');
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: 0px 1px;
     padding: 0 20px;
@@ -57,14 +57,14 @@
 .yuwen .right {
     display: flex;
     flex-wrap: wrap;
-    padding: 20px 30px;
+    padding: 20px 0 20px 20px;
 }
 .yuwen .right img {
     width: 50px;
 }
 .yuwen .right li {
     text-align: center;
-    margin-right: 30px;
+    margin-right: 22px;
     margin-bottom: 20px;
 }
 .yuwen .right li p {
@@ -103,5 +103,5 @@
 }
 .yuwen .right li:nth-child(3), 
 .yuwen .right li:nth-child(6) {
-    margin-right: 0;
+    /* margin-right: 0; */
 }

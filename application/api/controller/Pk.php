@@ -34,7 +34,7 @@ class Pk extends Base {
 		$where = '1=1';
 		if($searchNickname) $where .= " and nickname like '%{$searchNickname}%'";
 		
-		$offset = 2;
+		$offset = 15;
 		$limit_start = ($page-1)*$offset;
 		$sql = "SELECT t.*, @ranking := @ranking + 1 AS ranking FROM (SELECT @ranking := $limit_start) r, (SELECT user_id, nickname, head_pic, province, city, school FROM tp_users where $where ORDER BY goldcoin DESC limit $limit_start,$offset) AS t";
 		$list = Db::query($sql);
@@ -65,7 +65,6 @@ class Pk extends Base {
 	public function invite(){
 		$user_id = I('user_id');
 		$to_user_id = I('to_user_id');
-
 
 		if($user_id == $to_user_id) response_error('', '不能邀请自己');
 		if(!Gateway::isUidOnline($user_id)) response_error('', '您不在线');
@@ -141,6 +140,9 @@ class Pk extends Base {
 			->field('id room_knowledge_id, title, a, b, c, d, answer')
 			->select();
 		$result['knowledgeList'] = $knowledgeList;
+
+		$sql = "SELECT id room_knowledge_id, title, a, b, c, d, answer FROM `tp_room_knowledge`WHERE id >= (SELECT floor(RAND() * (SELECT MAX(id) FROM `tp_room_knowledge`))) ORDER BY id LIMIT 5";
+        $list = Db::query($sql);
 
 		$message = json_encode(array(
 			'action' => 'intoRoom',
