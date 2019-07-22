@@ -17,23 +17,7 @@
     <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
         <div class="allWrap" :class="{blur:isReleasing}">
             <header>
-                <div class="tabCut">
-                    <div style="width:100%;text-align: center;" v-cloak>{{nowArea}}</div>
-                    <ul class="mSelect" v-cloak v-show="isShowArea">
-                        <!-- <li v-cloak @click.stop="cutArea('同城')">
-                            同城
-                        </li> -->
-                        <li v-cloak @click.stop="cutArea('动态')">
-                            动态
-                        </li>
-                    </ul>
-                </div>
-                <!-- <div class="tabCut" :class="{actived:nowPage=='attended'}" @click="cutTab('attended')">
-                    关注
-                </div>
-                <div class="tabCut" :class="{actived:nowPage=='video'}" @click="cutTab('video')">
-                    叽喳
-                </div> -->
+                <div class="title">动态</div>
             </header>
 
 
@@ -53,20 +37,20 @@
                         <li class="list-item" v-cloak v-for="(item,index) in areaDataList.list" :key="index" @click="gotoDongtaiDetail(item)">
                             <div class="item-head">
                                 <div style="position: relative;">
-                                    <div class="item-headWrap" @click.stop="gotoHomePage(item)">
+                                    <div class="item-headWrap">
                                         <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
                                         <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                                     </div>
-                                    <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span>
+                                    <!-- <span class="videoStatus" v-cloak v-show="Number(item.auth_video_status)==2" @click.stop="openVideoScreen(item)"></span> -->
                                 </div>
 
                                 <div class="item-head-text">
                                     <div>
                                         <span class="listName">{{item.nickname}}</span>
-                                        <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
-                                            <i class="sex"></i>
-                                            <span class="age">{{item.age}}</span>
-                                        </span>
+                                       <!--  <span class="sexAge" :class="{female:Number(item.sex)==2,male:Number(item.sex)==1}">
+                                           <i class="sex"></i>
+                                           <span class="age">{{item.age}}</span>
+                                       </span> -->
                                     </div>
                                 </div>
                             </div>
@@ -88,10 +72,10 @@
                             </div>
                             <div class="item-comment">
                                 <span class="addTime">{{item.add_time | stampToStr}}</span>
-                                <div class="person" v-cloak v-if="item.viewer_count>0">
+                                <!-- <div class="person" v-cloak v-if="item.viewer_count>0">
                                     <img src="__STATIC__/images/icon/kekan.png">
                                     <span>{{item.viewer_count}}</span>
-                                </div>
+                                </div> -->
                                 <div>
                                     <img src="__STATIC__/images/icon/price.png">
                                     <span class="item-comment-count" v-cloak v-if="item.comment_count>0">{{item.comment_count}}</span>
@@ -354,14 +338,15 @@
                     this.user_id = Number(USERINFO.user_id);
                 } else {
                     // this.user_id = 21; //测试用
-                    alert("请求失败");
+                    // alert("请求失败");
+                    Global.messageWin("请求失败");
                     return
                 }
 
                 //
                 this.getListData("areaDataList", false, {
                     user_id: this.user_id,
-                    range: 1
+                    range: 2
                 });
             },
             filters: {

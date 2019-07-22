@@ -372,7 +372,8 @@
                 } else {
                     // Homepage.user_id = 1; //测试用
                     // Homepage.mUserInfo.level = 0; //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 var ulrStr = window.location.href;
@@ -381,7 +382,8 @@
                 }
                 if (ulrStr.indexOf("file://") > -1) {
                     // ulrStr ="http://pkapp.staraise.com.cn/index.php/mobile/user/homePage/user_id/1/toUserId/2.html" //测试用 如果是1去1 就有问题了
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 var strTemp = ulrStr.split("/toUserId/")[1];

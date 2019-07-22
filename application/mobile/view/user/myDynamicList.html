@@ -357,7 +357,8 @@
                     }
                     if (ulrStr.indexOf("file://") > -1) {
                         // ulrStr ="http://pkapp.staraise.com.cn/index.php/mobile/user/myDynamicList/user_id/3.html" //测试用 如果是1去1 就有问题了
-                        alert("请求失败")
+                        // alert("请求失败")
+                        Global.messageWin("请求失败");
                         return
                     }
                     if(ulrStr.indexOf("/user_id/")>-1){ //看他人的动态列表页
@@ -372,7 +373,8 @@
                             this.user_id = Number(mUserInfo.user_id);
                         } else {
                             // this.user_id = 1; //测试用
-                            alert("请求失败")
+                            // alert("请求失败")
+                            Global.messageWin("请求失败");
                             return
                         }
                     }

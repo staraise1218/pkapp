@@ -32,11 +32,11 @@
                     <div class="details-content-head-text">
                         <div>
                             <span>{$info.nickname}</span>
-                            <span class='sexAge <if condition="$info.sex eq 1">male<else />female</if>'>
+                            <!-- <span class='sexAge <if condition="$info.sex eq 1">male<else />female</if>'>
                                 <i class="sex"></i>
                                 <span class="age">{$info.age}</span>
-                            </span>
-                            <span class="topping" style="display: none;">置顶</span>
+                            </span> -->
+                            <!-- <span class="topping" style="display: none;">置顶</span> -->
                         </div>
                         <span>{$info.time}</span>
                     </div>
@@ -112,7 +112,7 @@
                 <ul>
                     <li class="details-comments-item" v-cloak v-for="(item,index) in commentsList" :key="index">
                         <div style="position: relative;" v-cloak>
-                            <div class="comment-headWrap" v-cloak @click="applyHomepage(item)">
+                            <div class="comment-headWrap" v-cloak>
                                 <img v-cloak v-if="item.head_pic&&item.head_pic!==''" :src="item.head_pic | ifHttpImg" onload="Global.resizeHeadpic(this)">
                                 <img v-cloak v-else src="/application/mobile/view/static/images/icon/tx.png">
                             </div>
@@ -235,7 +235,8 @@
                     Details.user_id = Number(USERINFO.user_id);
                 } else {
                     // Details.user_id = 1; //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 // alert("user_id:"+Details.user_id)
@@ -246,7 +247,8 @@
                 }
                 if (ulrStr.indexOf("file://") > -1) {
                     // ulrStr = "http://http://pkapp.staraise.com.cn/index.php/mobile/dynamics/detail/id/18.html" //测试用
-                    alert("请求失败")
+                    // alert("请求失败")
+                    Global.messageWin("请求失败");
                     return
                 }
                 var strTemp = ulrStr.split("/detail/id/")[1];
@@ -649,7 +651,7 @@
                     $('body').css('overflow', 'auto')
                 });
                 //点击这条动态的头像去个人主页
-                $(".details-headImgWrap").click(function (event) {
+                /*$(".details-headImgWrap").click(function (event) {
                     event.stopPropagation();
                     let user_id = Details.user_id;
                     let toUserId = Details.dynamic_origin_id;
@@ -660,7 +662,7 @@
                         url = Global.host + "/index.php/mobile/user/homePage/user_id/" + user_id +"/toUserId/" + toUserId + ".html";
                     }
                     window.location.href = url;
-                });
+                });*/
                 //点击图片显示大图
                 $(".details-content-text").delegate("img.detailImg", "click", function () {
                     console.log($(this).attr("src"))

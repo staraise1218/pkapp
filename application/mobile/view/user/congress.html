@@ -10,6 +10,7 @@
     <script type="text/javascript">
         document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
     </script>
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
     <script src="__STATIC__/js/Global.js"></script>
 </head>
 
@@ -19,7 +20,7 @@
             <a href="javascript:void(0)" class="back" @click="back"></a>
             <div class="cutBtnWrap">
                 <div class="tabCut actived">
-                    魅力榜
+                    排行榜
                 </div>
                 <!-- <div class="tabCut" :class="{actived:nowList=='newcomerList'}" @click="cutTab('newcomerList')">
                     新人
@@ -135,8 +136,6 @@
             </div>
         </div>
     </div>
-          
-
 
     <!-- -------------------------------------- -->
     <script src="__STATIC__/js-min/user-congress.min.js"></script>
@@ -195,13 +194,16 @@
             },
             methods:{
                 getUserInfo(){
-                    if (localStorage.getItem("mUserInfo")&&localStorage.getItem("mUserInfo")!== null&&localStorage.getItem("mUserInfo") !== "null") {
-                        let mUserInfo = JSON.parse(localStorage.getItem("mUserInfo"))
-                        console.log(mUserInfo)
-                        this.userInfo = mUserInfo;
+                    if (localStorage.getItem("USERINFO")&&localStorage.getItem("USERINFO")!== null&&localStorage.getItem("USERINFO") !== "null") {
+                        let USERINFO = JSON.parse(localStorage.getItem("USERINFO"))
+                        console.log(USERINFO)
+                        this.userInfo = USERINFO;
                     } else {
                         //this.userInfo = JSON.parse("{\"user_id\":1,\"uuid\":97875266,\"account_mobile\":\"13051832424\",\"email\":\"\",\"sex\":1,\"birthday\":\"1991-09-24\",\"age\":26,\"height\":127,\"weight\":37,\"reg_time\":1536025186,\"last_login\":1536025186,\"last_ip\":\"\",\"qq\":\"437753880\",\"head_pic\":\"/public/upload/head_pic//20180904/65d288e656d9d0b192bec982d76d99e8.png\",\"province\":0,\"city\":0,\"district\":0,\"nickname\":\"tong\",\"level\":1,\"discount\":\"1.00\",\"total_amount\":\"0.00\",\"is_lock\":0,\"token\":\"4b14230c1c1956d4cedd9e49c0d2c145\",\"message_mask\":63,\"satisfactory_parts\":null,\"longitude\":\"0.0000000\",\"latitude\":\"0.0000000\",\"auth_video_status\":2,\"auth_identity_status\":0,\"auth_car_status\":0,\"active_time\":1536282087,\"is_line\":1,\"income\":null,\"rockets\":0,\"signInDays\":null,\"flower_num\":0,\"signature\":\"个性\",\"permanent_province\":null,\"permanent_city\":null,\"profession\":\"航空公司\",\"phoneOwechat\":\"13051832424\",\"emotion_status\":null,\"rongyun_token\":\"2Mxv2N0Kg2WPNFftBKjLsjoJzC1b/p237t784hHIriRLkvc548Y7iX2boQyN2n7kj6RpzxE4XchLf2hz0SZhgg==\",\"sort\":0,\"vip_expire_date\":\"2020-12-04\",\"fansNum\":0}") //测试用
-                        alert("请求失败")
+                        // $(".logic_alert .con").text('请求失败')
+                        // op(1,0);
+                        Global.messageWin("请求失败");
+                        // alert("请求失败")
                         return
                     }
                 },
@@ -272,6 +274,7 @@
                 },
             }
         })
+
     </script>
 </body>
 

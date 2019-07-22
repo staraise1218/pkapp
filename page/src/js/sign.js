@@ -33,16 +33,16 @@ function getContent (user_id){
         type: 'post',
         url: GlobalHost+ '/Api/user/signPage',
         data: {
-            
+            user_id: user_id,
         },
         success: function(res) {
-            var list = '';
+            var data = res.data;
             $.each(res.data, function(i){
-                list += `<li date="${this.date}" is_sign="${this.is_sign}">
-                            <img src="./src/img/1/asfaa.png" alt="">
-                        </li>`;
+                $('.qd_wrap li').eq(i).attr('date', data[i].date);
+                $('.qd_wrap li').eq(i).attr('is_sign', data[i].is_sign);
+                if(this.is_sign == 1) $('.qd_wrap li').eq(i).addClass('active');
             })
-            $('.content_wrap').html(list);
+
         }
     })
 }
@@ -58,7 +58,7 @@ $('.signBtn').click(function(){
     date = date < 10 ? '0' + date : date;
     var today_date = year+'-'+month+'-'+date;
 
-    var is_sign = $('.content_wrap li[date='+today_date+']').attr('is_sign');
+    var is_sign = $('.qd_wrap li[date='+today_date+']').attr('is_sign');
     console.log(is_sign);
 
     if(is_sign == 1) alert('今日已签到');
@@ -71,7 +71,8 @@ $('.signBtn').click(function(){
         },
         success: function(res) {
             if(res.code == 200) {
-                $('.content_wrap li[date='+today_date+']').attr('is_sign', 1)
+                $('.qd_wrap li[date='+today_date+']').attr('is_sign', 1)
+                $('.qd_wrap li[date='+today_date+']').addClass('active')
                 alert(res.msg);
             }
         }

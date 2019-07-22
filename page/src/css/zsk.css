@@ -74,6 +74,8 @@
 }
 .yuwen .right2 {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .yuwen .right2 li {
     margin: 0;
@@ -89,6 +91,7 @@
     display: flex;
     align-items: center;
     margin-top: 6px;
+    margin-left: 8px;
 }
 .yuwen .right2 li div p {
     align-self: center;
