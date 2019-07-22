@@ -74,7 +74,7 @@ function getRequest(key=null) {
 // })
 if (isAndroid) {
     $('.back').on('click', function () {
-        window.android.goBack();
+        back.back();
     //     console.log(window.history.__proto__.constructor)
     //     if(window.android.goBack() != 'undefined') {
     //     } else {
