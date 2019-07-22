@@ -142,6 +142,9 @@ class Pk extends Base {
 			->select();
 		$result['knowledgeList'] = $knowledgeList;
 
+		$sql = "SELECT id room_knowledge_id, title, a, b, c, d, answer FROM `tp_room_knowledge`WHERE id >= (SELECT floor(RAND() * (SELECT MAX(id) FROM `tp_room_knowledge`))) ORDER BY id LIMIT 5";
+        $list = Db::query($sql);
+
 		$message = json_encode(array(
 			'action' => 'intoRoom',
 		));
