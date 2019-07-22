@@ -87,6 +87,15 @@ if (isAndroid) {
     })
 }
 
+
+$('.back').on('click', function () {
+    if(back) {
+        back.back()
+    } else {
+        window.history.back(-1);
+    }
+})
+
 /**
  * 时间戳转时间
  */
