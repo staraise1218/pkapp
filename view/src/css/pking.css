@@ -322,6 +322,7 @@ text-align: center;
 background-image: url('../img/2/background.png');
 background-repeat: no-repeat;
 background-size: contain;
+width: 60%;
 }
 .tanchuang .poster {
 display: inline-block;
