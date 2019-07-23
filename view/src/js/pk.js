@@ -101,6 +101,7 @@ ws.onmessage = function (event) {
         user2OBJ.pic = $data.head_pic;
         user2OBJ.name = $data.nickname;
         user2OBJ.user_id = $data.user_id;
+        user2OBJ.room_id = $data.room_id;
         $room_id = $data.room_id;
         $(".tanchutn-wrapper").css("display", "block")
         var $fheihgt = $(".list-wrapper").height();
@@ -359,7 +360,7 @@ $(document).ready(function () {
             })
 
             //   拒绝邀请
-            $(".back").click(function () {
+            $("._back").click(function () {
                 $(".tanchutn-wrapper").hide()
             })
         },
@@ -511,15 +512,19 @@ function gameTimerStart() {
                         $result = 1
                         console.log("胜利")
                         $(".pk-end-wrapper .info").text("胜利");
+                        $('.jinbi em').text('+10');
                     } else if ($score_1 < $score_2) {
                         $winer_id = $to_user_id
                         console.log("失败")
                         $result = 2
                         $(".pk-end-wrapper .info").text("失败");
+                        $('.jinbi em').text('+0');
+                        $('.jinbi em').text('+0');
                     } else {
                         console.log("平局")
                         $result = 3
                         $(".pk-end-wrapper .info").text("平局");
+                        $('.jinbi em').text('+0');
                     }
                     // 答题分数
                     $("#score1").text($score_1);
@@ -541,6 +546,7 @@ function gameTimerStart() {
                         score: $score_1,
                         res: $result
                     }
+                    console.log(postData)
                     $.ajax({
                         type: 'POST',
                         url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
@@ -715,15 +721,15 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
                     $("#pk-display").css("display", "none");
                     $(".pk-end-wrapper").css("display", "block");
 
-                    console.log("postData", postData, "***************************************************************************")
 
                     $('.pk-end-wrapper .user1-info img').attr('src', )
                     var postData = {
-                        room_id: $room_id,
+                        room_id: user2OBJ.room_id,
                         user_id: $user_id,
                         score: $score_1,
                         res: $result
                     }
+                    console.log("postData", postData, "***************************************************************************")
                     $.ajax({
                         type: 'POST',
                         url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
