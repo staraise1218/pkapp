@@ -692,6 +692,7 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
                         $result = 1
                         console.log("胜利")
                         $(".pk-end-wrapper .info").text("胜利");
+                        
                     } else if ($score_1 < $score_2) {
                         $winer_id = $to_user_id
                         console.log("失败")

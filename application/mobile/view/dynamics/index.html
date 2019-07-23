@@ -513,7 +513,10 @@
                 },
                 openEdit(type) { //动态类型
                     this.savePageToSession();
-
+                    switch(type) {
+                        case 3:
+                            console.log('333333')
+                    }
                     let url= this.GlobalHost + "/index.php/mobile/dynamics/add/type/" + type + ".html";
 
                     if(Global.isIOS()){
