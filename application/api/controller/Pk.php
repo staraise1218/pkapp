@@ -85,7 +85,7 @@ class Pk extends Base {
 				'action'=>'invite',
 				'room_id' => $room_id,
 				'user_id' => $user_id,
-				'nickname' => $nickname,
+				'nickname' => $user['nickname'],
 				'head_pic' => $user['head_pic'],
 			));
 			Gateway::sendToUid($to_user_id, $message);
