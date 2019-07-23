@@ -547,20 +547,20 @@ function gameTimerStart() {
                         res: $result
                     }
                     console.log(postData)
-                    $.ajax({
-                        type: 'POST',
-                        url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
-                        data: postData,
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data)
-                            console.log("结束 **************** success")
-                            $sendResult_data = data;
-                        },
-                        error: function () {
-                            console.log("结束 ************* error")
-                        }
-                    })
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
+                    //     data: postData,
+                    //     dataType: "json",
+                    //     success: function (data) {
+                    //         console.log(data)
+                    //         console.log("结束 **************** success")
+                    //         $sendResult_data = data;
+                    //     },
+                    //     error: function () {
+                    //         console.log("结束 ************* error")
+                    //     }
+                    // })
                 }
             }
             $_index++;
