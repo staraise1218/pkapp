@@ -728,7 +728,7 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
 
                     $('.pk-end-wrapper .user1-info img').attr('src', )
                     var postData = {
-                        room_id: user2OBJ.room_id,
+                        room_id: $room_id,
                         user_id: $user_id,
                         score: $score_1,
                         res: $result
