@@ -395,11 +395,6 @@ $("#userList").delegate('.pk','click',function () {
         }
     })
 })
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 21d8ca6af2c56b0d0c95ce034f4b70dad8d05c86
 // 加载更多 列表
 var page = 2;
 function getMore(page) {
