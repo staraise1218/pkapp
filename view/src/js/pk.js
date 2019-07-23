@@ -394,6 +394,45 @@ $(document).ready(function () {
     })
 })
 
+// 加载更多 列表
+var page = 2;
+function getMore(page) {
+    $.ajax({
+        type: 'POST',
+        url: "http://pkapp.staraise.com.cn/Api/pk/pklist",
+        data: {
+            page: page,
+            user_id: $user_id
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res)
+            console.log(res.data.list.length)
+            if(res.data.list.length == 0) {
+                window.page = '-1'
+            } else {
+                window.page++
+            }
+        }
+    })
+}
+
+$(window).scroll(function() {
+    var scrollTop = $(this).scrollTop();    //滚动条距离顶部的高度
+    var scrollHeight = $(document).height();   //当前页面的总高度
+    var clientHeight = $(this).height();    //当前可视的页面高度
+    if(scrollTop + clientHeight >= scrollHeight){   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;         //每次滑动count加1
+        console.log('getMore')
+        if(page == '-1') {
+            console.log('没有更多了')
+        } else {
+            getMore(page)
+        }
+    }else if(scrollTop<=0){
+        console.log('down')
+    }
+});
+
 // 渲染对战用户信息
 function createUser() {
     console.log($userinfo)
