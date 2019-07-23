@@ -31,6 +31,19 @@ let patentHeight = $(".jindu").height(),
     $is_online = "对方不在线",
     $searchNickname = ''; // 搜索内容
 
+
+console.log($userinfo)
+let user1OBJ = {
+    pic: 'http://pkapp.staraise.com.cn/' +  $userinfo.head_pic,
+    name: $userinfo.nickname,
+    user_id: $userinfo.user_id
+}
+let user2OBJ = {
+    pic: '',
+    name: '',
+    user_id: ''
+}
+
 // 保存用户登陆信息
 $user_id = $userinfo.user_id;
 
@@ -85,10 +98,15 @@ ws.onmessage = function (event) {
     if ($data.action == 'invite') {
         console.log("action **************** invite")
         console.log($data)
+        user2OBJ.pic = $data.head_pic;
+        user2OBJ.name = $data.nickname;
+        user2OBJ.user_id = $data.user_id;
         $room_id = $data.room_id;
         $(".tanchutn-wrapper").css("display", "block")
         var $fheihgt = $(".list-wrapper").height();
         // $(".tanchutn-wrapper").css("height", $fheihgt)
+        $('.tanchuang .poster img').prop('src', $data.head_pic)
+        $('.tanchuang .user2-name').text($data.nickname || '神秘人')
         document.addEventListener("touchmove", function (e) {
             if ($(".tanchutn-wrapper").css("display") == 'block') {
                 $("html,body").addClass("overHiden")
@@ -389,6 +407,7 @@ $("#userList").delegate('.pk','click',function () {
             $knowledgeList = data.data.knowledgeList;
             console.log($knowledgeList)
             $('.user2-poster-wrapper .poster img').attr('src', "http://pkapp.staraise.com.cn" + $userinfo.head_pic);
+            $('.user1-title-wrapper .user1_poster').attr('src', "http://pkapp.staraise.com.cn" + $userinfo.head_pic);
         },
         error: function () {
             console.log("邀请PK失败")
@@ -438,7 +457,7 @@ $(window).scroll(function() {
 function createUser() {
     console.log($userinfo)
     console.log($touserinfo)
-    $('.user1-poster-wrapper .poster img').attr('src', $touserinfo)
+    // $('.user1-poster-wrapper .poster img').attr('src', $touserinfo)
     $(".user1-wrapper .poster img").get(0).src = $touserinfo.head_pic;
     $(".user1-wrapper .user1_name").text($touserinfo.nickname)
     $(".user2-wrapper .poster img").get(0).src = $userinfo.head_pic;
@@ -450,7 +469,7 @@ function createUser() {
     // user2
     $(".user1-title-wrapper img").get(0).src = $userinfo.head_pic;
     $(".user1-title-wrapper .user1-name").text($userinfo.nickname);
-
+    // $('user1_poster').attr('src', 'http://pkapp.staraise.com.cn' + $userinfo.head_pic)
     // END
     // $(".pk-end-wrapper .user1 img").attr('src',  $userinfo.head_pic);
     $(".pk-end-wrapper .user1 .user-name").text($userinfo.nickname);
@@ -458,7 +477,7 @@ function createUser() {
     $(".pk-end-wrapper .user2 .user-name").text($touserinfo.nickname);
     // END
     if ($winer_id == $to_user_id) {
-        $(".pk-end-wrapper .user1-info img").attr('src','http://pkapp.staraise.com.cn' + $userinfo.head_pic);
+        // $(".pk-end-wrapper .user1-info img").attr('src','http://pkapp.staraise.com.cn' + $userinfo.head_pic);
     } else {
         $(".pk-end-wrapper .user1-info img").get(0).src = $touserinfo.head_pic;
     }
@@ -652,6 +671,8 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
         })
     }
 
+    $('.pk-end-wrapper .user1 img').prop('src', user1OBJ.pic);
+    $('.info-wrapper .poster img').prop('src', user1OBJ.pic)
     // 判断user2是否选择完
     let timer = setInterval(function () {
         console.log($is_choose_2);
@@ -695,6 +716,7 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
 
                     console.log("postData", postData, "***************************************************************************")
 
+                    $('.pk-end-wrapper .user1-info img').attr('src', )
                     var postData = {
                         room_id: $room_id,
                         user_id: $user_id,

@@ -322,6 +322,7 @@ text-align: center;
 background-image: url('../img/2/background.png');
 background-repeat: no-repeat;
 background-size: contain;
+width: 70%;
 }
 .tanchuang .poster {
 display: inline-block;
@@ -341,10 +342,10 @@ font-size: 0.35rem;
 line-height: 0.5rem;
 }
 .icon-jinbi {
-display: inline-block;
-width: 0.8rem;
-height: 0.9rem;
-background-position: -1.65rem -1.1rem;
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    background-position: -1.55rem -1.2rem;
 }
 .icon-jingyan {
 display: inline-block;
