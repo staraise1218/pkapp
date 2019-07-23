@@ -340,49 +340,6 @@ $(document).ready(function () {
                 }
             })
 
-            // 邀请PK
-            $(".pk").click(function () {
-                console.log(this)
-                $touserinfo.nickname = $(this).parent().find(".user-name").text();
-                $touserinfo.head_pic = $(this).parent().find("img").attr("src");
-                
-                console.log($touserinfo)
-                createUser();
-                $to_user_id = $(this).data("id");
-                var postData = {
-                    user_id: $user_id,
-                    to_user_id: $to_user_id
-                }
-                console.log('邀请PK', postData)
-                $.ajax({
-                    type: 'POST',
-                    url: "http://pkapp.staraise.com.cn/Api/pk/invite",
-                    data: postData,
-                    dataType: "json",
-                    success: function (data) {
-                        console.log("邀请PK成功")
-                        console.log(data)
-                        if (data.msg != "对方不在线") {
-                            // 显示加载页面
-                            $("body").removeClass("pkb-bg");
-                            $("body").addClass("pk-bg");
-                            $("#load-wrapper").css("display", "block");
-                            $(".list-wrapper").css("display", "none");
-                            $("#pk-display").css("display", "none");
-                            $(".pk-end-wrapper").css("display", "none");
-                        } else {
-                            alert("对方不在线！")
-                        }
-                        $room_id = data.room_id;
-                        $knowledgeList = data.data.knowledgeList;
-                        console.log($knowledgeList)
-                        $('.user2-poster-wrapper .poster img').attr('src', "http://pkapp.staraise.com.cn" + $userinfo.head_pic);
-                    },
-                    error: function () {
-                        console.log("邀请PK失败")
-                    }
-                })
-            })
             //   拒绝邀请
             $(".back").click(function () {
                 $(".tanchutn-wrapper").hide()
@@ -393,6 +350,53 @@ $(document).ready(function () {
         }
     })
 })
+
+
+
+// 邀请PK
+$("#userList").delegate('.pk','click',function () {
+    console.log(this)
+    $touserinfo.nickname = $(this).parent().find(".user-name").text();
+    $touserinfo.head_pic = $(this).parent().find("img").attr("src");
+    
+    console.log($touserinfo)
+    createUser();
+    $to_user_id = $(this).data("id");
+    var postData = {
+        user_id: $user_id,
+        to_user_id: $to_user_id
+    }
+    console.log('邀请PK', postData)
+    $.ajax({
+        type: 'POST',
+        url: "http://pkapp.staraise.com.cn/Api/pk/invite",
+        data: postData,
+        dataType: "json",
+        success: function (data) {
+            console.log("邀请PK成功")
+            console.log(data)
+            if (data.msg != "对方不在线") {
+                // 显示加载页面
+                $("body").removeClass("pkb-bg");
+                $("body").addClass("pk-bg");
+                $("#load-wrapper").css("display", "block");
+                $(".list-wrapper").css("display", "none");
+                $("#pk-display").css("display", "none");
+                $(".pk-end-wrapper").css("display", "none");
+            } else {
+                alert("对方不在线！")
+            }
+            $room_id = data.room_id;
+            $knowledgeList = data.data.knowledgeList;
+            console.log($knowledgeList)
+            $('.user2-poster-wrapper .poster img').attr('src', "http://pkapp.staraise.com.cn" + $userinfo.head_pic);
+        },
+        error: function () {
+            console.log("邀请PK失败")
+        }
+    })
+})
+
 
 // 加载更多 列表
 var page = 2;
