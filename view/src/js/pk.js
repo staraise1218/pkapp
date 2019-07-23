@@ -45,6 +45,8 @@ let user2OBJ = {
     user_id: ''
 }
 
+let selfRoomID = '';
+
 // 保存用户登陆信息
 $user_id = $userinfo.user_id;
 
@@ -70,7 +72,9 @@ ws.onmessage = function (event) {
     // $data.head_pic = $data.head_pic.replace('http://tounao.staraise.com.cn','http://pkapp.staraise.com.cn')
     console.log(event)
     console.log($data)
-    user1OBJ.room_id = $data.room_id;
+    if($data.room_id) {
+        selfRoomID = $data.room_id;
+    }
     // var reg = new RegExp("(http://pkapp.staraise.com.cn)");
     // $data.head_pic = $data.head_pic.replace(reg,'http://pkapp.staraise.com.cn')
     $client_id = $data.client_id;
@@ -543,7 +547,7 @@ function gameTimerStart() {
                     console.log("postData", postData, "***************************************************************************")
 
                     var postData = {
-                        room_id: user1OBJ.room_id,
+                        room_id: selfRoomID,
                         user_id: $user_id,
                         score: $score_1,
                         res: $result
@@ -728,7 +732,7 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
 
                     $('.pk-end-wrapper .user1-info img').attr('src', )
                     var postData = {
-                        room_id: $room_id,
+                        room_id: selfRoomID,
                         user_id: $user_id,
                         score: $score_1,
                         res: $result
