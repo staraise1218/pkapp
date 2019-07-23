@@ -351,8 +351,9 @@ $(document).ready(function () {
     })
 })
 
+
 // 邀请PK
-$(".list-wrapper").delegate('.pk','click',function () {
+$("#userList").delegate('.pk','click',function () {
     console.log(this)
     $touserinfo.nickname = $(this).parent().find(".user-name").text();
     $touserinfo.head_pic = $(this).parent().find("img").attr("src");
@@ -394,6 +395,11 @@ $(".list-wrapper").delegate('.pk','click',function () {
         }
     })
 })
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 21d8ca6af2c56b0d0c95ce034f4b70dad8d05c86
 // 加载更多 列表
 var page = 2;
 function getMore(page) {

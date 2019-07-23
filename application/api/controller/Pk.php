@@ -91,17 +91,22 @@ class Pk extends Base {
 			Gateway::sendToUid($to_user_id, $message);
 
 			// 获取问题列表
-			$knowledgeList = Db::name('knowledge')
+			/*$knowledgeList = Db::name('knowledge')
 				->where('is_open', 1)
 				->where('is_delete', 0)
 				->order('id desc')
 				->limit(5)
 				->field('title, a, b, c, d, answer')
-				->select();
+				->select();*/
+			$sql = "SELECT id room_knowledge_id, title, a, b, c, d, answer FROM `tp_knowledge`WHERE id >= (SELECT floor(RAND() * (SELECT MAX(id) FROM `tp_knowledge`))) ORDER BY id LIMIT 5";
+       		$knowledgeList = Db::query($sql);
 			foreach ($knowledgeList as $k => $item) {
 				$item['room_id'] = $room_id;
 				$knowledgeList[$k]['room_knowledge_id'] = Db::name('room_knowledge')->insertGetId($item);
 			}
+
+			
+
 			$result['knowledgeList'] = $knowledgeList;
 			response_success($result);
 			
@@ -140,9 +145,6 @@ class Pk extends Base {
 			->field('id room_knowledge_id, title, a, b, c, d, answer')
 			->select();
 		$result['knowledgeList'] = $knowledgeList;
-
-		$sql = "SELECT id room_knowledge_id, title, a, b, c, d, answer FROM `tp_room_knowledge`WHERE id >= (SELECT floor(RAND() * (SELECT MAX(id) FROM `tp_room_knowledge`))) ORDER BY id LIMIT 5";
-        $list = Db::query($sql);
 
 		$message = json_encode(array(
 			'action' => 'intoRoom',
