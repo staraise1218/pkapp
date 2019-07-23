@@ -31,6 +31,7 @@ let patentHeight = $(".jindu").height(),
     $is_online = "对方不在线",
     $searchNickname = ''; // 搜索内容
 
+var endAction = ''; // [1 倒计时结束]
 
 console.log($userinfo)
 let user1OBJ = {
@@ -69,6 +70,7 @@ ws.onmessage = function (event) {
     // $data.head_pic = $data.head_pic.replace('http://tounao.staraise.com.cn','http://pkapp.staraise.com.cn')
     console.log(event)
     console.log($data)
+    user1OBJ.room_id = $data.room_id;
     // var reg = new RegExp("(http://pkapp.staraise.com.cn)");
     // $data.head_pic = $data.head_pic.replace(reg,'http://pkapp.staraise.com.cn')
     $client_id = $data.client_id;
@@ -541,26 +543,28 @@ function gameTimerStart() {
                     console.log("postData", postData, "***************************************************************************")
 
                     var postData = {
-                        room_id: $room_id,
+                        room_id: user1OBJ.room_id,
                         user_id: $user_id,
                         score: $score_1,
                         res: $result
                     }
                     console.log(postData)
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
-                    //     data: postData,
-                    //     dataType: "json",
-                    //     success: function (data) {
-                    //         console.log(data)
-                    //         console.log("结束 **************** success")
-                    //         $sendResult_data = data;
-                    //     },
-                    //     error: function () {
-                    //         console.log("结束 ************* error")
-                    //     }
-                    // })
+                    $.ajax({
+                        type: 'POST',
+                        url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
+                        data: postData,
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data)
+                            console.log("结束 **************** success")
+                            $sendResult_data = data;
+                            endAction = '1';
+                            return;
+                        },
+                        error: function () {
+                            console.log("结束 ************* error")
+                        }
+                    })
                 }
             }
             $_index++;
@@ -730,20 +734,22 @@ $(".choose-wrapper").delegate(".choose-btn", "click", function () {
                         res: $result
                     }
                     console.log("postData", postData, "***************************************************************************")
-                    $.ajax({
-                        type: 'POST',
-                        url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
-                        data: postData,
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data)
-                            console.log("结束 **************** success")
-                            $sendResult_data = data;
-                        },
-                        error: function () {
-                            console.log("结束 ************* error")
-                        }
-                    })
+                    if(endAction != '1') {
+                        $.ajax({
+                            type: 'POST',
+                            url: "http://pkapp.staraise.com.cn/Api/pk/sendResult",
+                            data: postData,
+                            dataType: "json",
+                            success: function (data) {
+                                console.log(data)
+                                console.log("结束 **************** success")
+                                $sendResult_data = data;
+                            },
+                            error: function () {
+                                console.log("结束 ************* error")
+                            }
+                        })
+                    }
                 }
             }, 1500)
 
@@ -779,6 +785,8 @@ function remove() {
 
 // 点击继续挑战按钮  ----》 跳转首页
 $(".contain-btn").on("click", function () {
+    
+    endAction = '';
     // window.location.href='http://pkapp.staraise.com.cn/index.php/mobile/weixin/get_userinfo'
     // 显示加载页面
     $("#load-wrapper").css("display", "none");
