@@ -89,7 +89,8 @@ class Pk extends Base {
 				'head_pic' => $user['head_pic'],
 			));
 			Gateway::sendToUid($to_user_id, $message);
-
+			// 给邀请者发送room_id
+			Gateway::sendToUid($user_id, $message);
 			// 获取问题列表
 			/*$knowledgeList = Db::name('knowledge')
 				->where('is_open', 1)
@@ -201,7 +202,7 @@ class Pk extends Base {
 		$insert_id = Db::name('room_result')->insert($data);
 		if($insert_id){
 			if($res == '1'){
-				Db::name('users')->where('user_id', $user_id)->setInc('goldcoin', $score); 
+				Db::name('users')->where('user_id', $user_id)->setInc('goldcoin', 10); 
 			}
 
 			response_success();
