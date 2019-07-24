@@ -311,9 +311,9 @@
                 }
                 // alert(url)
                 let strTemp = url.split("/add/type/")[1];
+                console.log(strTemp)
                 let type = strTemp.substr(0, strTemp.length - 5);
                 Edit._type = Number(type);
-                alert(Edit._type)
 
                 //updateDom
                 Edit.updateDom();
