@@ -55,11 +55,11 @@ class Common extends Base {
     public function uploadMultiFile(){
         $type = I('type');
 
-        if( ! in_array($type, array('photo_images'))) response_error('', '不被允许的类型');
+        if( ! in_array($type, array('dynamic_image'))) response_error('', '不被允许的类型');
         if(empty($_FILES)) response_error('文件不能为空');
 
         /************* 上传路径 ***************/        
-        if($type == 'photo_images') $uploadPath = UPLOAD_PATH.'photo/images';
+        if($type == 'dynamic_image') $uploadPath = UPLOAD_PATH.'dynamics/image';
 
         $FileLogic = new FileLogic();
         $result = $FileLogic->uploadMultiFile('file', $uploadPath);
