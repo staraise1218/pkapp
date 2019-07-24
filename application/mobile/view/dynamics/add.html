@@ -64,8 +64,21 @@
     <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
     <script>
 
-        var test = window.location.href.split("/add/type/")[1]
-        console.log(test)
+        var html = window.location.href.split("/add/type/")[1]
+        console.log(html)
+        switch(html) {
+            case '1.html':
+                console.log('文字')
+                break;
+            case '2.html':
+                console.log('图片');
+                pk.take()
+                break;
+            case '3.html':
+                console.log('视频')
+                pk.video
+                break;
+        }
 
         var Edit = {
             _user_id: "",
