@@ -313,7 +313,7 @@
                 let strTemp = url.split("/add/type/")[1];
                 let type = strTemp.substr(0, strTemp.length - 5);
                 Edit._type = Number(type);
-                // alert(Edit._type)
+                alert(Edit._type)
 
                 //updateDom
                 Edit.updateDom();
@@ -340,9 +340,6 @@
                     let type
                     if(Edit._type==3){
                         type=2
-// >>>>>>>              
-                        pk.video()
-// >>>>>>>
                         if ($("img.showPicVideo").length >= 1) {
                             Global.messageWin("视频最多上传一个");
                             return;
@@ -351,9 +348,6 @@
                     //图片
                     else{
                         type=1
-// >>>>>>>>>>
-                        pk.take()
-// >>>>>>>>>>>>>>>>>>
                         if ($("img.showPic").length >= 9) {
                             Global.messageWin("最多上传9张图片");
                             return;
