@@ -198,6 +198,7 @@ class Pk extends Base {
 			'user_id' => $user_id,
 			'score'=>$score,
 			'res' => $res,
+			'createtime' => time(),
 		);
 		$insert_id = Db::name('room_result')->insert($data);
 		if($insert_id){
