@@ -63,7 +63,8 @@
     <!-- jquery.form-js -->
     <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
     <script>
-
+        var _imgUrl = '';
+        var testFlag = true;
         var html = window.location.href.split("/add/type/")[1]
         console.log(html)
         switch(html) {
@@ -73,8 +74,6 @@
             case '2.html':
                 alert('图片');
                 // pk.take()
-
-                
                 dynamic.take(50,50)
                 break;
             case '3.html':
@@ -82,6 +81,17 @@
                 pk.video
                 break;
         }
+
+        function getImgUrl(url) {
+            _imgUrl = url;
+        }
+
+        setInterval(function () {
+            if(_imgUrl) {
+                alert(_imgUrl)
+                testFlag = false;
+            }
+        }, 200)
 
         var Edit = {
             _user_id: "",
