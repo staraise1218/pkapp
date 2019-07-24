@@ -37,8 +37,33 @@ function getContent (user_id){
 }
 
 
-// 提交答案
-$('.signBtn').click(function(){
-    
+// 时间下拉
+$('.title2 .right p').click(function () {
+    $('.title2 .right ul').slideToggle();
 })
+$('.title2 .right li').click(function () {
+    var time = $(this).attr('time');
+    var current_time = $('.title2 .right p').attr('time');
+    console.log(time, current_time);
+    if(current_time == time) {
+        $('.title2 .right ul').slideToggle();
+        return;
+    }
 
+    $.ajax({
+        type: 'post',
+        url: GlobalHost+ '/Api/pk/index',
+        data: {
+            user_id: user_id,
+            time: time,
+        },
+        success: function(res) {
+            $('.total_num').html(res.data.total_num+'场');
+            $('.win_num').html(res.data.win_num+'场');
+            $('.fail_num').html(res.data.fail_num+'场');
+        }
+    })
+    $('.title2 .right p').text($(this).text());
+    $('.title2 .right p').attr('time', time);
+    $('.title2 .right ul').slideToggle();
+})

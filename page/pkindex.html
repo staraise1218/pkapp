@@ -120,13 +120,13 @@
     <div class="title title2">
         <img style="height: 40px;" src="./src/img/1/pkhl.png" alt="">
         <div class="right">
-            <p type="1">一周内</p>
+            <p time="1">一周内</p>
             <ul>
-                <li type="1">一周内</li>
-                <li type="2">一个月内</li>
-                <li type="3">三个月内</li>
-                <li type="4">半年内</li>
-                <li type="5">一年内</li>
+                <li time="1">一周内</li>
+                <li time="2">一个月内</li>
+                <li time="3">三个月内</li>
+                <li time="4">半年内</li>
+                <li time="5">一年内</li>
             </ul>
         </div>
     </div>
@@ -163,18 +163,6 @@
             <a href="zhishiku.html"><img src="./src/img/1/zzzs.png" alt=""></a>
         </div>
     </div>
-    <script src="./src/js/jquery.js"></script>
-    <script>
-        $('.title2 .right p').click(function () {
-            $('.title2 .right ul').slideToggle();
-        })
-        $('.title2 .right li').click(function () {
-            console.log($(this).text())
-            $('.title2 .right p').text($(this).text());
-            $('.title2 .right ul').slideToggle();
-        })
-    </script>
-
 
     <script src="./src/js/jquery.js"></script>
     <script src="./src/js/global.js"></script>
