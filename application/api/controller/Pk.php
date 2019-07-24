@@ -18,10 +18,32 @@ class Pk extends Base {
 
 	public function index(){
 		$user_id = I('user_id');
+		$time = I('time');
 
-		$result['total_num'] = 0;
-		$result['win_num'] = 0;
-		$result['fail_num'] = 0;
+		$where_time = array();
+		// 总pk场数
+		$result['total_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where($where_time)
+			->group('room_id')
+			->count();
+
+		// pk胜的场数
+		$result['win_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where($where_time)
+			->where('res', 1)
+			->group('room_id')
+			->count();
+		
+		// pk输的场数
+		$result['fail_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where($where_time)
+			->where('res', 2)
+			->group('room_id')
+			->count();
+
 
 		response_success($result);
 	}
