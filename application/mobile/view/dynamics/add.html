@@ -14,9 +14,6 @@
 </head>
 
 <body class="edit">
-    <script>
-        alert('test')        
-    </script>
     <header>
         <div class="cancel">取消</div>
         <div class="title">发动态</div>
@@ -66,6 +63,10 @@
     <!-- jquery.form-js -->
     <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
     <script>
+
+        var test = window.location.href.lit("/add/type/")[1]
+        console.log(test)
+
         var Edit = {
             _user_id: "",
             _type: "",
