@@ -38,7 +38,7 @@ class Base extends Controller {
             $param = array_merge($param, $_FILES);
         }
 
-        $data = "\r\n".date('Y-m-d H:i:s')." method: {$method} \r\n param: ".var_export($param, true);
+        $data = "\r\n".date('Y-m-d H:i:s')." ".$pathinfo." method: {$method} \r\n param: ".var_export($param, true);
 
         $filepath = 'runtime/log/'.date('Y/m/');
         if(!is_dir($filepath)){
