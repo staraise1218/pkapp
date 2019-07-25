@@ -289,7 +289,6 @@ function search(searchNickname) {
                                 <div class="right">
                                     <div>
                                         <div class="user-name">${item.nickname}</div>
-                                        <span>北京六小</span>
                                     </div>
                                     <div>${item.province_city}</div>
                                 </div>
@@ -306,7 +305,6 @@ function search(searchNickname) {
                         <div class="right">
                             <div>
                                 <div class="user-name">${item.nickname}</div>
-                                <span>北京六小</span>
                             </div>
                             <div>${item.province_city}</div>
                         </div>
@@ -347,7 +345,6 @@ $(document).ready(function () {
                       <div class="right">
                           <div>
                               <div class="user-name">${item.nickname}</div>
-                              <span>北京六小</span>
                           </div>
                           <div>${item.province_city}</div>
                       </div>
