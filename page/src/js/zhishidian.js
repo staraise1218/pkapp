@@ -65,6 +65,7 @@ $(window).scroll(function() {
     var clientHeight = $(this).height();    //当前可视的页面高度
     if(scrollTop + clientHeight >= scrollHeight){   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;         //每次滑动count加1
         console.log('getMore')
+        alert('test2')
         if(page == '-1') {
             console.log('没有更多了')
         } else {
