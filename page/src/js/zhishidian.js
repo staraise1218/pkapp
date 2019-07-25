@@ -29,13 +29,10 @@ function createList (user_id, page, status){
         success: function(res) {
             console.log(res)
             let data = res.data.list;
-            if(data.length == 0) {
-                page = "-1";
-            } else {
                 if(data.length > 0) {
                     page++;
                 } else {
-                    page == '-1';
+                    page = '-1';
                 }
                 let list = '';
                 data.forEach(item => {
@@ -54,7 +51,6 @@ function createList (user_id, page, status){
                 });
                 console.log(list)
                 $('.list-wrap').append(list);
-            }
         }
     })
 }
