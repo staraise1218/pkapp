@@ -94,10 +94,16 @@
         }
         setInterval(function () {
             if(imgFlag) {
-                if(_imgUrl) {
+                if(_video) {
                     uploadOne(_imgUrl)
-                    _imgUrl = '';
+                    _video = '';
                 }
+            }
+        }, 200)
+        
+        setInterval(function () {
+            if(_poster) {
+                alert(_poster)
             }
         }, 200)
 
