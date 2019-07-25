@@ -53,7 +53,7 @@
     </div>
 
     <!-- ------------------------------------ -->
-    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script src="__STATIC__/js/jquery.min.js"></script>
     <!-- jquery-weui-js -->
     <script src="__STATIC__/js/js-plugins/jquery-weui-build/jquery-weui.min.js"></script>
     <script src="__STATIC__/js/js-plugins/jquery-weui-build/swiper.min.js"></script>
@@ -63,6 +63,52 @@
     <!-- jquery.form-js -->
     <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
     <script>
+        var _imgUrl = '';
+        var _video = '';
+        var imgFlag = true;
+        var videoFlag = true;
+        var html = window.location.href.split("/add/type/")[1]
+        // console.log(html)
+        // switch(html) {
+        //     case '1.html':
+        //         console.log('文字')
+        //         break;
+        //     case '2.html':
+        //         alert('图片');
+        //         // pk.take()
+        //         // dynamic.take(50,50)
+        //         break;
+        //     case '3.html':
+        //         alert('视频')
+        //         // dynamic.video()
+        //         break;
+        // }
+
+        function getImgUrl(url) {
+            _imgUrl = url;
+        }
+        function getVideo(url) {
+            _video = url;
+        }
+        setInterval(function () {
+            if(imgFlag) {
+                if(_imgUrl) {
+                    uploadOne(_imgUrl)
+                    _imgUrl = '';
+                }
+            }
+        }, 200)
+
+        setInterval(function () {
+            if(videoFlag) {
+                if(_video) {
+                    uploadOne(_video)
+                    alert(_video)
+                    _video = '';
+                }
+            }
+        }, 200)
+
         var Edit = {
             _user_id: "",
             _type: "",
@@ -237,7 +283,7 @@
                                 //         "/public/upload/dynamics/video/20180820/3e0cf14b5c8aafd2bc94d6c769041f07.jpg",
                                 //         "/public/upload/dynamics/video/20180820/3e0cf14b5c8aafd2bc94d6c769041f07.jpg"
                                 //       ]
-                                // }                                                          
+                                // }
                             }
                         });
                     }  
@@ -311,9 +357,9 @@
                 }
                 // alert(url)
                 let strTemp = url.split("/add/type/")[1];
+                console.log(strTemp)
                 let type = strTemp.substr(0, strTemp.length - 5);
                 Edit._type = Number(type);
-                // alert(Edit._type)
 
                 //updateDom
                 Edit.updateDom();
@@ -357,7 +403,20 @@
                     if(Global.isIOS()){
                         jumpIOS(type,"uploadOne")
                     }else{
-                        window.Android.gotoJavaCamera(type,"uploadOne")
+                        // window.Android.gotoJavaCamera(type,"uploadOne")
+                        switch(html) {
+                            case '1.html':
+                                // console.log('文字')
+                                break;
+                            case '2.html':
+                                // alert('图片');
+                                dynamic.take(50,50)
+                                break;
+                            case '3.html':
+                                // alert('视频')
+                                dynamic.video()
+                                break;
+                        }
                     }
                 });
                 //点击图片显示大图
@@ -385,6 +444,59 @@
         $(function () {
             Edit.init()
         });
+
+
+
+
+        function upw () {
+            let src = Global.host + args; //video或img src
+            let srcThumb=""; 
+            if(thumb&&thumb!==""){
+                srcThumb=Global.host + thumb; //thumb的src
+            }
+            let url = args.toLowerCase();
+
+            //是图片
+            if (url.indexOf(".jpg") > -1 || url.indexOf(".jpeg") > -1 || url.indexOf(".gif") > -1 || url.indexOf(".png") > -1 || url.indexOf(".bmp") > -1 || url.indexOf(".tga") > -1 || url.indexOf(".svg") > -1) {
+                let $liTemp = $(`
+                    <li class="edit-pic-item">
+                        <img class="showPic" data-index=${$(".edit-pic-item").length} src="${src}">
+                        <a href="javascript:void(0)" class="edit-closePic"></a>
+                    </li>
+                `);
+
+                //取消图片
+                $liTemp.find("a.edit-closePic").click(function (event) {
+                    event.stopPropagation();
+                    let self = this;
+                    Global.messageConfirWin("尚未发布，确认删除？", function () {
+                        $(self).closest('.edit-pic-item').remove();
+                    });
+                })
+                // alert("增加图片")
+                $(".showPicUl").prepend($liTemp);
+            }
+            //是视频
+            else if (url.indexOf(".mp4") > -1 || url.indexOf(".rm") > -1 || url.indexOf(".rmvb") > -1 || url.indexOf(".avi") > -1 || url.indexOf(".wmv") > -1 || url.indexOf(".mpg") > -1 || url.indexOf(".mpeg") > -1 || url.indexOf(".flv") > -1 || url.indexOf(".3gp") > -1 || url.indexOf(".mov") > -1) {
+                let $liTemp = $(`
+                    <li class="edit-pic-item">
+                        <img class="showPicVideo" src="${srcThumb}" data-src=${src} width="100%" height="100%"></img>
+                        <a href="javascript:void(0)" class="edit-closePic"></a>
+                    </li>
+                `);
+
+                //取消视频
+                $liTemp.find("a.edit-closePic").click(function (event) {
+                    event.stopPropagation();
+                    let self = this;
+                    Global.messageConfirWin("尚未发布，确认删除？", function () {
+                        $(self).closest('.edit-pic-item').remove();
+                    });
+                })
+                // alert("增加视频")
+                $(".showPicUl").prepend($liTemp);
+            }
+        }
     </script>
 </body>
 
