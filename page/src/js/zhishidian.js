@@ -49,7 +49,7 @@ function createList (user_id, page, status){
 				            </div>
 				        </div>`
 			});
-            $('.list-wrap').html(list);
+            $('.list-wrap').push(list);
         }
     })
 }
