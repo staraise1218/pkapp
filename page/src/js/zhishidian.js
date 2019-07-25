@@ -50,7 +50,7 @@ function createList (user_id, page, status){
 				        </div>`
             });
             console.log(list)
-            $('.list-wrap').push(list);
+            $('.list-wrap').html(list);
         }
     })
 }
