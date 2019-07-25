@@ -513,12 +513,19 @@
                 },
                 openEdit(type) { //动态类型
                     this.savePageToSession();
+// TODO:
                     // switch(type) {
                     //     case 3:
                     //         console.log('333333')
-                    //         dynamic.video()
+                    //         pk.video();
+                    //         break;
+                    //     case 2:
+                    //         pk.take()
+                    //         break;
                     // }
                     // return;
+// TODO:
+
                     let url= this.GlobalHost + "/index.php/mobile/dynamics/add/type/" + type + ".html";
 
                     if(Global.isIOS()){

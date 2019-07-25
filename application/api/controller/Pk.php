@@ -18,10 +18,52 @@ class Pk extends Base {
 
 	public function index(){
 		$user_id = I('user_id');
+		$time = I('time', 1);
 
-		$result['total_num'] = 0;
-		$result['win_num'] = 0;
-		$result['fail_num'] = 0;
+		switch ($time) {
+			case 1:
+				$timestamp = strtotime('-7 days');
+				break;
+			case 2:
+				$timestamp = strtotime('-1 months');
+				break;
+			case 3:
+				$timestamp = strtotime('-3 months');
+				break;
+			case 4:
+				$timestamp = strtotime('-6 months');
+				break;
+			case 5:
+				$timestamp = strtotime('-1 year');
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+
+		// 总pk场数
+		$result['total_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where('createtime', 'gt', $timestamp)
+			->group('room_id')
+			->count();
+
+		// pk胜的场数
+		$result['win_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where('createtime', 'gt', $timestamp)
+			->where('res', 1)
+			->group('room_id')
+			->count();
+		
+		// pk输的场数
+		$result['fail_num'] = Db::name('room_result')
+			->where('user_id', $user_id)
+			->where('createtime', 'gt', $timestamp)
+			->where('res', 2)
+			->group('room_id')
+			->count();
 
 		response_success($result);
 	}
@@ -198,6 +240,7 @@ class Pk extends Base {
 			'user_id' => $user_id,
 			'score'=>$score,
 			'res' => $res,
+			'createtime' => time(),
 		);
 		$insert_id = Db::name('room_result')->insert($data);
 		if($insert_id){
