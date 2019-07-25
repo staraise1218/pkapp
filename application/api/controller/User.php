@@ -55,60 +55,31 @@ class User extends Base {
         response_success($result);
     }
 
+    
+
     /**
      * [uploadFile 上传头像/认证视频 app 原生调用]
      * @param [type] $[type] [文件类型 head_pic 头像 auth_video 视频认证]
      * @param  $[action] [ 默认 add 添加 edit 修改]
      * @return [type] [description]
      */
-    public function uploadFile(){
+    public function changeHeadPic(){
         $user_id = I('user_id/d');
-        $type = I('type'); 
-        $action = I('action', 'add');
 
-        if(!in_array($type, array('head_pic', 'auth_video'))) response_error('', '不被支持的文件类型');
-        /******************** 上传文件 **************/
-        if($type == 'head_pic') $uploadPath = UPLOAD_PATH.'head_pic/';
-        if($type == 'auth_video') $uploadPath = UPLOAD_PATH.'auth_video/';
+        $uploadPath = UPLOAD_PATH.'head_pic/';
 
         $FileLogic = new FileLogic();
-        $result = $FileLogic->uploadSingleFile('file', $uploadPath);
+        $result = $FileLogic->uploadSingleFile('head_pic', $uploadPath);
         if($result['status'] == '1'){
             $fullPath = $result['fullPath'];
 
-            /**************** 修改用户表 头像记录 ************/
-            if($type == 'head_pic'){
-                Db::name('users')->update(array('user_id'=>$user_id, 'head_pic'=>$fullPath));
+            Db::name('users')->update(array('user_id'=>$user_id, 'head_pic'=>$fullPath));
 
-                $resultdata = array('head_pic'=>$fullPath);
-                // 更新上传头像动态
-                $DynamicLogic = new DynamicLogic();
-                $DynamicLogic->add($user_id, 2, array($fullPath));
-            }
-            /**************** 记录认证视频 ************/
-            if($type == 'auth_video'){
-                $video_thumb = $FileLogic->video2thumb($fullPath);
-
-                $oldAuthVideo = Db::name('users_auth_video')->where('user_id', $user_id)->find();
-                if($oldAuthVideo){
-                    Db::name('users_auth_video')->where('id', $oldAuthVideo['id'])->delete();
-                }
-
-                Db::name('users_auth_video')->insert(array('user_id'=>$user_id, 'auth_video_url'=> $fullPath, 'video_thumb'=>$video_thumb, 'add_time' => time()));
-                // 更新用户表视频认证状态
-                Db::name('users')->where('user_id', $user_id)->setField('auth_video_status', 1);
-
-                // 返回前端结果
-                $resultdata = array(
-                    'video' => $fullPath,
-                    'video_thumb' => $video_thumb,
-                );
-            }
-
+            $resultdata = array('head_pic'=>$fullPath);
             response_success($resultdata, '上传成功');
             
         } else {
-            response_error('', '提交失败');
+            response_error('', '上传失败');
         }
     }
 
@@ -128,95 +99,6 @@ class User extends Base {
             response_error('', '修改失败');
         }
     }
-
-    /**
-     * [uploadPhoto 上传照片、精华照片]
-     * type 照片类型 1 普通照片 2  精华照片
-     * file_type 文件类型 1 图片 2 视频
-     * @return [type] [description]
-     */
-    public function uploadPhoto(){
-        $user_id = I('user_id/d');
-        $type = I('type'); 
-        $file_type = I('file_type', 1); 
-        $files = I('file'); 
-
-        /*$uploadPath = UPLOAD_PATH.'photo/';
-        $FileLogic = new FileLogic();
-        $uploadResult = $FileLogic->uploadMultiFile('file', $uploadPath);*/
-        $files = json_decode(htmlspecialchars_decode(html_entity_decode($files)), true);
-        foreach ($files as $imageUrl) {
-            $photoData = array(
-                'user_id' => $user_id,
-                'thumb' => $imageUrl,
-                'url' => $imageUrl,
-                'type' => $type,
-                'add_time' => time(),
-                'file_type' => $file_type,
-            );
-            M('user_photo')->insert($photoData);
-        }
-        
-        // 发表动态
-        if($file_type == 1){
-            $DynamicLogic = new DynamicLogic();
-            $DynamicLogic->add($user_id, 4, $files);
-        }
-
-        response_success('', '上传成功');
-
-    }
-
-     /**
-     * [uploadPhoto 上传照片、精华照片]
-     * type 1 普通照片 2  精华照片
-     * file_type 1 图片 2 视频
-     * @return [type] [description]
-     */
-    // public function uploadPhoto(){
-    //     $user_id = I('user_id/d');
-    //     $type = I('type'); 
-    //     $file_type = I('file_type', 1); 
-
-    //     $FileLogic = new FileLogic();
-        
-    //     /************** 处理上传的图片 ****************/
-    //     if($file_type == 1){
-    //         $uploadPath = UPLOAD_PATH.'photo/';
-    //         $uploadResult = $FileLogic->uploadMultiFile('file', $uploadPath);
-
-    //         if($uploadResult['status'] != 1) response_error('', '上传失败');
-
-    //         $images = $uploadResult['image'];
-    //         foreach ($images as $imageUrl) {
-    //             $photoData = array(
-    //                 'user_id' => $user_id,
-    //                 'thumb' => $imageUrl,
-    //                 'url' => $imageUrl,
-    //                 'type' => $type,
-    //                 'add_time' => time(),
-    //                 'file_type' => $file_type,
-    //             );
-    //             M('user_photo')->insert($photoData);
-    //         }
-            
-    //         // 发表动态
-    //         $description = $type == '1' ? '上传了照片到相册' : '上传了精华照片到相册';
-    //         $dynamics_data = array(
-    //             'user_id' => $user_id,
-    //             'type' => 2,
-    //             'description' => $description,
-    //             'image' => $images,
-    //             'origin' => 4,
-    //             'add_time' => time(),
-    //         );
-    //         D('dynamics')->add($dynamics_data);
-
-    //         response_success(array('files'=>$images));
-
-    //     }
-    // }
-
     // 常见问题
     public function questions(){
 
