@@ -479,6 +479,7 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
     let srcThumb=""; 
     if(thumb&&thumb!==""){
         srcThumb=Global.host + thumb; //thumb的src
+        alert(srcThumb)
     }
     let url = args.toLowerCase();
 
