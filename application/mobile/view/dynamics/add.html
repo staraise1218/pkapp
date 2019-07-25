@@ -368,20 +368,20 @@
                 })
                 //添加图片
                 $(".addPic").click(function () {
-                    switch(html) {
-                        case '1.html':
-                            console.log('文字')
-                            break;
-                        case '2.html':
-                            alert('图片');
-                            // pk.take()
-                            dynamic.take(50,50)
-                            break;
-                        case '3.html':
-                            alert('视频')
-                            dynamic.video()
-                            break;
-                    }
+                    // switch(html) {
+                    //     case '1.html':
+                    //         console.log('文字')
+                    //         break;
+                    //     case '2.html':
+                    //         alert('图片');
+                    //         // pk.take()
+                    //         dynamic.take(50,50)
+                    //         break;
+                    //     case '3.html':
+                    //         alert('视频')
+                    //         dynamic.video()
+                    //         break;
+                    // }
 
 
 
@@ -397,6 +397,7 @@
                     //图片
                     else{
                         type=1
+                        alert('上传图片',_imgUrl)
                         if ($("img.showPic").length >= 9) {
                             Global.messageWin("最多上传9张图片");
                             return;
