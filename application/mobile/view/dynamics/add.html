@@ -87,9 +87,11 @@
         }
 
         setInterval(function () {
-            if(_imgUrl) {
-                alert(_imgUrl)
-                testFlag = false;
+            if(testFlag) {
+                if(_imgUrl) {
+                    alert(_imgUrl)
+                    testFlag = false;
+                }
             }
         }, 200)
 
