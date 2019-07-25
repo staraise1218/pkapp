@@ -31,29 +31,30 @@ function createList (user_id, page, status){
             let data = res.data.list;
             if(data.length == 0) {
                 page = "-1";
-            }
-            if(data.length > 0) {
-                page++;
             } else {
-                page == '-1';
+                if(data.length > 0) {
+                    page++;
+                } else {
+                    page == '-1';
+                }
+                let list = '';
+                data.forEach(item => {
+                    list += `<div class="list-item" article_id="${item.article_id}">
+                                <div class="left">
+                                    <img src="${GlobalHost + item.thumb}" alt="">
+                                </div>
+                                <div class="right">
+                                    <p>${item.title}</p>
+                                    <p>${item.description}</p>
+                                    <div>
+                                        <img src="./src/img/1/123321.png" alt="" class="collectBtn">
+                                    </div>
+                                </div>
+                            </div>`
+                });
+                console.log(list)
+                $('.list-wrap').append(list);
             }
-            let list = '';
-            data.forEach(item => {
-                list += `<div class="list-item" article_id="${item.article_id}">
-				            <div class="left">
-				                <img src="${GlobalHost + item.thumb}" alt="">
-				            </div>
-				            <div class="right">
-				                <p>${item.title}</p>
-				                <p>${item.description}</p>
-				                <div>
-				                    <img src="./src/img/1/123321.png" alt="" class="collectBtn">
-				                </div>
-				            </div>
-				        </div>`
-            });
-            console.log(list)
-            $('.list-wrap').append(list);
         }
     })
 }
@@ -68,7 +69,6 @@ $(window).scroll(function() {
         if(page == '-1') {
             console.log('没有更多了')
         } else {
-            page++;
             createList (user_id, page, "1");
         }
     } else if (scrollTop<=0){
