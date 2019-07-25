@@ -32,7 +32,8 @@ function createList (user_id, page, status){
             console.log(data.length)
                 if(data.length > 0) {
                     page++;
-                } else {
+                }
+                if(data.length == 0) {
                     page = '-1';
                 }
                 let list = '';
