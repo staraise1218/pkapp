@@ -65,6 +65,7 @@
     <script>
         var _imgUrl = '';
         var _video = '';
+        var _poster = '';
         var imgFlag = true;
         var videoFlag = true;
         var html = window.location.href.split("/add/type/")[1]
@@ -87,8 +88,9 @@
         function getImgUrl(url) {
             _imgUrl = url;
         }
-        function getVideo(url) {
-            _video = url;
+        function getVideo(videoURL, posterURL) {
+            _video = videoURL;
+            _poster = posterURL;
         }
         setInterval(function () {
             if(imgFlag) {
@@ -102,11 +104,12 @@
         setInterval(function () {
             if(videoFlag) {
                 if(_video) {
-                    uploadOne(_video)
+                    uploadOne(_video, _poster);
                     _video = '';
                 }
             }
         }, 200)
+
 
         var Edit = {
             _user_id: "",
