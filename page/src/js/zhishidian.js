@@ -12,7 +12,7 @@ let page = 1;
 
 
 // 请求列表
-createList (user_id, page);
+createList (user_id, page, "0");
 
 
 /**
@@ -50,7 +50,11 @@ function createList (user_id, page, status){
 				        </div>`
             });
             console.log(list)
-            $('.list-wrap').html(list);
+            if(status == "0") {
+                $('.list-wrap').html(list);
+            } else {
+                $('.list-wrap').push(list);
+            }
         }
     })
 }
@@ -66,7 +70,7 @@ $(window).scroll(function() {
             console.log('没有更多了')
         } else {
             page++;
-            createList (user_id, page);
+            createList (user_id, page, "1");
         }
     } else if (scrollTop<=0){
         console.log('down')
