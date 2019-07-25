@@ -95,9 +95,7 @@
                 if(_imgUrl) {
                     alert(Global.host + _imgUrl)
                     uploadOne(_imgUrl)
-                    setTimeout(function () {
-                        _imgUrl = '';
-                    })
+                    _imgUrl = '';
                 }
             }
         }, 200)
@@ -107,9 +105,7 @@
                 if(_video) {
                     alert(Global.host + _video)
                     uploadOne(_video)
-                    setTimeout(function () {
-                        _video = '';
-                    })
+                    _video = '';
                 }
             }
         }, 200)
