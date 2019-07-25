@@ -50,7 +50,6 @@ function createList (user_id, page, status){
                                 </div>
                             </div>`
                 });
-                console.log(list)
                 $('.list-wrap').append(list);
         }
     })
