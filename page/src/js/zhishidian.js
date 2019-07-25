@@ -10,6 +10,7 @@ if(localStorage.getItem('USERINFO')) {
 
 let page = 1;
 
+let getMoreFlag = true;
 
 // 请求列表
 createList (user_id, page);
@@ -34,7 +35,7 @@ function createList (user_id, page, status){
                     page++;
                 }
                 if(data.length == 0) {
-                    page = '-1';
+                    getMoreFlag = false;
                 }
                 let list = '';
                 data.forEach(item => {
@@ -66,8 +67,10 @@ $(window).scroll(function() {
         if(page == '-1') {
             console.log('没有更多了')
         } else {
-            page ++;
-            createList (user_id, page);
+            if(getMoreFlag) {
+                page ++;
+                createList (user_id, page);
+            }
         }
     } else if (scrollTop<=0){
         console.log('down')
