@@ -25,7 +25,7 @@ class Article extends Base {
             ->where('is_open', 1)
             ->order('article_id desc')
             ->page($page)
-            ->limit(5)
+            ->limit(15)
             ->field('article_id, title, thumb, description')
             ->select();
         

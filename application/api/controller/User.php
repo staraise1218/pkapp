@@ -830,7 +830,7 @@ class User extends Base {
             ->join('article a', 'c.article_id=a.article_id')
             ->where('user_id', $user_id)
             ->page($page)
-            ->limit(5)
+            ->limit(15)
             ->order('id desc')
             ->field('c.article_id, title, thumb, description')
             ->select();
