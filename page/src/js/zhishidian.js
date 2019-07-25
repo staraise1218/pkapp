@@ -53,6 +53,7 @@ function createList (user_id, page, status){
                             </div>`
                 });
                 $('.list-wrap').append(list);
+                alert('test')
         }
     })
 }
