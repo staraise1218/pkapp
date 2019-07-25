@@ -12,7 +12,7 @@ let page = 1;
 
 
 // 请求列表
-createList (user_id, page, "0");
+createList (user_id, page);
 
 
 /**
@@ -29,6 +29,7 @@ function createList (user_id, page, status){
         success: function(res) {
             console.log(res)
             let data = res.data.list;
+            console.log(data.length)
                 if(data.length > 0) {
                     page++;
                 } else {
@@ -66,7 +67,7 @@ $(window).scroll(function() {
             console.log('没有更多了')
         } else {
             page ++;
-            createList (user_id, page, "1");
+            createList (user_id, page);
         }
     } else if (scrollTop<=0){
         console.log('down')
