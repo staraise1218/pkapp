@@ -505,11 +505,11 @@ function uploadOne(args,thumb) { // 路径/plulic/../..
     else if (url.indexOf(".mp4") > -1 || url.indexOf(".rm") > -1 || url.indexOf(".rmvb") > -1 || url.indexOf(".avi") > -1 || url.indexOf(".wmv") > -1 || url.indexOf(".mpg") > -1 || url.indexOf(".mpeg") > -1 || url.indexOf(".flv") > -1 || url.indexOf(".3gp") > -1 || url.indexOf(".mov") > -1) {
         let $liTemp = $(`
             <li class="edit-pic-item">
-                <img class="showPicVideo" src="${srcThumb}" data-src=${src} width="100%" height="100%"></img>
+                <img class="showPicVideo" src="${Global.host + args}" data-src=${Global.host + args} width="100%" height="100%"></img>
                 <a href="javascript:void(0)" class="edit-closePic"></a>
             </li>
         `);
-
+        alert(Global.host + args)
         //取消视频
         $liTemp.find("a.edit-closePic").click(function (event) {
             event.stopPropagation();
