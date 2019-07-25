@@ -135,10 +135,10 @@ class Auth extends Base {
         $mobile = I('mobile');
         $code = I('code');
         $password = I('password');
+        $password_confirm = I('password_confirm');
 
-        if(check_mobile($mobile) == false){
-            response_error('', '手机号码有误');
-        }
+        if(check_mobile($mobile) == false) response_error('', '手机号码有误');
+        if($password_confirm != $password) response_error('', '两次密码不一致');
         // 检测验证码
         $SmsLogic = new SmsLogic();
         if($SmsLogic->checkCode($mobile, $code, '1', $error) == false) response_error('', $error);
