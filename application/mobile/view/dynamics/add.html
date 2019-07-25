@@ -66,8 +66,6 @@
         var _imgUrl = '';
         var _video = '';
         var _poster = '';
-        var imgFlag = true;
-        var videoFlag = true;
         var html = window.location.href.split("/add/type/")[1]
         // console.log(html)
         // switch(html) {
@@ -93,21 +91,17 @@
             _poster = posterURL;
         }
         setInterval(function () {
-            if(imgFlag) {
-                if(_video) {
+                if(_imgUrl) {
                     uploadOne(_imgUrl)
-                    _video = '';
+                    _imgUrl = '';
                 }
-            }
         }, 200)
         
         setInterval(function () {
-            if(videoFlag) {
                 if(_video) {
                     uploadOne(_video, _poster);
                     _video = '';
                 }
-            }
         }, 200)
 
 
