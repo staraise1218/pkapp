@@ -50,11 +50,12 @@ function createList (user_id, page, status){
 				        </div>`
             });
             console.log(list)
-            if(status == "0") {
-                $('.list-wrap').html(list);
-            } else {
-                $('.list-wrap').push(list);
-            }
+            $('.list-wrap').after(list);
+            // if(status == "0") {
+            //     $('.list-wrap').after(list);
+            // } else {
+            //     $('.list-wrap').push(list);
+            // }
         }
     })
 }
