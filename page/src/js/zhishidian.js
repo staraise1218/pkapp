@@ -64,6 +64,7 @@ $(window).scroll(function() {
         if(page == '-1') {
             console.log('没有更多了')
         } else {
+            page++;
             createList (user_id, page);
         }
     } else if (scrollTop<=0){
