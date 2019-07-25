@@ -29,6 +29,9 @@ function createList (user_id, page, status){
         success: function(res) {
             console.log(res)
             let data = res.data.list;
+            if(data.length == 0) {
+                page = "-1";
+            }
             if(data.length > 0) {
                 page++;
             } else {
@@ -51,11 +54,6 @@ function createList (user_id, page, status){
             });
             console.log(list)
             $('.list-wrap').append(list);
-            // if(status == "0") {
-            //     $('.list-wrap').after(list);
-            // } else {
-            //     $('.list-wrap').push(list);
-            // }
         }
     })
 }
