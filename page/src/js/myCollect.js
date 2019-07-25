@@ -13,12 +13,12 @@ let page = 1;
 
 // 请求列表
 createList (user_id, page);
-
+var getMoreFlag = true;
 
 /**
  * @methods {加载列表}
  */
-function createList (user_id, page, status){
+function createList (user_id, page){
     $.ajax({
         type: 'post',
         url: GlobalHost+ '/Api/user/collectList',
@@ -30,11 +30,14 @@ function createList (user_id, page, status){
             console.log(res)
             let data = res.data;
 
+            if(data.length == 0) {
+                getMoreFlag = false;
+            }
             let list = '';
             data.forEach(item => {
                 list += `<div class="list-item" article_id="${item.article_id}">
                             <div class="left">
-                                <img src="${item.thumb}" alt="">
+                                <img src="${GlobalHost + item.thumb}" alt="">
                             </div>
                             <div class="right">
                                 <p>${item.title}</p>
@@ -44,11 +47,33 @@ function createList (user_id, page, status){
                             </div>
                         </div>`
             });
-            $('.list-wrap').html(list);
+            $('.list-wrap').append(list);
         }
     })
 }
 
+
+
+
+// 加载更多
+$(window).scroll(function() {
+    var scrollTop = $(this).scrollTop();    //滚动条距离顶部的高度
+    var scrollHeight = $(document).height();   //当前页面的总高度
+    var clientHeight = $(this).height();    //当前可视的页面高度
+    if(scrollTop + clientHeight >= scrollHeight){   //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;         //每次滑动count加1
+        console.log('getMore')
+        if(page == '-1') {
+            console.log('没有更多了')
+        } else {
+            if(getMoreFlag) {
+                page ++;
+                createList (user_id, page);
+            }
+        }
+    } else if (scrollTop<=0){
+        console.log('down')
+    }
+});
 // 点击进入详情
 $('.list-wrap').delegate('.list-item', 'click', function () {
     var article_id = $(this).attr('article_id');

@@ -1,0 +1,76 @@
+body {
+    background-image: url('../img/1/PK-6.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    padding-top: 50px;
+}
+.bg {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../img/1/PK-6.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.topBar {
+    background-image: url('../img/1/PK-6.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mi {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+.mi img {
+    width: 32px;
+}
+
+.list-wrap {
+    display: flex;
+    flex-wrap: wrap
+}
+.list-wrap li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    width: 33%;
+}
+.list-wrap li .j {
+    width: 80px;
+}
+.list-wrap li .m {
+    width: 26px;
+}
+.list-wrap li span {
+    font-size: 18px;
+    color: #fff;
+}
+.list-wrap li div {
+    display: flex;
+    align-items: center;
+}
+.list-wrap li div span {
+    margin-right: 2px;
+    margin-top: 6px;
+}
+
+
+
+
+
+
+
+
+
