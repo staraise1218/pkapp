@@ -83,22 +83,6 @@ class User extends Base {
         }
     }
 
-    // h5 修改头像
-    public function editHeadPic(){
-        $user_id = I('user_id/d');
-        $file = I('file');
-
-        /**************** 修改用户表 头像记录 ************/
-        if(false !== Db::name('users')->update(array('user_id'=>$user_id, 'head_pic'=>$file))){
-            // 更新上传头像动态
-            $DynamicLogic = new DynamicLogic();
-            $DynamicLogic->add($user_id, 2, array($file));
-
-            response_success('', '修改成功');
-        } else{
-            response_error('', '修改失败');
-        }
-    }
     // 常见问题
     public function questions(){
 
@@ -846,7 +830,7 @@ class User extends Base {
             ->join('article a', 'c.article_id=a.article_id')
             ->where('user_id', $user_id)
             ->page($page)
-            ->limit(10)
+            ->limit(5)
             ->order('id desc')
             ->field('c.article_id, title, thumb, description')
             ->select();
