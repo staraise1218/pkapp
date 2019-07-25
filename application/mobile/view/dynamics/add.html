@@ -64,7 +64,9 @@
     <script src="__STATIC__/js/js-plugins/jquery.form.js"></script>
     <script>
         var _imgUrl = '';
-        var testFlag = true;
+        var _video = '';
+        var imgFlag = true;
+        var videoFlag = true;
         var html = window.location.href.split("/add/type/")[1]
         console.log(html)
         switch(html) {
@@ -85,13 +87,25 @@
         function getImgUrl(url) {
             _imgUrl = url;
         }
-
+        function getVideo(url) {
+            _video = url;
+        }
         setInterval(function () {
-            if(testFlag) {
+            if(imgFlag) {
                 if(_imgUrl) {
                     alert(Global.host + _imgUrl)
                     uploadOne(_imgUrl)
-                    testFlag = false;
+                    imgFlag = false;
+                }
+            }
+        }, 200)
+
+        setInterval(function () {
+            if(videoFlag) {
+                if(_video) {
+                    alert(Global.host + _video)
+                    uploadOne(_video)
+                    videoFlag = false;
                 }
             }
         }, 200)
