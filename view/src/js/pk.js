@@ -290,7 +290,7 @@ function search(searchNickname) {
                                     <div>
                                         <div class="user-name">${item.nickname}</div>
                                     </div>
-                                    <div>${item.province_city}</div>
+                                    <div>${item.school || "未知学校"}</div>
                                 </div>
                                 <div class="pk" data-id="${item.user_id}" style="display:none">PK</div>
                             </li>`
@@ -306,7 +306,7 @@ function search(searchNickname) {
                             <div>
                                 <div class="user-name">${item.nickname}</div>
                             </div>
-                            <div>${item.province_city}</div>
+                            <div>${item.school || "未知学校"}</div>
                         </div>
                         <div class="pk" data-id="${item.user_id}">PK</div>
                     </li>`
@@ -346,7 +346,7 @@ $(document).ready(function () {
                           <div>
                               <div class="user-name">${item.nickname}</div>
                           </div>
-                          <div>${item.province_city}</div>
+                          <div>${item.school || "未知学校"}</div>
                       </div>
                       <div class="pk" data-id="${item.user_id}">PK</div>
                   </li>
