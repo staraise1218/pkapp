@@ -464,7 +464,6 @@ let Global = (function () {
 //上传文件的回调 args 文件路径
 function uploadOne(args,thumb) { // 路径/plulic/../..
     // alert("getJavaFiles")
-    // alert(args)
     // alert(thumb)
     // $("body").append($('<div>'+args+'</div>')) //测试用
 
