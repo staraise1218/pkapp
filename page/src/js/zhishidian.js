@@ -10,6 +10,7 @@ if(localStorage.getItem('USERINFO')) {
 
 let page = 1;
 
+let getMoreFlag = true;
 
 // 请求列表
 createList (user_id, page);
@@ -29,27 +30,29 @@ function createList (user_id, page, status){
         success: function(res) {
             console.log(res)
             let data = res.data.list;
-            if(data.length > 0) {
-                page++;
-            } else {
-                page == '-1';
-            }
-            let list = '';
-            data.forEach(item => {
-                list += `<div class="list-item" article_id="${item.article_id}">
-				            <div class="left">
-				                <img src="${GlobalHost + item.thumb}" alt="">
-				            </div>
-				            <div class="right">
-				                <p>${item.title}</p>
-				                <p>${item.description}</p>
-				                <div>
-				                    <img src="./src/img/1/123321.png" alt="" class="collectBtn">
-				                </div>
-				            </div>
-				        </div>`
-			});
-            $('.list-wrap').html(list);
+            console.log(data.length)
+                if(data.length > 0) {
+                    page++;
+                }
+                if(data.length == 0) {
+                    getMoreFlag = false;
+                }
+                let list = '';
+                data.forEach(item => {
+                    list += `<div class="list-item" article_id="${item.article_id}">
+                                <div class="left">
+                                    <img src="${GlobalHost + item.thumb}" alt="">
+                                </div>
+                                <div class="right">
+                                    <p>${item.title}</p>
+                                    <p>${item.description}</p>
+                                    <div>
+                                        <img src="./src/img/1/123321.png" alt="" class="collectBtn">
+                                    </div>
+                                </div>
+                            </div>`
+                });
+                $('.list-wrap').append(list);
         }
     })
 }
@@ -64,7 +67,10 @@ $(window).scroll(function() {
         if(page == '-1') {
             console.log('没有更多了')
         } else {
-            createList (user_id, page);
+            if(getMoreFlag) {
+                page ++;
+                createList (user_id, page);
+            }
         }
     } else if (scrollTop<=0){
         console.log('down')
