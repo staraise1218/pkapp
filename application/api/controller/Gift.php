@@ -34,7 +34,27 @@ class Gift extends Base {
 
 	// 金币兑换礼物
 	public function buyGift(){
-		
+		$gift_id = I('gift_id');
+		$num = I('num', 1);
+		$user_id = I('user_id');
+
+		// 获取用户信息
+		$user = Db::name('users')->where('user_id', $user_id)->field('goldcoin')->find();
+		if(empty($user)) response_error('', '用户信息异常');
+
+		// 获取礼物信息
+		$gift = Db::name('gift')
+			->where('id', $gift_id)
+			->where('is_delete', 0)
+			->find();
+		if(empty($gift)) response_error('', '该礼物不存在');
+
+		$total_goldcoin = $gift['price']*$num;
+		if($user['goldcoin'] < $total_goldcoin) response_error('', '您的金币不足');
+
+		// 记录我的礼物
+		$data = array();
+		Db::name('gift_my')->insert($data);
 	}
 
 	// 赠送礼物
