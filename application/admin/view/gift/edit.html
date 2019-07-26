@@ -25,7 +25,7 @@
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <dl class="row">
+            <!-- <dl class="row">
                 <dt class="tit">
                     <label for="price"><em>*</em>价格</label>
                 </dt>
@@ -34,14 +34,14 @@
                     <span class="err" id="err_price"></span>
                     <p class="notic"></p>
                 </dd>
-            </dl>
+            </dl> -->
             <dl class="row">
                 <dt class="tit">
-                    <label for="glamour"><em>*</em>魅力值</label>
+                    <label for="price"><em>*</em>金币价格</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" name="glamour" value="{$info.glamour}" id="glamour" class="input-txt" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
-                    <span class="err" id="err_glamour"></span>
+                    <input type="text" name="price" value="{$info.price}" id="price" class="input-txt" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
+                    <span class="err" id="err_price"></span>
                     <p class="notic"></p>
                 </dd>
             </dl>

@@ -115,6 +115,7 @@ class User extends Base {
        
        // 计算年龄
         $userInfo['age'] = getAge($userInfo['birthday']);
+        $userInfo['head_title'] = '进士';
         response_success($userInfo);
     }
 
