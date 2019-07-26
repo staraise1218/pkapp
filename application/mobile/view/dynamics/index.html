@@ -20,8 +20,8 @@
             alert(localStorage.getItem('reloadStatus'))
             if(localStorage.getItem('reloadStatus') == 'sx') {
                 localStorage.setItem('reloadStatus', 'ff');
-                // window.location.reload();
-                window.history.go(0)
+                window.location.reload();
+                window.history.go(0);
             }     
         } catch (error) {
             
