@@ -268,7 +268,8 @@
                                 localStorage.setItem("isFromAdd",1)
                                 window.history.back(-1);
                             }else{
-                                window.Android.goback("reloadIndex")
+                                window.history.go(-1);
+                                // window.Android.goback("reloadIndex")
                                 // localStorage.setItem("isFromAdd",1)
                                 // window.history.back(-1);
                                 // uploadImgApp(type,callback) //参数1 type：1 单图片 2多张图片 ，类型 string
