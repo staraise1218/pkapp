@@ -17,6 +17,7 @@
     <script>
         try {
             if(localStorage.getItem('reloadStatus') == 'sx') {
+                alert('test')
                 localStorage.setItem('reloadStatus', 'ff');
                 location.reload();
             }     
