@@ -96,11 +96,11 @@ return	array(
 			array('name'=>'购买记录','act'=>'order','op'=>'goldcoin'),
 			
 		)),*/
-		/*array('name'=>'礼物', 'child'=>array(
+		array('name'=>'礼物', 'child'=>array(
 			array('name'=>'礼物列表','act'=>'index','op'=>'gift'),
 			
 		)),
-		array('name'=>'邀约', 'child'=>array(
+		/*array('name'=>'邀约', 'child'=>array(
 			array('name'=>'邀约列表','act'=>'index','op'=>'Invite'),
 			
 		)),*/

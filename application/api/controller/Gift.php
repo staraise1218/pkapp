@@ -31,6 +31,12 @@ class Gift extends Base {
 		response_success($result);
 	}
 
+
+	// 金币兑换礼物
+	public function buyGift(){
+		
+	}
+
 	// 赠送礼物
 	public function give(){
 		$user_id = I('user_id');
