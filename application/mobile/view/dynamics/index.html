@@ -14,6 +14,16 @@
 </head>
 
 <body class="dongtai">
+    <script>
+        try {
+            if(localStorage.getItem('reloadStatus') == 'sx') {
+                localStorage.setItem('reloadStatus', 'ff');
+                window.location.reload();
+            }     
+        } catch (error) {
+            
+        }   
+    </script>
     <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
         <div class="allWrap" :class="{blur:isReleasing}">
             <header>
