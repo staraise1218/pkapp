@@ -28,7 +28,7 @@
     .loading img {
         width: 50px;
         height: 50px;
-        animation: spin 5s linear infinite;
+        animation: spin 1s linear infinite;
     }
     @keyframes spin {
         from {
@@ -78,7 +78,7 @@
         </form>
     </div>
 
-    <div class="loading">
+    <div class="loading" style="display: none">
         <img src="__STATIC__/images/icon/loading.png" alt="">
     </div>
 
@@ -410,6 +410,7 @@
                 })
                 //添加图片
                 $(".addPic").click(function () {
+                    $('.loading').css('display','flex')
                     //视频
                     let type
                     if(Edit._type==3){
