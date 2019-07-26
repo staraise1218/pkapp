@@ -17,6 +17,7 @@
     <script>
         alert("test2")
         try {
+            alert(localStorage.getItem('reloadStatus'))
             if(localStorage.getItem('reloadStatus') == 'sx') {
                 localStorage.setItem('reloadStatus', 'ff');
                 // window.location.reload();
