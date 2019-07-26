@@ -15,11 +15,12 @@
 
 <body class="dongtai">
     <script>
-        alert("test")
+        alert("test2")
         try {
             if(localStorage.getItem('reloadStatus') == 'sx') {
                 localStorage.setItem('reloadStatus', 'ff');
-                window.location.reload();
+                // window.location.reload();
+                history.go(0)
             }     
         } catch (error) {
             
