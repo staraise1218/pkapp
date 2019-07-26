@@ -24,6 +24,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #eee;
     }
     .loading img {
         width: 50px;
@@ -80,6 +81,7 @@
 
     <div class="loading" style="display: none">
         <img src="__STATIC__/images/icon/loading.png" alt="">
+        <p>上传中</p>
     </div>
 
     <!-- ------------------------------------ -->
@@ -112,6 +114,10 @@
         //         // dynamic.video()
         //         break;
         // }
+
+        function loadingHide() {
+            $('.loading').hide();
+        }
 
         function getImgUrl(url) {
             _imgUrl = url;
