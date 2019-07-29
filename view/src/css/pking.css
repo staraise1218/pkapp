@@ -216,6 +216,7 @@ ul .item {
     height: 1.6rem;
     color: #fff;
     margin-top: .3em;
+    overflow: hidden;
 }
 ul .item .left {
     display: flex;
@@ -258,14 +259,37 @@ ul .item .right > div:first-child span {
     margin-left: 0.2rem;
 }
 
-ul .item .pk {
+ul .item .sendLw {
     position: absolute;
-    right: 0.2rem;
-    background: rgb(76, 131, 231);
-    padding: 0.02rem 0.35rem;
-    border-radius: 0.5rem;
+    right: 0;
+    width: 1rem;
+    height: 1.6rem;
 }
 
+ul .item .pk {
+    background: rgb(76, 131, 231);
+    /* background: linear-gradient(#5EFCE8 ,#0396FF); */
+    padding: 0.02rem 0;
+    width: 1.2rem;
+    border-radius: 0.5rem;
+    position: absolute;
+    right: .1rem;
+    text-align: center;
+    top: .2rem;
+    /* height: .8rem; */
+    /* line-height: .8rem; */
+    text-align: center;
+}
+ul .item .sendLw .send {
+    position: absolute;
+    /* background: linear-gradient(#0396FF ,#e0c3fc); */
+    width: 1.2rem;
+    right: 0;
+    bottom: 0;
+    height: .8rem;
+    line-height: .8rem;
+    text-align: center;
+}
 
 .dangqian {
     display: flex;
@@ -1720,3 +1744,61 @@ justify-content: space-around;
 
 
 
+.lw_bg {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.lwWrap {
+    position: fixed;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+}
+.lwWrap .con {
+    width: 5rem;
+    height: 290px;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+.lwWrap .con .item {
+    width: 50%;
+    text-align: center;
+    margin-top: 10px;
+}
+.lwWrap .con .item > img {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+.lwWrap .con .item .t {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    margin-top: 4px;
+}
+.lwWrap .con .item .t img {
+    width: 22px;
+    height: 22px;
+    margin-left: 4px;
+}
+.lwWrap .close {
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+}
+.lwWrap .close img {
+    width: 100%;
+    height: 100%;
+}
