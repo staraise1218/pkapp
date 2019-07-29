@@ -34,9 +34,9 @@ class Gift extends Base {
 
 	// 金币兑换礼物
 	public function buyGift(){
+		$user_id = I('user_id');
 		$gift_id = I('gift_id');
 		$num = I('num', 1);
-		$user_id = I('user_id');
 
 		// 获取用户信息
 		$user = Db::name('users')->where('user_id', $user_id)->field('goldcoin')->find();
@@ -52,9 +52,35 @@ class Gift extends Base {
 		$total_goldcoin = $gift['price']*$num;
 		if($user['goldcoin'] < $total_goldcoin) response_error('', '您的金币不足');
 
-		// 记录我的礼物
-		$data = array();
-		Db::name('gift_my')->insert($data);
+		// 启动事务
+		Db::startTrans();
+		try{
+			// 扣除金币
+			Db::name('users')->where('user_id', $user_id)->setDec('goldcoin', $total_goldcoin);
+			$count = Db::name('gift_my')->where('user_id', $user_id)->where('gift_id', $gift_id)->count();
+			if($count){
+				Db::name('gift_my')->where('user_id', $user_id)->where('gift_id', $gift_id)->setInc('num', $num);
+			} else {
+				// 记录我的礼物
+				$data = array(
+					'user_id' => $user_id,
+					'gift_id' => $gift_id,
+					'num' => $num,
+				);
+
+				Db::name('gift_my')->insert($data);
+			}
+
+			// 提交事务
+		    Db::commit();
+			response_success('', '兑换成功');
+		} catch (\Exception $e) {
+		    // 回滚事务
+		    Db::rollback();
+
+		    response_error('', '兑换失败');
+		}
+		
 	}
 
 	// 赠送礼物
@@ -63,8 +89,9 @@ class Gift extends Base {
 		$to_user_id = I('to_user_id');
 		$gift_id = I('gift_id');
 
-		$user = M('users')->where('user_id', $user_id)->field('goldcoin')->find();
-		$giftinfo = M('gift')->where('id', $gift_id)->find();
+		// 我拥有的礼物
+		$myGift = Db::name('gift_my')->where('user_id', $user_id)->where('gift_id', $gift_id)->find();
+		
 
 		if($user['goldcoin'] < $giftinfo['price']) response_error('', '金币不足');
 
