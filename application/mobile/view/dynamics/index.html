@@ -271,6 +271,14 @@
         //     dynamic.reload();
         // }
         
+                
+        alert('test6')
+        alert(localStorage.getItem("isFromAdd"))
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+            localStorage.setItem("isFromAdd",0)
+            alert('下一步刷新')
+            dongtaiVm.getListData()
+        }
         
         //送小花
         var longtime=99999999999999;
@@ -377,6 +385,7 @@
                     return
                 }
 
+        
                 //
                 this.getListData("areaDataList", false, {
                     user_id: this.user_id,
