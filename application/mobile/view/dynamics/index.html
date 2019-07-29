@@ -15,15 +15,17 @@
 
 <body class="dongtai">
     <script>
-        alert("test")
-        try {
+        // alert("test2")
+        // try {
+            // alert(localStorage.getItem('reloadStatus'))
             if(localStorage.getItem('reloadStatus') == 'sx') {
                 localStorage.setItem('reloadStatus', 'ff');
                 window.location.reload();
+                window.history.go(0);
             }     
-        } catch (error) {
+        // } catch (error) {
             
-        }   
+        // }   
     </script>
     <div class="vueWrap" id="dongtaiApp" @click="closeReleasing">
         <div class="allWrap" :class="{blur:isReleasing}">
@@ -249,6 +251,24 @@
         function reloadIndex(){
             $('.pageWrap').pullToRefresh('triggerPullToRefresh')
         }
+
+        
+        // alert('test4')
+        // alert(localStorage.getItem("isFromAdd"))
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+            // reloadIndex()
+            // alert(localStorage.getItem("isFromAdd"))
+            localStorage.setItem("isFromAdd",0)
+            dynamic.reload();
+            // window.location.reload();
+            // window.history.go(0);
+        }
+        
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
+            localStorage.setItem("isFromAdd",-1)
+            dynamic.reload();
+        }
+        
         
         //送小花
         var longtime=99999999999999;
@@ -333,10 +353,11 @@
                     }, 1)
                     
                     //ios返回刷新
-                    if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
-                        reloadIndex()
-                        localStorage.setItem("isFromAdd",0)
-                    }
+                    // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+                    //     reloadIndex()
+                    //     dynamic.reload()
+                    //     localStorage.setItem("isFromAdd",0)
+                    // }
                     //ios返回刷新 end
 
                     return;

@@ -12,7 +12,39 @@
     </script>
     <script src="__STATIC__/js/Global.js"></script>
 </head>
-
+<style>
+    .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 10;
+        background: rgba(0,0,0,.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #eee;
+    }
+    .loading img {
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+    .loading p {
+        margin-top: 10px;
+        opacity: 0.6;
+    }
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 <body class="edit">
     <header>
         <div class="cancel">取消</div>
@@ -52,6 +84,11 @@
         </form>
     </div>
 
+    <div class="loading" style="display: none">
+        <img src="__STATIC__/images/icon/loading.png" alt="">
+        <p>上传中</p>
+    </div>
+
     <!-- ------------------------------------ -->
     <script src="__STATIC__/js/jquery.min.js"></script>
     <!-- jquery-weui-js -->
@@ -82,6 +119,10 @@
         //         // dynamic.video()
         //         break;
         // }
+
+        function loadingHide() {
+            $('.loading').hide();
+        }
 
         function getImgUrl(url) {
             _imgUrl = url;
@@ -263,9 +304,9 @@
                     console.log(result)                  
                     if (result.code == 200) {
                         Global.closeLoading("发布成功", function () {
+                            localStorage.setItem("isFromAdd",1)
                             //关闭 返回
                             if(Global.isIOS()){
-                                localStorage.setItem("isFromAdd",1)
                                 window.history.back(-1);
                             }else{
                                 localStorage.setItem('reloadStatus','sx');
@@ -380,6 +421,7 @@
                 })
                 //添加图片
                 $(".addPic").click(function () {
+                    $('.loading').css('display','flex')
                     //视频
                     let type
                     if(Edit._type==3){
