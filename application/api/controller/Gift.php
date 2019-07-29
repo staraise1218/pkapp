@@ -88,12 +88,12 @@ class Gift extends Base {
 		$user_id = I('user_id');
 		$to_user_id = I('to_user_id');
 		$gift_id = I('gift_id');
+		$num = I('num');
 
 		// 我拥有的礼物
 		$myGift = Db::name('gift_my')->where('user_id', $user_id)->where('gift_id', $gift_id)->find();
-		
-
-		if($user['goldcoin'] < $giftinfo['price']) response_error('', '金币不足');
+		if(empty($myGift)) response_error('', '您未拥有此礼物');
+		if($num > $myGift['num']) response_error('', '您的礼物余量不足');
 
 		// 启动事务
 		Db::startTrans();
@@ -104,26 +104,12 @@ class Gift extends Base {
 		    	'user_id' => $user_id,
 		    	'to_user_id' => $to_user_id,
 		    	'gift_id' => $gift_id,
-		    	'image' => $giftinfo['image'],
-		    	'goldcoin' => $giftinfo['price'],
-		    	'glamour' => $giftinfo['glamour'],
 		    	'add_time' => time(),
 		    );
             $insert_id = M('gift_gived')->insertGetId($data);
 
-            // 扣除金币
-		    Db::name('users')->where('user_id', $user_id)->setDec('goldcoin', $giftinfo['price']);
-		    // 给受赠者增加魅力值
-		    Db::name('users')->where('user_id', $to_user_id)->setInc('glamour', $giftinfo['glamour']);
-		   	// 记录金币变动日志
-			goldcoin_log($user_id, "-{$giftinfo['price']}", 3, '赠送礼物', $insert_id);
-
-			// 站内消息
-			$MessageLogic = new MessageLogic();
-			$MessageLogic->add($to_user_id, '您收到了一个礼物');
-			// 融云消息
-			$RongyunLogic = new RongyunLogic();
-			$result = $RongyunLogic->PublishPrivateMessage('1', $to_user_id, '您收到了一个礼物');
+            // 减去自己的礼物
+		    Db::name('gift_my')->where('user_id', $user_id)->where('gift_id', $gift_id)->setDec('num', $num);
 
 		    // 提交事务
 		    Db::commit();
@@ -135,5 +121,22 @@ class Gift extends Base {
 
 		    response_error('', '赠送失败');
 		}
+	}
+
+	// 我的礼物
+	public function myGift(){
+		$user_id = I('user_id');
+		$page = I('page', 1);
+
+		$list = Db::name('gift_my')->alias('gm')
+			->join('gift g', 'gm.gift_id=g.id', 'left')
+			->where('user_id', $user_id)
+			->where('num', '>', 0)
+			->field('gm.gift_id, gm.num, g.name, g.image')
+			->limit(16)
+			->page($page)
+			->select();
+
+		response_success($list);
 	}
 }
