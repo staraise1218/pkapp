@@ -22,7 +22,7 @@ class Gift extends Base {
 		$gift = M('gift')->where('is_delete', 0)
 				->where('is_delete', 0)
 				->order('sort desc, id desc')
-				->field('id, image, price, glamour')
+				->field('id, name, image, price')
 				->select();
 
 		$result['user'] = $user;
