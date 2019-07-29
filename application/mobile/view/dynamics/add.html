@@ -304,9 +304,9 @@
                     console.log(result)                  
                     if (result.code == 200) {
                         Global.closeLoading("发布成功", function () {
+                            localStorage.setItem("isFromAdd",1)
                             //关闭 返回
                             if(Global.isIOS()){
-                                localStorage.setItem("isFromAdd",1)
                                 window.history.back(-1);
                             }else{
                                 localStorage.setItem('reloadStatus','sx');
