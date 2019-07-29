@@ -277,7 +277,11 @@
         if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
             localStorage.setItem("isFromAdd",0)
             alert('下一步刷新')
-            dongtaiVm.getListData()
+            
+            dongtaiVm.getListData("areaDataList", false, {
+                    user_id: 1,
+                    range: 2
+                });
         }
         
         //送小花
