@@ -259,27 +259,28 @@
         alert('test5')
 
         window.addEventListener('pagehide', function (e) {
-        var dom = document.body;
+            var dom = document.body;
             dom.children.remove();
-                setTimeout(function () {
+            if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+                alert(localStorage.getItem("isFromAdd"))
+                localStorage.setItem("isFromAdd",0)
+                dynamic.reload();
+            }
+            setTimeout(function () {
                 dom.appendChild("<script type='text/javascript'>window.location.reload();<\/script>");
             });
         });
         // alert(localStorage.getItem("isFromAdd"))
-        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
-            // reloadIndex()
-            // alert(localStorage.getItem("isFromAdd"))
-            alert(localStorage.getItem("isFromAdd"))
-            localStorage.setItem("isFromAdd",0)
-            dynamic.reload();
-            // window.location.reload();
-            // window.history.go(0);
-        }
+        // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+        //     alert(localStorage.getItem("isFromAdd"))
+        //     localStorage.setItem("isFromAdd",0)
+        //     dynamic.reload();
+        // }
         
-        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
-            localStorage.setItem("isFromAdd",-1)
-            dynamic.reload();
-        }
+        // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
+        //     localStorage.setItem("isFromAdd",-1)
+        //     dynamic.reload();
+        // }
         
         
         //送小花
