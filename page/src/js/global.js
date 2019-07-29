@@ -71,10 +71,10 @@ function getRequest(key=null) {
  */
 $('.back').on('click', function () {
     try {
+        window.history.back(-1);
+    }
+    catch(err){
         back.back();
-     }
-     catch(err){
-         window.history.back(-1);
      }
 })
 
