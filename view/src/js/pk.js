@@ -292,7 +292,10 @@ function search(searchNickname) {
                                     </div>
                                     <div>${item.school || "未知学校"}</div>
                                 </div>
-                                <div class="pk" data-id="${item.user_id}" style="display:none">PK</div>
+                                <div class="sendLw">
+                                    <div class="pk" data-id="${item.user_id}" style="display:none">PK</div>
+                                    <div>送礼物</div>
+                                </div>
                             </li>`
                 } else {
                     str += `<li class="item">
@@ -308,7 +311,10 @@ function search(searchNickname) {
                             </div>
                             <div>${item.school || "未知学校"}</div>
                         </div>
-                        <div class="pk" data-id="${item.user_id}">PK</div>
+                        <div class="sendLw">
+                            <div class="pk" data-id="${item.user_id}">PK</div>
+                            <div>送礼物</div>
+                        </div>
                     </li>`
                 }
             })
@@ -348,7 +354,10 @@ $(document).ready(function () {
                           </div>
                           <div>${item.school || "未知学校"}</div>
                       </div>
-                      <div class="pk" data-id="${item.user_id}">PK</div>
+                    <div class="sendLw" style="display:${item.user_id == $user_id ? 'none' : 'block'}">
+                        <div class="pk" data-id="${item.user_id}">PK</div>
+                        <div class="send" data-id="${item.user_id}">送礼物</div>
+                    </div>
                   </li>
               `)
                 //   <div class="pk" data-id="${item.user_id}">PK</div>
