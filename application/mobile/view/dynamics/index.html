@@ -264,6 +264,12 @@
             // window.history.go(0);
         }
         
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
+            localStorage.setItem("isFromAdd",-1)
+            dynamic.reload();
+        }
+        
+        
         //送小花
         var longtime=99999999999999;
         var clickIndex=0 //几秒之内点击的次数
