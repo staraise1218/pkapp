@@ -70,12 +70,15 @@ function getRequest(key=null) {
  * 回退 1
  */
 $('.back').on('click', function () {
-    try {
+    if(back) {
+        back.back();
+    } else {
         window.history.back(-1);
     }
-    catch(err){
-        back.back();
-     }
+    // try {
+    // }
+    // catch(err){
+    //  }
 })
 
 /**
