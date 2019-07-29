@@ -251,6 +251,13 @@
         function reloadIndex(){
             $('.pageWrap').pullToRefresh('triggerPullToRefresh')
         }
+
+        
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+            // reloadIndex()
+            // dynamic.reload()
+            localStorage.setItem("isFromAdd",0)
+        }
         
         //送小花
         var longtime=99999999999999;
@@ -335,10 +342,11 @@
                     }, 1)
                     
                     //ios返回刷新
-                    if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
-                        reloadIndex()
-                        localStorage.setItem("isFromAdd",0)
-                    }
+                    // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+                    //     reloadIndex()
+                    //     dynamic.reload()
+                    //     localStorage.setItem("isFromAdd",0)
+                    // }
                     //ios返回刷新 end
 
                     return;
