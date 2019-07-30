@@ -149,7 +149,7 @@ class Gift extends Base {
 			->join('gift g', 'gg.gift_id=g.id', 'left')
 			->join('users u', 'gg.to_user_id=u.user_id')
 			->field('gg.gift_id, g.name, g.image, g.price')
-			->where('user_id', $user_id)
+			->where('gg.user_id', $user_id)
 			->limit(15)
 			->page($page)
 			->select();
