@@ -139,4 +139,38 @@ class Gift extends Base {
 
 		response_success($list);
 	}
+
+	// 我送出的礼物
+	public function gived(){
+		$user_id = I('user_id');
+		$page = I('page', 1);
+
+		$list = Db::name('gift_gived')->alias('gg')
+			->join('gift g', 'gg.gift_id=g.id', 'left')
+			->join('users u', 'gg.to_user_id=u.user_id')
+			->field('gg.gift_id, g.name, g.image, g.price')
+			->where('user_id', $user_id)
+			->limit(15)
+			->page($page)
+			->select();
+
+		response_success($list);
+	}
+
+	// 我收到的礼物
+	public function giveMe(){
+		$user_id = I('user_id');
+		$page = I('page', 1);
+
+		$list = Db::name('gift_gived')->alias('gg')
+			->join('gift g', 'gg.gift_id=g.id', 'left')
+			->join('users u', 'gg.user_id=u.user_id')
+			->field('gg.gift_id, g.name, g.image, g.price, u.head_pic, u.nickname')
+			->where('to_user_id', $user_id)
+			->limit(15)
+			->page($page)
+			->select();
+
+		response_success($list);
+	}
 }
