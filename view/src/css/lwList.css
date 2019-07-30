@@ -116,3 +116,23 @@ body {
 
 
 
+.tab {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tab span {
+    display: block;
+    flex: 1;
+    text-align: center;
+    padding: .5rem 0;
+    background: rgba(255,255,255,.1);
+    color: #fff;
+}
+.tab span.active {
+    background: rgb(255, 205, 67)
+}

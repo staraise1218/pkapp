@@ -27,7 +27,7 @@
 
 
 
-    <ul class="list-wrap">
+    <ul class="list-wrap my">
         <!-- <li>
             <img class="j" src="./src/img/1/j3.png" alt="">
             <div>
@@ -37,7 +37,17 @@
         </li> -->
     </ul>
 
+    <ul class="list-wrap send" style="display: none"></ul>
+    <ul class="list-wrap shou" style="display: none"></ul>
 
+
+
+
+    <div class="tab">
+        <span data-tab="0" class="active">我的礼物</span>
+        <span data-tab="1">赠送礼物</span>
+        <span data-tab="2">收到礼物</span>
+    </div>
 
 
     <div class="alert_bg" style="display: none"></div>
@@ -67,27 +77,96 @@
         var num = '1';
     
         $.ajax({
-        type: 'post',
-        url: GlobalHost + '/Api/gift/myGift',
-        data: {
-            user_id: user_id
-        },
-        success: function (res) {
-            console.log(res.data)
-            let gift = res.data;
-            var str = '';
-            gift.forEach(item => {
-                str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
-                            <img class="j" src="${GlobalHost + item.image}" alt="">
-                            <div>
-                                <span>${item.price}</span>
-                                <img class="m" src="./src/img/1/jinbi.png" alt="">
-                            </div>
-                        </li>`
-            })
-            $('.list-wrap').html(str)
-        }
-    })
+            type: 'post',
+            url: GlobalHost + '/Api/gift/myGift',
+            data: {
+                user_id: user_id
+            },
+            success: function (res) {
+                console.log(res.data)
+                let gift = res.data;
+                var str = '';
+                gift.forEach(item => {
+                    str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
+                                <img class="j" src="${GlobalHost + item.image}" alt="">
+                                <div>
+                                    <span>${item.price}</span>
+                                    <img class="m" src="./src/img/1/jinbi.png" alt="">
+                                </div>
+                            </li>`
+                })
+                $('.list-wrap.my').html(str)
+            }
+        })
+
+
+
+        $.ajax({
+            type: 'post',
+            url: GlobalHost + '/Api/gift/gived',
+            data: {
+                user_id: user_id
+            },
+            success: function (res) {
+                console.log(res.data)
+                let gift = res.data;
+                var str = '';
+                // gift.forEach(item => {
+                //     str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
+                //                 <img class="j" src="${GlobalHost + item.image}" alt="">
+                //                 <div>
+                //                     <span>${item.price}</span>
+                //                     <img class="m" src="./src/img/1/jinbi.png" alt="">
+                //                 </div>
+                //             </li>`
+                // })
+                // $('.list-wrap').html(str)
+            }
+        })
+
+
+
+        $.ajax({
+            type: 'post',
+            url: GlobalHost + '/Api/gift/giveMe',
+            data: {
+                user_id: user_id
+            },
+            success: function (res) {
+                console.log(res.data)
+                let gift = res.data;
+                var str = '';
+                gift.forEach(item => {
+                    str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
+                                <img class="j" src="${GlobalHost + item.image}" alt="">
+                                <div>
+                                    <span>${item.price}</span>
+                                    <img class="m" src="./src/img/1/jinbi.png" alt="">
+                                </div>
+                            </li>`
+                })
+                $('.list-wrap.shou').html(str)
+            }
+        })
+
+        $('.tab span').click(function () {
+            console.log($(this).attr('data-tab'))
+            $('.list-wrap').hide();
+            $('.tab span').removeClass('active');
+            $(this).addClass('active')
+            switch($(this).attr('data-tab')) {
+                case "0":
+                    $('.list-wrap.my').show();
+                    break;
+                case "1":
+                    $('.list-wrap.send').show();
+                    break;
+                case "2":
+                    $('.list-wrap.shou').show();
+                    break;
+            }
+        })
+        
     </script>
 
 </body>
