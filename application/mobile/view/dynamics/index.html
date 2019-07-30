@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>动态</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css-min/dynamics-index.min.css">
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/dongtai-common.css">
     <script type="text/javascript">
@@ -18,11 +21,11 @@
         // alert("test2")
         // try {
             // alert(localStorage.getItem('reloadStatus'))
-            if(localStorage.getItem('reloadStatus') == 'sx') {
-                localStorage.setItem('reloadStatus', 'ff');
-                window.location.reload();
-                window.history.go(0);
-            }     
+            // if(localStorage.getItem('reloadStatus') == 'sx') {
+            //     localStorage.setItem('reloadStatus', 'ff');
+            //     window.location.reload();
+            //     window.history.go(0);
+            // }     
         // } catch (error) {
             
         // }   
@@ -253,23 +256,22 @@
         }
 
         
-        // alert('test4')
+        // alert('test5')
         // alert(localStorage.getItem("isFromAdd"))
-        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
-            // reloadIndex()
-            // alert(localStorage.getItem("isFromAdd"))
-            localStorage.setItem("isFromAdd",0)
-            dynamic.reload();
+        // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+
+        //     localStorage.setItem("isFromAdd",0)
+        //     alert('下一步刷新')
+            // dynamic.reload();
             // window.location.reload();
-            // window.history.go(0);
-        }
+        // }
         
-        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
-            localStorage.setItem("isFromAdd",-1)
-            dynamic.reload();
-        }
+        // if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==0){
+        //     localStorage.setItem("isFromAdd",-1)
+        //     dynamic.reload();
+        // }
         
-        
+                
         //送小花
         var longtime=99999999999999;
         var clickIndex=0 //几秒之内点击的次数
@@ -375,6 +377,7 @@
                     return
                 }
 
+        
                 //
                 this.getListData("areaDataList", false, {
                     user_id: this.user_id,
@@ -770,6 +773,20 @@
                 }
             }
         });
+
+        
+        // alert('test6')
+        // alert(localStorage.getItem("isFromAdd"))
+        if(localStorage.getItem("isFromAdd")&&Number(localStorage.getItem("isFromAdd"))==1){
+            localStorage.setItem("isFromAdd",0)
+            // alert('下一步刷新')
+            
+            dongtaiVm.getListData("areaDataList", false, {
+                    user_id: dongtaiVm.user_id,
+                    range: 2
+                });
+        }
+        
     </script>
 </body>
 
