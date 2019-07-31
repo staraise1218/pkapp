@@ -283,7 +283,7 @@ function search(searchNickname) {
                                 <div class="left">
                                     <div class="number">${index + 1}</div>
                                     <div class="poster">
-                                        <img src="http://pkapp.staraise.com.cn${item.head_pic}" alt="">
+                                        <img src="${img = item.head_pic ? 'http://pkapp.staraise.com.cn' + item.head_pic : './src/img/1/t.png'}" alt="">
                                     </div>
                                 </div>
                                 <div class="right">
@@ -302,7 +302,7 @@ function search(searchNickname) {
                         <div class="left">
                             <div class="number">${index + 1}</div>
                             <div class="poster">
-                                <img src="http://pkapp.staraise.com.cn${item.head_pic}" alt="">
+                                <img src="${img = item.head_pic ? 'http://pkapp.staraise.com.cn' + item.head_pic : './src/img/1/t.png'}" alt="">
                             </div>
                         </div>
                         <div class="right">
@@ -327,7 +327,7 @@ $('.search-btn').on('click', function () {
 })
 // 渲染列表
 $(document).ready(function () {
-    $(".dangqian img").attr('src', "http://pkapp.staraise.com.cn" + $userinfo.head_pic)
+    $(".dangqian img").attr('src', $userinfo.head_pic ? "http://pkapp.staraise.com.cn" + $userinfo.head_pic : './src/img/1/t.png')
     $.ajax({
         type: 'POST',
         url: "http://pkapp.staraise.com.cn/Api/pk/pklist",
@@ -345,7 +345,7 @@ $(document).ready(function () {
                       <div class="left">
                           <div class="number">${index + 1}</div>
                           <div class="poster">
-                              <img src="http://pkapp.staraise.com.cn${item.head_pic}" alt="">
+                              <img src="${img = item.head_pic ? 'http://pkapp.staraise.com.cn' + item.head_pic : './src/img/1/t.png'}" alt="">
                           </div>
                       </div>
                       <div class="right">
