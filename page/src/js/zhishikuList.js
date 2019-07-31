@@ -25,6 +25,13 @@ $('.level_title').html(urlArr.level_title);
 // 获取初始化页面数据
 getContent (user_id);
 
+
+// 刷新
+$('.shuaxin img').click(function () {
+    $(this).addClass('active');
+    getContent (user_id);
+})
+
 /**
  * @methods {加载列表}
  */
@@ -61,6 +68,9 @@ function getContent (user_id){
                         </li>`;
             })
             $('.list').html(list);
+            setTimeout(() => {
+                $('.shuaxin img').removeClass('active')
+            }, 500);
         }
     })
 }
