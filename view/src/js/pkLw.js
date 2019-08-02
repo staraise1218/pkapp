@@ -9,6 +9,7 @@ $('#userList').delegate('.send','click', function () {
     to_user_id = $(this).attr('data-id');
     $(".lwWrap").show();
     $('.lw_bg').show();
+    getLiwu();
 })
 
 
@@ -18,39 +19,38 @@ $('.lwWrap .close').click(function () {
     $('.lw_bg').hide();
 })
 
+getLiwu()
 
-
-$.ajax({
-    type: 'post',
-    url: GlobalHost + '/Api/gift/myGift',
-    data: {
-        user_id: $user_id
-    },
-    success: function (res) {
-        console.log(res);
-
-        var list = '';
-        if(res.data.length == 0) {
-            list = `<a href="lwList.html?STATUS=PK">礼物送完了，去购买礼物！</a>`
-        } else {
-            res.data.forEach(item => {
-                list += `<div class="item" data-id="${item.gift_id}">
-                            <div class="p_box">
-                                <img src="${GlobalHost + item.image}" alt="">
-                                <span>X ${item.num}</span>
-                            </div>
-                            <div class="t">
-                                <p>${item.price}</p>
-                                <img src="./src/img/1/jinbi.png" alt="">
-                            </div>
-                        </div>`
-                })
-            }
-            $('.lwWrap .con').html(list)
-
-
-    }
-})
+function getLiwu() {
+    $.ajax({
+        type: 'post',
+        url: GlobalHost + '/Api/gift/myGift',
+        data: {
+            user_id: $user_id
+        },
+        success: function (res) {
+            console.log(res);
+            var list = '';
+            if(res.data.length == 0) {
+                list = `<a href="lwList.html?STATUS=PK">礼物送完了，去购买礼物！</a>`
+            } else {
+                res.data.forEach(item => {
+                    list += `<div class="item" data-id="${item.gift_id}">
+                                <div class="p_box">
+                                    <img src="${GlobalHost + item.image}" alt="">
+                                    <span>X ${item.num}</span>
+                                </div>
+                                <div class="t">
+                                    <p>${item.price}</p>
+                                    <img src="./src/img/1/jinbi.png" alt="">
+                                </div>
+                            </div>`
+                    })
+                }
+                $('.lwWrap .con').html(list)
+        }
+    })
+}
 
 
 
