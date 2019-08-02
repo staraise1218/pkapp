@@ -30,16 +30,20 @@ $.ajax({
         console.log(res);
 
         var list = '';
-        res.data.forEach(item => {
-            list += `<div class="item" data-id="${item.gift_id}">
+        if(res.data.length == 0) {
+            list = `<a href="lwList.html?STATUS=PK">礼物送完了，去购买礼物！</a>`
+        } else {
+            res.data.forEach(item => {
+                list += `<div class="item" data-id="${item.gift_id}">
                         <img src="${GlobalHost + item.image}" alt="">
                         <div class="t">
                             <p>${item.price}</p>
                             <img src="./src/img/1/jinbi.png" alt="">
                         </div>
                     </div>`
+                })
+            }
             $('.lwWrap .con').html(list)
-        })
 
 
     }

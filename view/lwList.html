@@ -14,7 +14,7 @@
 <body>
     <div class="bg"></div>
     <div class="topBar">
-        <div class="left back">
+        <div class="left _back">
             <img src="./src/img/1/left.png" alt="">
         </div>
         <div class="center">
@@ -58,7 +58,16 @@
     <script src="./src/plugin/bootstrap/js/bootstrap.js"></script>
     <script src="./src/js/global.js"></script>
     <script src="./src/js/lwList.js"></script>
-
+    <script>
+        $('._back').click(function () {
+            if(getParam('STATUS') == "PK") {
+                window.history.go(-1);
+            } else {
+                back.back();
+            }
+        })
+    
+    </script>
 </body>
 
 </html>
