@@ -23,7 +23,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+.topBar .right {
+    font-size: 12px;
+}
 .mi {
     display: flex;
     justify-content: flex-end;
