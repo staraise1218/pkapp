@@ -1792,6 +1792,7 @@ justify-content: space-around;
 .lwWrap .con .item .p_box {
     position: relative;
     display: inline-block;
+    font-size: 0;
 }
 .lwWrap .con .item .p_box span {
     display: inline-block;
