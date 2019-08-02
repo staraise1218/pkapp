@@ -90,11 +90,25 @@
                 let gift = res.data;
                 var str = '';
                 gift.forEach(item => {
+                    // str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
+                    //             <img class="j" src="${GlobalHost + item.image}" alt="">
+                    //             <div>
+                    //                 <span>${item.price}</span>
+                    //                 <img class="m" src="./src/img/1/jinbi.png" alt="">
+                    //             </div>
+                    //         </li>`
                     str += `<li data-id="${item.id}" data-glamour="${item.glamour}">
                                 <img class="j" src="${GlobalHost + item.image}" alt="">
-                                <div>
-                                    <span>${item.price}</span>
-                                    <img class="m" src="./src/img/1/jinbi.png" alt="">
+                                <p style="margin-left: 12px;">${item.name}</p>
+                                <div class="info">
+                                    <div>
+                                        <span>${item.price}</span>
+                                        <img class="m" src="./src/img/1/jinbi.png" alt="">
+                                    </div>
+                                    <div>
+                                        <p>数量：</p>
+                                        <p>${item.num}</p>    
+                                    </div>
                                 </div>
                             </li>`
                 })

@@ -43,6 +43,7 @@ body {
     flex-wrap: wrap
 }
 .list-wrap.send,
+.list-wrap.my,
 .list-wrap.shou {
     display: flex;
     flex-direction: column;
@@ -50,6 +51,7 @@ body {
     padding-bottom: 100px;
 }
 .list-wrap.send li,
+.list-wrap.my li,
 .list-wrap.shou li {
     display: flex;
     align-items: center;
@@ -63,6 +65,7 @@ body {
     border-bottom: 1px solid #bbb;
 }
 .list-wrap.send li .user,
+.list-wrap.my li .user,
 .list-wrap.shou li .user {
     display: flex;
     flex-direction: column;
@@ -71,6 +74,7 @@ body {
     width: 60px;
 }
 .list-wrap.send li .user p,
+.list-wrap.my li .user p,
 .list-wrap.shou li .user p {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -79,6 +83,7 @@ body {
     text-align: center;
 }
 .list-wrap.send li .user img,
+.list-wrap.my li .user img,
 .list-wrap.shou li .user img {
     width: 42px;
     height: 42px;
@@ -86,15 +91,18 @@ body {
     margin-bottom: 4px;
 }
 .list-wrap.send li .j,
+.list-wrap.my li .j,
 .list-wrap.shou li .j {
     width: 64px;
     height: 64px;
 }
 .list-wrap.send li .info,
+.list-wrap.my li .info,
 .list-wrap.shou li .info {
     display: flex;
     flex-direction: column;
     flex: 1;
+    align-items: flex-end;
 
 }
 
