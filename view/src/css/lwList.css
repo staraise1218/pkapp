@@ -1,5 +1,6 @@
 body {
-    background-image: url('../img/1/PK-6.jpg');
+    /* background-image: url('../img/1/PK-6.jpg'); */
+    background-image: url('../img/1/bg_liwu.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 100vh;
@@ -9,7 +10,8 @@ body {
 .bg {
     width: 100%;
     height: 100vh;
-    background-image: url('../img/1/PK-6.jpg');
+    /* background-image: url('../img/1/PK-6.jpg'); */
+    background-image: url('../img/1/bg_liwu.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: fixed;
@@ -19,7 +21,8 @@ body {
 }
 
 .topBar {
-    background-image: url('../img/1/PK-6.jpg');
+    /* background-image: url('../img/1/PK-6.jpg'); */
+    background-image: url('../img/1/bg_liwu.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -202,6 +205,18 @@ body {
     /* background: rgba(255,255,255,.1); */
     color: #fff;
 }
+.tab span:nth-child(1) {
+    background: #FDFF42;
+    color: #222;
+}
+.tab span:nth-child(2) {
+    background: #24BEBE;
+}
+.tab span:nth-child(3) {
+    background: #F5954B;
+}
 .tab span.active {
-    background: rgb(255, 205, 67)
+    /* background: rgb(255, 205, 67); */
+    /* background: #FDFF42;
+    color: #222; */
 }
